@@ -29,8 +29,17 @@
 				'summary' => $request['summary'],
 				'detail' => $request['detail']
 			]));
+	}
 
 
+	if ( $key == 'get' ) {
+
+		echo json_encode($c -> revise([
+				'cover' => $request['cover'],
+				'title' => $request['title'],
+				'summary' => $request['summary'],
+				'detail' => $request['detail']
+			]));
 	}
 
 
