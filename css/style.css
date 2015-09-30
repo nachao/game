@@ -31,8 +31,10 @@ body {
 }
 
 #footer {
-  top: 680px;
-  right: 140px;
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  top: auto;
   text-align: right;
 }
 

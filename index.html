@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,7 +5,9 @@
 		<script type="text/javascript" src="http://mbostock.github.io/d3/talk/20111018/d3/d3.js"></script>
 		<script type="text/javascript" src="http://mbostock.github.io/d3/talk/20111018/d3/d3.geom.js"></script>
 		<script type="text/javascript" src="http://mbostock.github.io/d3/talk/20111018/d3/d3.layout.js"></script>
-		<link type="text/css" rel="stylesheet" href="./style.css"/>
+		<link type="text/css" rel="stylesheet" href="./css/style.css"/>
+		<link type="text/css" rel="stylesheet" href="./css/iconfont.css" />
+		<link type="text/css" rel="stylesheet" href="./css/fang.css" />
 		<style type="text/css">
 
 			circle {
@@ -18,17 +19,31 @@
 	</head>
 	<body>
 
+		<div class="header">
+			<div class="menu">
+				<a href="javascript:;" class="iconfont icon-menu"></a>
+				<div class="list">
+					<a href="./xiaozhuang.html">校妆</a>
+					<!-- <a href="javascript:;">民族</a> -->
+					<a class="act" href="javascript:;">个人中心</a>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
 		<div id="body">
 				<div id="footer">
-					黄芳芳 老师
-					<div class="hint">无论是春天的俏还是夏天的美，都不及你的这份优雅。</div>
+					Fang Fang
+					<div class="hint">Dear Fangfang, I love you.This is your website.</div>
 				</div>
 		</div>
 
+		<script src="./js/jquery-1.11.0.min.js" ></script>
 		<script type="text/javascript">
 
-			var w = 1280,
-				h = 800;
+
+			var w = $(window).width() * 0.7,
+				h = $(window).height();
 
 			var nodes = d3.range(200).map(function() { return {radius: Math.random() * 12 + 4}; }),
 				color = d3.scale.category10();
