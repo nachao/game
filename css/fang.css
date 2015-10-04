@@ -229,6 +229,9 @@ body,h1,p{
 .header .menu .list a:hover{
 	text-decoration: underline;
 }
+.header .menu:hover{
+	background: rgba(255,255,255,1);
+}
 .header .menu:hover .list{
 	display: inline-block;
 }

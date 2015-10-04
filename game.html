@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>方方乐</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 		<link type="text/css" rel="stylesheet" href="./css/iconfont.css" />
 		<link type="text/css" rel="stylesheet" href="./css/fang.css" />
@@ -44,7 +45,6 @@
 			.game-head-value{
 				margin-top: 15px;
 				padding-top: 15px;
-				width: 200px;
 				display: inline-block;
 				border-top: 1px dashed #eee;
 				font-family: Arial;
@@ -57,6 +57,7 @@
 				/*background: red;*/
 				display: inline-block;
 				margin-top: 100px;
+				position: relative;
 			}
 			.game-main-item{
 				height: 98px;
@@ -110,13 +111,142 @@
 				line-height: 18px;
 				font-size: 12px;padding: 3px 4px;	
 			}
+			.boxs-act small{
+				border: 1px solid red;
+				border-radius: 10px;
+				padding: 0px;
+				width: 15px;
+				height: 15px;
+				margin: 3px;
+				line-height: 15px;
+				text-align: center;
+				color: white;
+				background: red;
+				font-family: arial;
+			}
 
 			.boxs-icon-up{
 				display: inline-block;
-				width: 100%;
-				height: 33px;
-				background: red;
+				width: 78px;
+				height: 10px;
+				background: rgb(213, 0, 0);
+				margin: 0 10px;
+				border-radius: 10px;
+				position: absolute;
+				top: 105px;
+				left: 0px;
 			}
+
+			.game-text{
+				width: 100%;
+				text-align: center;
+				line-height: 100px;
+				font-size: 50px;
+				margin-top: 100px;
+				color: #aaa;
+			}
+
+			.game-select .boxs{
+				cursor: pointer;
+			}
+			.game-select .boxs:hover i{
+				font-size: 28px;
+			}
+
+			.game-exchange{
+				margin-top: 300px;
+				margin-bottom: 200px;
+			}
+			.game-exchange-item{
+				margin: 30px 0;
+				background: #eee;
+				height: 320px;
+			}
+			.game-exchange-img{
+				width: 300px;
+				height: 100%;
+				background: #fff;
+				float: left;
+				position: relative;
+				overflow: hidden;
+			}
+			.game-exchange-img img{
+				position: absolute;
+				width: 100%;
+				top: 0px;
+				left: 0px;
+			}
+			.game-exchange-info{
+				float: right;
+				width: 680px;
+				height: 100%;
+				background: #eee;
+				position: relative;
+				background-size: cover;
+				background-position: center;
+			}
+			.game-exchange-info p{
+				position: absolute;
+				top: 24px;
+				right: 0px;
+				display: inline-block;
+				font-size: 14px;
+				color: black;
+				background: rgba(255,255,255,1);
+				padding: 3px 12px 5px;
+				transition: .5s;
+				-webkit-transition: .5s;
+			}
+			.game-exchange-item:hover p{
+				padding: 10px 50px;
+				font-size: 20px;
+				background: rgba(255,255,255,.7);
+			}
+			.game-exchange-title{
+				font-size: 24px;
+				padding-left: 30px;
+				margin-top: 205px;
+				padding-top: 10px;
+				position: relative;
+				z-index: 2;
+				/*background: rgba(255,255,255,.9);*/
+			}
+			.game-exchange-title em{
+				font-style: normal;
+			}
+			.game-exchange-hint{
+				padding-left: 30px;
+				position: relative;
+				z-index: 2;
+			}
+			.game-exchange-number{
+				padding-left: 30px;
+				margin-top: 10px;
+				position: relative;
+				z-index: 2;
+			}
+			.game-exchange-btn{
+				/*display: inline-block;*/
+				width: 100px;
+				line-height: 33px;
+				background: red;
+				color: white;
+				text-align: center;
+				border-radius: 2px;
+				position: absolute;
+				z-index: 3;
+				visibility: hidden;
+				cursor: pointer;
+				bottom: 20px;
+				right: 20px;
+			}
+			.game-exchange-btn:hover{
+				background: royalblue;
+			}
+			.game-exchange-img:hover .game-exchange-btn{
+				visibility: visible;
+			}
+
 			
 
 		</style>
@@ -136,35 +266,22 @@
 	
 		<div class="contain">
 			
-			<div class="game">
+			<div class="game game-select">
+
 				<div class="game-head">
 					<div class="game-head-icon" style="background-image: url(./img/gallery-5.jpg);">
 						<img src="./img/gallery-5.jpg" />
 					</div>
 					<div class="game-head-info">
 						<div class="game-head-name">ASD!@#!#ASD</div>
-						<div class="game-head-value">$10</div>
+						<div class="game-head-value">$<span>10</span></div>
 					</div>
 					<div class="clear"></div>
 				</div>
-				<div class="game-main">
-	<!-- 				<div class="game-main-item">
-						<div class="game-main-contain">
-							<div class="game-main-index">1</div>
-							<div class="game-main-number">0</div>
-						</div>
-					</div>
-					<div class="game-main-item">1</div>
-					<div class="game-main-item">2</div>
-					<div class="game-main-item">3</div>
-					<div class="game-main-item">4</div>
-					<div class="game-main-item">5</div>
-					<div class="game-main-item">6</div>
-					<div class="game-main-item">7</div>
-					<div class="game-main-item">8</div>
-					<div class="game-main-item">9</div> -->
 
-					<div class="boxs box-a"><small>1</small><i>0</i><em></em><div class="boxs-icon-up"></div></div>
+				<div class="game-main">
+					<div class="boxs box-f"><small>0</small><i>0</i><em></em></div>
+					<div class="boxs box-a"><small>1</small><i>0</i><em></em></div>
 					<div class="boxs box-b"><small>2</small><i>0</i><em></em></div>
 					<div class="boxs box-c"><small>3</small><i>0</i><em></em></div>
 					<div class="boxs box-d"><small>4</small><i>0</i><em></em></div>
@@ -173,20 +290,57 @@
 					<div class="boxs box-e"><small>7</small><i>0</i><em></em></div>
 					<div class="boxs box-e"><small>8</small><i>0</i><em></em></div>
 					<div class="boxs box-e"><small>9</small><i>0</i><em></em></div>
-					<div class="boxs box-f"><small>0</small><i>0</i><em></em></div>
+					<div class="boxs-icon-up"></div>
+				</div>
+				<div class="game-text">0</div>
+				<div class="clear"></div>
+
+				<div class="game-exchange">
+					<div class="game-exchange-item">
+						<div class="game-exchange-img">
+							<img src="http://f.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=9e13f54363d9f2d320442ce999dca62b/34fae6cd7b899e51ea54f0b643a7d933c9950dbe.jpg" />
+							<a class="game-exchange-btn">兑换</a>
+							<div class="game-exchange-title">英雄联盟<em>1000</em>点券</div>
+							<div class="game-exchange-hint">可兑换</div>
+							<div class="game-exchange-number">10/10张</div>
+						</div>
+						<div class="game-exchange-info" style="background-image:url(./img/psb.jpg);">
+							<img src=""/>
+							<p>&lt;芳芳&gt;独家赞助</p>
+						</div>
+						<div class="game-exchange-sign"></div>
+					</div>
+					<div class="game-exchange-item">
+						<div class="game-exchange-img">
+							<img src="http://upload1.techweb.com.cn/s/320/2014/0707/1404701787928.jpg" />
+							<a class="game-exchange-btn">兑换</a>
+							<div class="game-exchange-title">支付宝<em>10</em>元现金</div>
+							<div class="game-exchange-hint">可兑换</div>
+							<div class="game-exchange-number">1/2张</div>
+						</div>
+						<div class="game-exchange-info">
+							<img src=""/>
+							<p>&lt;芳芳&gt;独家赞助</p>
+						</div>
+						<div class="game-exchange-sign"></div>
+					</div>
+					<div class="game-exchange-item">
+						<div class="game-exchange-img">
+							<img src="http://upload1.techweb.com.cn/s/320/2014/0707/1404701787928.jpg" />
+							<a class="game-exchange-btn">兑换</a>
+							<div class="game-exchange-title">支付宝<em>50</em>元现金</div>
+							<div class="game-exchange-hint">已兑换完</div>
+							<div class="game-exchange-number">0/1张</div>
+						</div>
+						<div class="game-exchange-info">
+							<img src=""/>
+							<p>&lt;芳芳&gt;独家赞助</p>
+						</div>
+						<div class="game-exchange-sign"></div>
+					</div>
 				</div>
 			</div>
-		
-
-			<div class="clear"></div>
 		</div>
-
-	
-
-
-
-
-
 
 <!-- 		<div class="footer">
 			<div class="tip">
@@ -194,105 +348,248 @@
 			</div>
 		</div> -->
 
-		
 		<script src="./js/jquery-1.11.0.min.js" ></script>
+		<script src="./js/jquery.easing.min.js" ></script>
+		<script src="../../javascript/nshift/jquery.nshift-1.0.js" ></script>
 		<script type="text/javascript">
 
 
-
-
-
-			$('.boxs').each(function(){
-				$(this).find('i').html( Math.random() * 100 );
-			});
-
-			main( $('.boxs:not(.box-d)'), $('.box-d') );
-
-			function main ( aEls, bEl ) {
-
-				var targetValue = 0;
-
-				$(aEls).each(function( i, el ){
-
-
-					var aEl = $(this);
-
-					var depotValue = parseInt(aEl.find('i').html());
-
-					var totalTime = 10000,	// 总动画时长
-						itemTime = 100,		// 转移间隔
-						itemNumber = 0,		// 间隔时间内的转移数量
-						itemCount = 0,		// 间隔时间内的转移数量
-
-					itemCount = totalTime / itemTime;
-					itemNumber = Math.ceil(depotValue / itemCount);
-
-
-
-					function go () {
-
-						var onceNumber = itemNumber,
-							depotNowValue = depotValue - itemNumber;
-
-						if ( depotNowValue < 0 ) {
-							onceNumber = depotValue;
-							depotNowValue = depotValue;
-						}
-
-						depotValue -= onceNumber;
-						targetValue += onceNumber;
-
-						aEl.find('i').html(depotValue);
-						bEl.find('i').html(targetValue);
-
-						dot(onceNumber);
-
-						if ( depotValue > 0 ) {
-							setTimeout(function(){
-								go();
-							}, itemTime);
-						}
-					}
-
-					function dot ( length ) {
-
-						var str = '';
-
-						var width = 0,
-							height = 0;
-						for ( var i =0; i < length; i++ ) {
-							aEl.find('em').append('<span></span>');
-
-							size = parseInt(Math.random() * 10);
-							leftValue = parseInt(Math.random() * (aEl.width() - size));
-							topValue = parseInt(Math.random() * (aEl.height() - size));
-
-							aEl.find('em span:last').css({ 
-								width: size, 
-								height: size,
-								borderRadius: 10,
-								background: 'rgba(255,255,255,.9)', 
-								position: 'absolute',
-								left: leftValue,
-								top: topValue,
-								display: 'inline-block',
-								zIndex: 2,
-							}).animate({
-								left: bEl.offset().left - aEl.offset().left + (bEl.width() / 2) - 5,
-								top: bEl.offset().top - aEl.offset().top + (bEl.height() / 2) + 10,
-								opacity: 0
-							}, 500, function(){
-								$(this).remove();
-							});
-						}
-					}
-
-					go();
-
+			// 初始化插件
+			var ns = new nShift({
+					number: 'i',
+					point: 'em',
+					// totalTime: 10000
 				});
+
+			// 倒计时
+			var totalTime = 5,
+				gameText = $('.game-text');
+
+			// 初始化参数
+			var boxs = $('.boxs'),
+				game = $('.game'),
+				selected = 0,
+				selectedValue = 0,
+				userSelected = 0,
+				total = 0,
+				capita = 0;
+
+			// 统计参数
+			var user = 10,
+				session = 1;
+
+
+			// 初始化界面
+			function init () {
+
+				boxs.each(function(){
+					var value = parseInt(Math.random() * 10);
+					total += value;
+					$(this).find('i').html(value);
+				}).click(function(){
+					if ( user > 0 && game.hasClass('game-select') ) {
+						userSelected = $(this).index();
+						$('.game-head-value span').html(user - session);
+						$(this).addClass('boxs-act').siblings().removeClass('boxs-act');
+
+						total = 0;
+						boxs.each(function(){
+							var value = parseInt(Math.random() * 10);
+							total += value;
+							$(this).find('i').html(value);
+						});
+
+						$(this).find('i').html(parseInt($(this).find('i').html()) + 1);
+					}
+				});
+
+				selectedValue = parseInt(boxs.eq(1).find('i').html())
+				capita = parseInt(total/selectedValue) || 0;
+
+				// 重置
+				game.addClass('game-select');
+				boxs.removeClass('boxs-act');
+				gameText.html('Ready.');
+				totalTime = 3;
+
+
+				// var items = $('.boxs');
+				// var t1 = new Date().getTime();
+				// ns.set({
+				// 	target: items.eq(0),
+				// 	source: items.not(':eq(0)'),
+				// 	totalTime: 1000
+				// }).move(function(that){
+				// 	var t2 = new Date().getTime();卤
+				// 	console.log('用时:'+ (( t2 - t1 ) /1000) + '秒');
+
+				// 	that.set({
+				// 		totalTime: 2000
+				// 	}).minus(100, function(){
+				// 		var t3 = new Date().getTime();
+				// 		console.log('用时:'+ (( t3 - t2 ) /1000) + '秒');
+				// 	});
+				// });
+
+				setTimeout(function(){
+					countdown();
+				}, 3000);
+			}
+
+			// 倒计时
+			function countdown () {
+
+				if ( totalTime > 0 ) {
+					gameText.html(totalTime + 's.');
+					totalTime -= 1;
+					setTimeout(function(){ countdown(); }, 1000);
+				} else {
+					$('.game-text').html('Go.');
+					$('.game').removeClass('game-select');
+		
+					// 滚动起来
+					roll(function(selected){
+						$('.game-text').html('No.' + selected);
+
+						// 重置插件
+						ns.set({	
+							target: boxs.eq(selected),
+							source: boxs.not(':eq('+ selected +')'),
+						})
+					
+						// 执行插件
+						gameText.html('Play.'); 
+						ns.move(function(that){
+
+							if ( $.type(userSelected) == 'null' ) {
+								capita = 0;
+								gameText.html('End.');
+							} else if ( selected != userSelected ) {
+								capita = 0;
+								gameText.html('Sorry!');
+							} else {
+								user += capita;
+								gameText.html('Sharing.');
+							}
+
+							userSelected = null;
+
+							that.minus(capita, function(that){	
+								session += 1;
+
+								if ( capita > 0 ) {
+									gameText.html('Seoho.');
+									that.set({
+										target: $('.game-head-value span'),
+										source: boxs.eq(selected)
+									}).move(function(that){
+										// setTimeout(function(){
+											init();	// 重置
+										// }, 3000);
+									});
+								} else {
+									// setTimeout(function(){
+										init();	// 重置
+									// }, 5000);
+								}
+							});
+						});
+					});
+				}
+			}
+
+			// 滚动
+			function roll ( callback ) {
+
+				var itemTime = 0,
+					lastTime = 5 * 1000,
+					goNumber = 0,
+					startTime = 1 * 1000;
+
+				var leftValue = 0,
+					RightValue = $('.game-main').width() - $('.boxs-icon-up').width() - 20;
+
+				var targetValue = 3;//parseInt(Math.random() * 10);
+
+				function go () {
+
+					startTime = startTime * 2;
+
+					goNumber += 1;
+
+					var left = 0,
+						time = 0,
+						ease = 'linear',
+						icon = $('.boxs-icon-up');
+
+					if ( parseInt(icon.css('left')) == 0 ) {
+						left = RightValue;
+					} else {
+						left = leftValue;
+					}
+
+					switch ( goNumber ) {
+						case 1: 
+							time = 1000;
+							ease = 'easeInCubic';
+							break;
+						case 2: time = 400; break;
+						case 3: time = 300; break;
+						case 4: time = 200; break;
+
+						case 5:
+						case 6:
+						case 7:
+						case 8:
+						case 9: 
+							time = 10 * 20;
+							break;
+						case 10: 
+							time = 10 * 30;
+							break;
+						case 11: 
+							time = 10 * 40;
+							break;
+						case 12: 
+							time = 10 * 50;
+							break;
+						case 13: 
+							time = 10 * 70;
+							break;
+						case 14: 
+							time = 10 * 100; 
+							break;
+						case 15: 
+							time = targetValue * 1000; 
+							left = targetValue * 98;
+							ease = 'easeOutExpo';
+							break;
+					}
+
+					if ( goNumber < 4 ) {
+						// ease = 'easeOutQuad';
+					}
+					if ( goNumber > 9 ) {
+						// ease = 'easeInQuad';
+					}
+
+					if ( goNumber > 15 ) {
+						callback ? callback(targetValue) : null;
+					} else {
+						icon.animate({ left: left }, time, ease, function(){
+							go();
+						});
+					}
+				}
+
+				go();
 
 			}
 
+
+
+
+			init();
 
 		</script>
 	</body>
