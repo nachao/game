@@ -1,5 +1,5 @@
 html{-webkit-text-size-adjust:none;}
-body,h1,p{
+body,h1,h5,p{
 	margin: 0px;
 	padding: 0px;
 	font-family: 微软雅黑;
@@ -236,12 +236,26 @@ body,h1,p{
 	display: inline-block;
 }
 
+
+/*
+*  公共 
+*/
 .clear{
 	clear: both;
 }
 .hide{
-	display: none;
+	display: none!important;
 }
+.comm-show{
+	display: inline-block!important;
+}
+
+
+
+
+
+
+
 
 .product{
 	float: left;

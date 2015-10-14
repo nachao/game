@@ -1,129 +1,146 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>七十三号馆 - 方方乐</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-		<script type="text/javascript" src="http://mbostock.github.io/d3/talk/20111018/d3/d3.js"></script>
-		<script type="text/javascript" src="http://mbostock.github.io/d3/talk/20111018/d3/d3.geom.js"></script>
-		<script type="text/javascript" src="http://mbostock.github.io/d3/talk/20111018/d3/d3.layout.js"></script>
-		<link type="text/css" rel="stylesheet" href="./css/style.css"/>
+		<meta property="qc:admins" content="313521143736375771557" />
+        <link rel="icon" href="./icon-red.png" type="image/gif" >
 		<link type="text/css" rel="stylesheet" href="./css/iconfont.css" />
 		<link type="text/css" rel="stylesheet" href="./css/fang.css" />
-		<style type="text/css">
-
-			circle {
-				stroke: #000;
-				stroke-opacity: .5;
-			}
-
-		</style>
+		<link type="text/css" rel="stylesheet" href="./css/game.css" />
 	</head>
 	<body>
-
+	
 		<div class="header">
 			<div class="menu">
 				<a href="javascript:;" class="iconfont icon-menu"></a>
 				<div class="list">
-					<a href="./xiaozhuang.html">校妆</a>
-					<!-- <a href="javascript:;">民族</a> -->
-					<a class="act" href="javascript:;">个人中心</a>
+					<a class="act" href="javascript:;">校妆</a>
+					<a href="./index.html">个人中心</a>
 				</div>
 			</div>
 			<div class="clear"></div>
 		</div>
+	
+		<div class="contain">
+			
+			<div class="game game-select">
 
-		<div id="body">
-				<div id="footer">
-					Fang Fang
-					<div class="hint">Dear Fangfang, I love you.This is your website.</div>
+				<div class="game-head">
+					<div class="game-head-icon game-head-icon-load">
+						<div class="game-head-load comm-show"></div>
+						<div class="game-head-qq hide" id="qqBtn" target="_blank"  title="QQ登录">
+							<a id="qqEntry" target="_blank" href="http://ux73.com/game/connect2.1/example/oauth/index.php"></a>
+							<i class="iconfont icon-qq"></i>
+						</div>
+						<img id="qqAvatar" class="game-head-img" src="" />
+					</div>
+					<div class="game-head-info">
+						<div class="game-head-name">
+							<span class="comm-show" id="qqName">Boss</span>
+							<a class="game-head-logout" id="qqLogout" href="javascript:;">注销</a>
+						</div>
+						<div class="game-head-value comm-show" id="userSroce"><em>∮</em>&nbsp;<span>0</span>
+							<div class="game-head-mode">
+								<h5>收入方式：</h5>
+								<p>1、每日登陆（每天首次登陆系统自动发放10分）;</p>
+								<p>2、玩猜谜游戏;</p>
+								<p>3、邀请好友（邀请一位好友则可以获得50分）;</p>
+								<p>4、充值（暂未开放）;</p>
+								<p>5、约战（丰厚，需要积分达到100分后才能参与）;</p>
+
+								<h5>积分作用：</h5>
+								<p>兑换所有赞助。</p>
+							</div>
+						</div>
+					</div>
+					<div class="game-head-entry hide">
+						<div class="game-head-name">登录方式：</div>
+						<div class="game-head-btn hide">
+							<a id="qqEntry" target="_blank" href="http://ux73.com/game/connect2.1/example/oauth/index.php" title="QQ登录"><i class="iconfont icon-qq"></i></a>
+							<a href="javascript:;" title="sina微博登录（稍后开启）"><i class="iconfont icon-sina"></i></a>
+						</div>
+					</div>
+					<div class="clear"></div>
 				</div>
+
+				<div class="game-main">
+					<div class="boxs box-f"><small>0</small><i>0</i><em></em></div>
+					<div class="boxs box-a"><small>1</small><i>0</i><em></em></div>
+					<div class="boxs box-b"><small>2</small><i>0</i><em></em></div>
+					<div class="boxs box-c"><small>3</small><i>0</i><em></em></div>
+					<div class="boxs box-d"><small>4</small><i>0</i><em></em></div>
+					<div class="boxs box-e"><small>5</small><i>0</i><em></em></div>
+					<div class="boxs box-e"><small>6</small><i>0</i><em></em></div>
+					<div class="boxs box-e"><small>7</small><i>0</i><em></em></div>
+					<div class="boxs box-e"><small>8</small><i>0</i><em></em></div>
+					<div class="boxs box-e"><small>9</small><i>0</i><em></em></div>
+					<div class="boxs-icon-up"></div>
+				</div>
+				<div class="game-text">0</div>
+				<div class="clear"></div>
+
+				<div class="game-exchange">
+					<div class="game-exchange-item">
+						<div class="game-exchange-img">
+							<img src="" />
+							<a class="game-exchange-btn">兑换</a>
+							<div class="game-exchange-title">英雄联盟<em>1000</em>点券</div>
+							<div class="game-exchange-hint">可兑换</div>
+							<div class="game-exchange-number">10/10张</div>
+						</div>
+						<div class="game-exchange-info" style="">
+							<img src=""/>
+							<p>&lt;芳芳&gt;独家赞助</p>
+						</div>
+						<div class="game-exchange-sign"></div>
+					</div>
+					<div class="game-exchange-item">
+						<div class="game-exchange-img">
+							<img src="" />
+							<a class="game-exchange-btn">兑换</a>
+							<div class="game-exchange-title">支付宝<em>10</em>元现金</div>
+							<div class="game-exchange-hint">可兑换</div>
+							<div class="game-exchange-number">1/2张</div>
+						</div>
+						<div class="game-exchange-info">
+							<img src=""/>
+							<p>&lt;芳芳&gt;独家赞助</p>
+						</div>
+						<div class="game-exchange-sign"></div>
+					</div>
+					<div class="game-exchange-item">
+						<div class="game-exchange-img">
+							<img src="" />
+							<a class="game-exchange-btn">兑换</a>
+							<div class="game-exchange-title">支付宝<em>50</em>元现金</div>
+							<div class="game-exchange-hint">已兑换完</div>
+							<div class="game-exchange-number">0/1张</div>
+						</div>
+						<div class="game-exchange-info">
+							<img src=""/>
+							<p>&lt;芳芳&gt;独家赞助</p>
+						</div>
+						<div class="game-exchange-sign"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 
+<!-- 		<div class="footer">
+			<div class="tip">
+				<small>此网站献给亲爱的：芳芳老师</small>
+			</div>
+		</div> -->
+
 		<script src="./js/jquery-1.11.0.min.js" ></script>
-		<script type="text/javascript">
-
-
-			var w = $(window).width() * 0.7,
-				h = $(window).height();
-
-			var nodes = d3.range(200).map(function() { return {radius: Math.random() * 12 + 4}; }),
-				color = d3.scale.category10();
-
-			var force = d3.layout.force()
-					.gravity(0.05)
-					.charge(function(d, i) { return i ? 0 : -2000; })
-					.nodes(nodes)
-					.size([w, h]);
-
-			var root = nodes[0];
-
-			root.radius = 0;
-			root.fixed = true;
-
-			force.start();
-
-			var svg = d3.select("#body").append("svg:svg")
-					.attr("width", w)
-					.attr("height", h);
-
-			svg.selectAll("circle")
-				.data(nodes.slice(1))
-				.enter().append("svg:circle")
-				.attr("r", function(d) { return d.radius - 2; })
-				.style("fill", function(d, i) { return color(i % 3); });
-
-			force.on("tick", function(e) {
-				var q = d3.geom.quadtree(nodes),
-					i = 0,
-					n = nodes.length;
-
-				while (++i < n) {
-					q.visit(collide(nodes[i]));
-				}
-
-				svg.selectAll("circle")
-					.attr("cx", function(d) { return d.x; })
-					.attr("cy", function(d) { return d.y; });
-			});
-
-			svg.on("mousemove", function() {
-				var p1 = d3.svg.mouse(this);
-				root.px = p1[0];
-				root.py = p1[1];
-				force.resume();
-			});
-
-			function collide(node) {
-				var r = node.radius + 16,
-					nx1 = node.x - r,
-					nx2 = node.x + r,
-					ny1 = node.y - r,
-					ny2 = node.y + r;
-
-				return function(quad, x1, y1, x2, y2) {
-
-					if (quad.point && (quad.point !== node)) {
-
-						var x = node.x - quad.point.x,
-							y = node.y - quad.point.y,
-							l = Math.sqrt(x * x + y * y),
-							r = node.radius + quad.point.radius;
-
-						if (l < r) {
-							l = (l - r) / l * .5;
-							node.x -= x *= l;
-							node.y -= y *= l;
-							quad.point.x += x;
-							quad.point.y += y;
-						}
-					}
-
-					return x1 > nx2
-						|| x2 < nx1
-						|| y1 > ny2
-						|| y2 < ny1;
-				};
-			}
-
-		</script>
+<!--		<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101219885" charset="utf-8"></script>
+		<script type="text/javascript" src="./js/qq.js" ></script>
+		 -->
+		<script type="text/javascript" src="./js/comm.js" ></script>
+		<script src="./js/jquery.easing.min.js" ></script>
+		<script src="./js/jquery.nshift-1.0.js" ></script>
+		<script type="text/javascript" src="./js/anime.js" ></script>
+		<script type="text/javascript"></script>
 	</body>
 </html>

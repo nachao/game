@@ -46,7 +46,7 @@ function nShift ( param ) {
 	*  动画参数
 	*  @ type {number}
 		**/
-	this.param_.totalTime = param.totalTime || 3000;	// 转移总时时间（毫秒）
+	this.param_.time = param.time || 3000;	// 转移总时时间（毫秒）
 
 	this.param_.itemTime = 100;		// 单次点生成间隔时间（毫秒）
 
@@ -64,7 +64,6 @@ function nShift ( param ) {
 	}
 }
 
-
 /*
 *  # 执行数据点移动
 *  # param {el}
@@ -80,9 +79,9 @@ nShift.prototype._executeMove = function ( aEls, bEl, callback ) {
 		el_bAre = bSub.are,
 		bValue = bSub.val;
 
-	var itemNumber = (this.param_.totalTime) / this.param_.itemTime;	// 转移完成所需要的次数
+	var itemNumber = (this.param_.time - this.param_.moveTime) / this.param_.itemTime;	// 转移完成所需要的次数
 
-	var aElLen = 0;
+	var aElLen = bSub.val;
 
 	$(aEls).each(function(){
 
@@ -96,18 +95,23 @@ nShift.prototype._executeMove = function ( aEls, bEl, callback ) {
 		var addValue = 0;
 
 		for ( var i = 0; i < itemNumber; i ++ ) {
-			if ( addValue <= aValue ) {
+			if ( addValue < aValue ) {
 				addValue += number;
 				go(aEl, number, i);
 			}
 		}
 	});
 
+	// 如果没有值则直接执行回调
+	if ( aElLen <= 0 ) {
+		callback ? callback(that) : null;
+	}
+
 	// 单个点
 	function go ( aEl, number, index ) {
 		setTimeout(function(){ 
 
-			var itemNumber = (that.param_.totalTime) / that.param_.itemTime;	// 转移完成所需要的次数
+			var itemNumber = (that.param_.time) / that.param_.itemTime;	// 转移完成所需要的次数
 
 			var itemValue = itemNumber;
 
@@ -124,20 +128,21 @@ nShift.prototype._executeMove = function ( aEls, bEl, callback ) {
 			el_aTxt.html(aValue);
 
 			var len = number;
-			if ( len > 10 ) {
-				len = 10;
+			if ( len > 3 ) {
+				len = 3;
 			}
 			that._setTargetAnimate(
 				that._getCreate(el_aAre),
 				that._getTargetPosition(el_aAre, el_bAre), function(){
 
-					aElLen -= number;
+					// aElLen -= number;
 
 					bValue = bValue + number;
 
 					el_bTxt.html(bValue);
 
-					if ( aElLen <= 0 ) {
+						// console.log(bValue);
+					if ( aElLen == bValue ) {
 						callback ? callback(that) : null;
 					}
 				});
@@ -159,7 +164,7 @@ nShift.prototype._executeMinus = function ( els, min, callback ) {
 
 	var that = this;
 
-	var itemNumber = (this.param_.totalTime) / this.param_.itemTime;	// 转移完成所需要的次数
+	var itemNumber = (this.param_.time) / this.param_.itemTime;	// 转移完成所需要的次数
 
 	$(els).each(function(){
 
@@ -229,7 +234,7 @@ nShift.prototype._getCreate = function ( el ) {
 
 	el.append('<span></span>');
 
-	return el.find('span:last').css({ 
+	return el.find('span:last').addClass(name).css({ 
 		width: size, 
 		height: size,
 		borderRadius: max,
@@ -333,7 +338,7 @@ nShift.prototype._setDisplay = function ( el, value ) {
 *  # private
 */
 nShift.prototype._setTargetAnimate = function ( el, position, callback ) {
-	return el.animate(position, 500, function(){
+	return el.animate(position, this.param_.moveTime, function(){
 		$(this).remove();
 		callback ? callback() : null;
 	});
