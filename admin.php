@@ -1,41 +1,43 @@
 <?php
 
-	include("./event/game.php");
+	// include("./event/game.php");
 
 	$time = time();
 	$num = 7;//rand(0, 9);
-	$gap = 0;
 
-	// 开始
-	if ( isset($_GET['start']) ) {
-		$gap = 10;
-		$num = '-';
+	date_default_timezone_set('PRC');
+	$gap = date('h', time()) > 22;
 
-		$game -> adminUpdata(1, $time, $time + $gap);
+	// // 开始
+	// if ( isset($_GET['start']) ) {
+	// 	$gap = 10;
+	// 	$num = '-';
 
-		for ( $i =0; $i < 10; $i++ ) {
-			$uid = rand(100, 110);
-			$select = rand(0, 9);
-			$info = $game -> selectUser($uid);
-			if ( $info ) {
-				$game -> selectUpdate($uid , $select);	// 修改
-			} else {
-				$game -> selectAdd($uid , $select);	// 新增
-			}
-		}
+	// 	$game -> adminUpdata(1, $time, $time + $gap);
+
+	// 	for ( $i =0; $i < 10; $i++ ) {
+	// 		$uid = rand(100, 110);
+	// 		$select = rand(0, 9);
+	// 		$info = $game -> selectUser($uid);
+	// 		if ( $info ) {
+	// 			$game -> selectUpdate($uid , $select);	// 修改
+	// 		} else {
+	// 			$game -> selectAdd($uid , $select);	// 新增
+	// 		}
+	// 	}
 
 
-	}
-	if ( isset($_GET['roll']) ) {
-		$gap = 20;
+	// }
+	// if ( isset($_GET['roll']) ) {
+	// 	$gap = 20;
 
-		$game -> adminUpdata(2, $time, $time + $gap, $num);
-	}
-	if ( isset($_GET['end']) ) {
-		$num = '-';
+	// 	$game -> adminUpdata(2, $time, $time + $gap, $num);
+	// }
+	// if ( isset($_GET['end']) ) {
+	// 	$num = '-';
 
-		$game -> adminUpdata(0, $time);
-	}
+	// 	$game -> adminUpdata(0, $time);
+	// }
 
 
 ?>
@@ -129,7 +131,7 @@
 	</head>
 	<body>
 		
-		<div class="container">
+		<div class="container" >
 
 			<!-- <h5>时间</h5> -->
 			<input class="time" type="text" value="<?php echo $gap; ?>" id="time" />
@@ -171,11 +173,11 @@
 				$('#end').addClass('act');
 
 			} else if ( url.indexOf('start') > 0 ) {
-				go();
+				// go();
 				$('#start').addClass('act');
 
 			} else if ( url.indexOf('roll') > 0 ) {
-				go();
+				// go();
 				$('#roll').addClass('act');
 
 			} else {

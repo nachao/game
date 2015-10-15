@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>七十三号馆 - 方方乐</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<link type="text/css" rel="stylesheet" href="./css/iconfont.css" />
+		<script src="./js/countDwon.js" ></script>
+		<style>
+	
+			body{
+				font-family: 微软雅黑;
+			}
+			.btn{
+				float: left;
+				margin: 30px;
+			}
+			.btn a{
+				display: inline-block;
+				float: left;
+				margin-right: 20px;
+				border-radius: 3px;
+				border: 1px solid #333;
+			}
+			.btn a span{ 
+				display: inline-block;
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				color: #000;
+				font-weight: bold;
+				font-family: 微软雅黑;
+				text-align: center;
+				text-align: center;
+				float: left;
+
+			}
+			.btn a em{
+				display: inline-block;
+				font-style: normal;
+				color: black;
+				line-height: 100px;
+				width: 70px;
+				text-align: center;
+				font-family: Arial;
+				border-left: 1px dashed #333;
+				font-size: 24px;
+			}
+			.btn a.act span{
+				background: #000;
+				color: white;
+			}
+
+			.title{
+				border: 0px;
+				padding: 20px;
+				font-size: 50px;
+				margin: 30px;
+			}
+
+			.sel{
+				margin: 30px;
+			}
+			.sel label{
+				display: inline-block;
+				float: left;
+				border: 1px solid #333;
+				border-radius: 3px;
+				margin-right: 10px;
+				margin-bottom: 10px;
+				height: 33px;
+				line-height: 33px;
+			}
+			.sel span{
+				display: inline-block;
+				width: 30px;
+				text-align: center;
+			}
+			.sel input{
+				width: 50px;
+				padding: 0px;
+				margin: 0px;
+				border: 0px;
+				border-left: 1px dashed #333;
+				text-align: center;
+				outline: none;
+			}
+
+
+			.clear{
+				clear: both;
+			}
+
+
+			
+			.depict{
+				margin-left: 50px;
+			}
+			.user{
+				margin: 30px 0 0 50px;
+			}
+			.user input{
+				padding: 0px;
+				margin: 0px;
+				border: 0px;
+				height: 33px;
+				border-bottom: 1px solid black;
+				font-family: 微软雅黑;
+				text-indent: 10px;
+				outline: none;
+				width: 300px;
+				font-size: 16px;
+			}
+
+			.comm-tip{
+				background: rgba(0,0,0,.7);
+				position: relative;
+				padding: 0 10px;
+				height: 22px;
+				line-height: 22px;
+				border-radius: 3px;
+				display: none;
+			}
+			.comm-tip i{
+				display: inline-block;
+				width: 0px;
+				height: 0px;
+				border: 3px solid rgba(0,0,0,.7);
+				border-right-color: transparent;
+				border-top-color: transparent;
+				position: absolute;
+				left: -3px;
+				top: 50%;
+				margin-top: -3px;
+				transform:rotate(45deg);
+				-webkit-transform:rotate(45deg);
+			}
+			.comm-tip em{
+				color: white;
+				font-size: 12px;
+				float: left;
+			}
+
+			.select{
+				margin-top: 50px;
+				margin-left: 50px;
+			}
+			.select a{
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 100px;
+				border: 1px solid black;
+				float: left;
+				text-decoration: none;
+				text-align: center;
+				font-size: 12px;
+				color: black;
+				margin: 5px;
+			}
+			.select a i{
+				display: none;
+			}
+			.select a em{
+				font-style: normal;
+			}
+			.select a:hover,.select a.act{
+				background: black;
+				color: white;
+			}
+			.select a:hover i{
+				display: inline-block;
+			}
+			.select a:hover em{
+				display: none;
+			}
+
+			
+		</style>
+	</head>
+	<body>
+
+		<h1 class="title" id="aa"></h1>
+		<div class="depict" id="bb"><i class="iconfont icon-time"></i><span></span></div>
+		
+		<div class="user">
+			<p><i class="iconfont icon-user"></i><input id="d" placeholder="请输入你的账号" /><span id="msg" class="comm-tip"><i></i><em>提示信息</em></span></p>
+			<p><span id="info"><i class="iconfont icon-score"></i><em id="score">0</em>&nbsp;分&nbsp;</span></p>
+			<span id="msg"></span>
+		</div>
+
+		<div class="select" id="select">
+			<a sid="1" href="javascript:;"><i>1</i><em>0</em></a>
+			<a sid="2" href="javascript:;"><i>2</i><em>0</em></a>
+			<a sid="3" href="javascript:;"><i>3</i><em>0</em></a>
+			<a sid="4" href="javascript:;"><i>4</i><em>0</em></a>
+			<a sid="5" href="javascript:;"><i>5</i><em>0</em></a>
+			<a sid="6" href="javascript:;"><i>6</i><em>0</em></a>
+			<a sid="7" href="javascript:;"><i>7</i><em>0</em></a>
+			<a sid="8" href="javascript:;"><i>8</i><em>0</em></a>
+			<a sid="9" href="javascript:;"><i>9</i><em>0</em></a>
+			<a sid="0" href="javascript:;"><i>0</i><em>0</em></a>
+		</div>
+
+		<!-- <p id="cc" style="display:none;">输入选择：<input id="c" /></p> -->
+
+		<script src="./js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="./js/comm.js" ></script>
+		<script type="text/javascript">
+
+			// 当前场信息
+			var field = null;
+
+			// 当前用户信息
+			var user = null;
+
+			//写cookies
+			function setCookie ( name, value, time ) {
+				time = time || 0;
+				var exp = new Date();
+				exp.setTime(exp.getTime() + time * 1000);
+				document.cookie = name + "="+ escape(value) + ";expires=" + exp.toGMTString();
+			}
+
+			// 读取
+			function getCookie ( name ){
+				var arr,
+					reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+				if(arr=document.cookie.match(reg))
+					return unescape(arr[2]);
+				else
+					return null;
+			}
+
+			// 获取用户信息，根据名称
+			function getUserByName ( name, callback ) {
+				var oldName = user ? user.name : '';
+				ajax({
+					key: 'get_user_byname',
+					uid: name,
+					old: oldName
+				}, function(data, param){
+					callback ? callback(data) : null;
+					// console.log(data);
+				});
+			}
+
+			// 获取用户信息，根据钥匙
+			function getUserByKey ( key, callback ) {
+				ajax({
+					key: 'get_user_bykey',
+					code: key
+				}, function(data, param){
+					callback ? callback(data) : null;
+					// console.log(data);
+				});
+			}
+
+			// 获取用户信息的本场选择
+			function getUserSelect ( callback ) {
+				$('#select a').removeClass('act');
+				if ( field && user ) {
+					ajax({
+						key: 'get_user_select',
+						tag: field.id,
+						uid: user.name
+					}, function ( key ) {
+						if ( key ) {
+							$('#select a[sid='+ key +']').addClass('act');
+						}
+					});
+				}
+			}
+
+			// 设置用户信息
+			function setUserUI ( data ) {
+				if ( data ) {
+					setTip(data.msg);
+
+					// 账号正在被使用中
+					if ( data.status == 0 ) {
+						$('#info').hide();
+						$('#cc').hide();
+
+					// 刷新界面用户信息
+					} else {
+						$('#info').show();
+						$('#cc').show();
+						$('#score').html(data.score);
+						setCookie('FFL_key', data.key, data.valid);		// 保存用户登录钥匙
+					}
+				}
+			}
+
+			// 每分钟刷新一次用户登录状态
+			function setUserRefresh ( data ) {
+
+				if ( user ) {
+
+					// 发送账号当前活动状态
+					ajax({ 
+						key: 'set_user_status',
+						uid: user.name
+					}, function(data){
+						// console.log(data);
+						setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
+					});
+				}
+
+				setTimeout(function(){
+					setUserRefresh();
+				}, 1000 * 60);
+			}
+
+			// 显示提示
+			var tipClose = null;
+			function setTip ( value, time ) {
+				time = time || 3000;
+				var el = $('#msg');
+				el.stop().css({ display: 'inline-block' }).find('em').html(value);
+				clearTimeout(tipClose);
+				tipClose = setTimeout(function(){
+					el.fadeOut('slow');
+				}, time);
+			}
+
+
+
+			// 滚动状态
+			function go () {
+
+				var time = 1000;
+
+				ajax({ key: 'get_game_answer', uid: $('#d').val() }, function(data){
+					var current = new Date().getTime() / 1000;
+
+					field = data;
+
+					$('#aa').html(data.msg);
+
+					// 选择
+					if ( data.status == '1' ) {
+						if ( user ) {
+							$('#cc').show();
+						}
+
+						var time = parseInt(data.end - current),
+							min = 0,
+							sec = time;
+						if ( time / 60 > 0 ) {
+							min = parseInt(time / 60);
+							sec = time - (min*60);
+							time = min + '分' + sec + '秒';
+						} else {
+							time = sec + '秒';
+						}
+						$('#bb span').html('剩余时间：' + time);
+
+						// 输出选择情况
+						var def = 30,
+							size = 0;
+						for ( var key in data.res ) {
+							size = def + parseInt(data.res[key]);
+							$('#select a[sid='+ key +']').animate({ height: size, width: size }).find('em').css({  }).html(data.res[key]);
+						}
+
+					// 公布答案
+					} else if ( data.status == '2' ) {
+						$('#aa').html(data.msg +'::'+ data.result);
+						$('#cc').hide();
+						$('#c').val('');
+						$('#bb span').html('稍等，下一场准备中');
+
+						if ( Number(data.get) ) {
+							setTip('获得'+ Number(data.get) + '分', 5000);
+						} else {
+							setTip('很遗憾', 5000);
+						}
+
+						if ( user && Number(data.get) ) {
+							user.score = Number(user.score) + Number(data.get);
+							$('#score').html(user.score);
+						}
+
+					// 关闭中
+					} else if ( data.status == '0' ) {
+						$('#cc').hide();
+						$('#bb span').html('');
+					}
+
+				});
+
+				setTimeout(function(){ go(); }, time);
+			}
+
+			go();
+
+			// 用户参与的场次
+			var partake = 0;
+
+			// 选择操作
+			// $('#c').change(function(){
+			// 	ajax({
+			// 		key: 'set_user_select',
+			// 		tag: field.id,
+			// 		select: $('#c').val(),
+			// 		uid: $('#d').val()
+			// 	}, function(data, param){
+			// 		if ( data && data == 'add' && user ) {
+			// 			user.score -= 1;
+			// 			$('#score').html(user.score);
+			// 		}
+			// 	});
+			// });
+
+			$('#select a').click(function(){
+				if ( field && user ) {
+					$(this).addClass('act').siblings().removeClass('act');
+					ajax({
+						key: 'set_user_select',
+						tag: field.id,
+						uid: user.name,
+						select: $(this).attr('sid')
+					}, function(data, param){
+						if ( data && data == 'add' && user ) {
+							user.score -= 1;
+							$('#score').html(user.score);
+						}
+					});
+				}
+			});
+
+			// 快速登录
+			$('#d').change(function(){
+				if ( $(this).val() == '' ) {
+					setTip('无效的名称');
+					$(this).val(user.name);
+				} else {
+					getUserByName($('#d').val(), function(data){
+						setUserUI(data);
+
+						if ( data.status ) {
+							user = data;	// 更新本地用户数据
+							getUserSelect();
+						} else {
+							user = null;
+						}
+					});
+				}
+			});
+
+
+
+			// 初始化进入界面，获取缓存中的登录账户钥匙
+			var key = getCookie('FFL_key');
+			if ( key ) {
+				getUserByKey(key, function(data){
+					setUserUI(data);
+
+					if ( data.status ) {
+						user = data;	// 更新本地用户数据
+						getUserSelect();
+
+						setUserRefresh();
+						$('#d').val(data.name);
+					} else {
+						user = null;
+					}
+				});
+			}
+
+			console.log(key);
+
+
+
+
+			// setCookie('FFL_key', '123', 60);	// 保存用户的新登录钥匙
+
+
+		</script>
+	</body>
+</html>

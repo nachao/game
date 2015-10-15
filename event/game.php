@@ -45,11 +45,12 @@
 		}
 
 		// 添加用户基本信息
-		public function userAdd( $key = '', $uid = '', $num = 10 ){
+		public function userAdd( $token = '', $uid = '', $num = 10 ){
 			if ( $uid ) {
-				$sql = "insert INTO `fang`.`game_user` (`id`, `key`, `user`, `score`) VALUES (NULL, '".$key."', '".$uid."', '".$num."');";
-				// echo $sql;
+				$key = md5(time() / 123456789);
+				$sql = "insert INTO `fang`.`game_user` (`id`, `token`, `user`, `score`, `status`, `key`) VALUES (NULL, '".$token."', '".$uid."', '".$num."', '".time()."', '".$key."');";
 				$query = mysql_query($sql);
+				return $key;
 			}
 		}
 
@@ -136,12 +137,11 @@
 
 		// 获取指定场次的指定用户
 		public function getFieldUser ( $tag='', $user='' ) {
-			$sql = "select count(`id`) FROM  `game_select` WHERE  `user` LIKE '".$user."' AND  `tag` LIKE '".$tag."' LIMIT 1";
+			$sql = "select * FROM  `game_select` WHERE  `user` LIKE '".$user."' AND  `tag` LIKE '".$tag."' LIMIT 1";
 			$query = mysql_query($sql);
-			$value = 0;
+			$value = null;
 			if ( $query ) {
-				$row = mysql_fetch_array($query);
-				$value = $row[0];
+				$value = mysql_fetch_array($query);
 			}
 			return $value;
 		}
@@ -185,7 +185,7 @@
 
 
 
-		// 获取指定用户
+		// 获取指定用户，根据名称
 		public function getUser ( $uid='' ) {
 			$sql = "select *  FROM `game_user` WHERE `user` LIKE '".$uid."'";
 			$query = mysql_query($sql);
@@ -196,12 +196,35 @@
 			return $value;
 		}
 
+		// 获取指定用户，根据钥匙且指定有效时间内的
+		public function getUserByKey ( $code='', $time=0 ) {
+			$sql = "select *  FROM `game_user` WHERE `key` LIKE '".$code."' AND `status` > ".$time;
+			$query = mysql_query($sql);
+			$value = null;
+			if ( $query ) {
+				$value = mysql_fetch_array($query);
+			}
+			return $value;
+		}
+
+
 		// 设置指定用户的积分
 		public function setUserScore ( $user='', $sum=0 ) {
 			$info = $this -> getUser($user);
 			if ( $info ) {
 				$sql = "update `fang`.`game_user` SET `score` = '".($info['score'] + $sum)."' WHERE `game_user`.`user` LIKE '".$user."';";
 				$query = mysql_query($sql);
+			}
+		}
+
+		// 设置指定用户的最近活动时间
+		public function setUserStatus ( $user='', $status=0 ) {
+			$info = $this -> getUser($user);
+			if ( $info ) {
+				$key = md5(time() / 123456789);
+				$sql = "update `fang`.`game_user` SET `status` = '".$status."', `key` = '".$key."' WHERE `game_user`.`user` LIKE '".$user."';";
+				$query = mysql_query($sql);
+				return $key;
 			}
 		}
 
@@ -214,42 +237,68 @@
 			if ( $query ) {
 				$row = mysql_fetch_array($query);
 
-				$select = $this -> getFieldUserSelected($row['aid'], $uid, $row['number']);
-				$isChecked = $select;
+				// 后台开启中
+				if ( $row ) {
 
-				if ( $isChecked ) {
-					$selectedTotal = $this -> getFieldSelectedTotal($row['aid'], $row['number']);
-					$total = $this -> getFieldTotal($row['aid']);
-					$gain = ceil($total / $selectedTotal);
-				} else {
-					$gain = 0;
-				}
+					$select = $this -> getFieldUserSelected($row['aid'], $uid, $row['number']);
+					$isChecked = $select;
 
-
-				$value = array(
-						'id' => $row['aid'],			// 场次编号
-					);
-				if ( time() < $row['valid'] ) {
-					$value['status'] = 1;				// 状态一：进行选择
-					$value['end'] = $row['valid'];		// 公布答案时间
-				} else {
-
-					if ( $isChecked && $isChecked['provide'] == 0 ) {
-						$this -> setUserScore($uid, $gain);
-						$this -> setFieldUserRrovide($row['aid'], $uid);
+					if ( $isChecked ) {
+						$selectedTotal = $this -> getFieldSelectedTotal($row['aid'], $row['number']);
+						$total = $this -> getFieldTotal($row['aid']) * 10;		// 十倍收益
+						$gain = ceil($total / $selectedTotal);
 					} else {
 						$gain = 0;
 					}
 
-					$value['status'] = 2;				// 状态二：公布答案
-					$value['end'] = $row['under'];		// 本场结束时间
-					$value['result'] = $row['number'];	// 答案
-					$value['get'] = $gain;				// 收获积分数量
-				}
 
-				$value['isChecked'] = $isChecked;		// 是否选中
-				$value['get'] = $gain;					// 收获积分数量
-				return $value;
+					$value = array(
+							'id' => $row['aid'],			// 场次编号
+						);
+					if ( time() < $row['valid'] ) {
+						$value['status'] = 1;				// 状态一：进行选择
+						$value['end'] = $row['valid'];		// 公布答案时间
+						$value['msg'] = '进行选择';			// 提示信息
+
+						$value['res'] = array(				// 所有选项的选择数量
+							'1' => $this -> getFieldSelectedTotal($row['aid'], 1),
+							'2' => $this -> getFieldSelectedTotal($row['aid'], 2),
+							'3' => $this -> getFieldSelectedTotal($row['aid'], 3),
+							'4' => $this -> getFieldSelectedTotal($row['aid'], 4),
+							'5' => $this -> getFieldSelectedTotal($row['aid'], 5),
+							'6' => $this -> getFieldSelectedTotal($row['aid'], 6),
+							'7' => $this -> getFieldSelectedTotal($row['aid'], 7),
+							'8' => $this -> getFieldSelectedTotal($row['aid'], 8),
+							'9' => $this -> getFieldSelectedTotal($row['aid'], 9)
+						);			
+
+					} else {
+
+						if ( $isChecked && $isChecked['provide'] == 0 ) {
+							$this -> setUserScore($uid, $gain);
+							$this -> setFieldUserRrovide($row['aid'], $uid);
+						} else {
+							$gain = 0;
+						}
+
+						$value['status'] = 2;				// 状态二：公布答案
+						$value['end'] = $row['under'];		// 本场结束时间
+						$value['result'] = $row['number'];	// 答案
+						$value['get'] = $gain;				// 收获积分数量
+						$value['msg'] = '公布答案';			// 提示信息
+					}
+
+					// $value['isChecked'] = $isChecked;		// 是否选中
+					// $value['get'] = $gain;					// 收获积分数量
+					return $value;
+
+				// 后台关闭中
+				} else {
+					return array(
+							'status' => '0',
+							'msg' => '关闭中'
+						);
+				}
 			}
 		}
 
