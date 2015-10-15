@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>七十三号馆 - 方方乐 - 体现</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<style type="text/css">
+			
+			body{
+				font-family: 微软雅黑;
+			}
+			.support{
+				display: inline-block;
+				width: 600px;
+				height: 240px;
+				border-radius: 3px;
+				border: 1px solid black;
+				position: relative;
+				overflow: hidden;
+				float: left;
+				margin: 30px;
+			}
+			.support .edit{
+				position: absolute;
+				top: 240px;
+				left: 0px;
+				margin: 20px 0 0 30px;
+				transition: 1s;
+				-webkit-transition: 1s;
+			}
+			.support .edit input{
+				width: 200px;
+				padding: 0px;
+				margin: 0px;
+				border: 0px;
+				border-bottom: 1px solid black;
+				height: 33px;
+				padding: 0 10px;
+				outline: none;
+				font-size: 14px;
+				font-family: 微软雅黑;
+			}
+			.support .edit .btn{
+				display: inline-block;
+				color: black;
+				font-size: 14px;
+				padding: 3px 20px 4px;
+				margin-top: 20px;
+			}
+			.support .edit .btn:hover{
+				background: black;
+				color: white;
+				border-radius: 3px;
+			}
+			.support .edit .yes{
+				display: inline-block;
+				width: 100px;
+				line-height: 33px;
+				color: white;
+				background: black;
+				text-decoration: none;
+				font-family: 微软雅黑;
+				border-radius: 3px;
+				text-align: center;
+			}
+			.support .edit .no{
+
+			}
+			.support .edit .title{
+				font-size: 18px;
+				height: 50px;
+				padding: 0 0 0 5px;
+				width: 450px;
+			}
+			.support .edit .param{
+				margin-top: 30px;
+			}
+			.support .edit .num{
+				width: 50px;
+				text-align: center;
+			}
+			.support .edit .price{
+				float: left;
+			}
+			.support .edit .price a{
+				color: black;
+				text-decoration: none;
+				float: left;
+				font-size: 14px;
+				border: 1px solid #333;
+				border-radius: 3px;
+				padding: 0 10px;
+				height: 32px;
+				line-height: 32px;
+				margin-right: 10px;
+			}
+			.support .edit .price a.act{
+				background: #333;
+				color: white;
+			}
+			.support .edit .txt{
+				font-size: 16px;
+				line-height: 33px;
+				display: inline-block;
+				padding: 0 10px;
+			}
+			.support .edit .txt em{
+				font-style: normal;
+				font-family: Arial;
+				padding: 0 3px;
+			}
+			.support .add{
+				display: inline-block;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				background: white;
+				font-size: 20px;
+				text-align: center;
+				line-height: 240px;
+				font-weight: bold;
+				color: #333;
+				cursor: pointer;
+				transition: 1s;
+				-webkit-transition: 1s;
+			}
+			.support .add span{
+				display: inline-block;
+				position: absolute;
+				top: -120px;
+				right: 50px;
+				width: 0px;
+				height: 120px;
+				border-left: 1px solid black;
+				transition: 0.5s;
+				-webkit-transition: 0.5s;
+			}
+			.support .add span i{
+				position: absolute;
+				bottom: 0px;
+				left: -5px;
+				width: 10px;
+				height: 10px;
+				background: black;
+				border-radius: 5px;
+			}
+			.support .add:hover span{
+				top: -20px;
+			}
+			.support-act{
+				border: 1px dashed #ccc;
+			}
+			.support-act .edit{
+				top: 0px;
+			}
+			.support-act .add{
+				top: -240px;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div class="support" id="template">
+			<div class="">兑换</div>
+		</div>
+		
+		<div class="support">
+			<div class="edit">
+				<input class="title" id="title" placeholder="赞助单位" />
+				<div class="param">
+					<div class="price" id="price">
+						<a class="act" href="javascript:;" n="1000" >1000分</a>
+						<a href="javascript:;" n="3000" >3000分</a>
+						<a href="javascript:;" n="5000" >5000分</a>
+					</div>
+					<span class="txt">*</span>
+					<input class="num" id="number" placeholder="数量" value="1" />份
+					<span class="txt">=&nbsp;<em id="total">1000</em>分（需支付）</span>
+				</div>
+				<a class="btn" id="yes" href="javascript:;" >确定</a>
+				<a class="btn" id="no" href="javascript:;" >取消</a>
+			</div>
+			<div class="add">+ 参与赞助<span><i></i></span></div>
+		</div>
+
+		<script src="./js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="./js/comm.js" ></script>
+		<script type="text/javascript">
+
+			// 打开编辑界面
+			$('.support').mousedown(function(){
+				$(this).find('.add span').css({ top: 0 });
+			}).mouseup(function(){
+				$(this).addClass('support-act');
+				$(this).find('.add span').css({ top: -20 });
+			});
+
+			// 关闭编辑界面
+			$('#no').click(function(){
+				$(this).parents('.support').removeClass('support-act').find('.add span').css({ top: '' });
+			});
+
+			// 计算总金额
+			var countInfo = null;
+			function count () {
+				var value = {
+						price: parseInt($('#price a[class=act]').attr('n')),
+						number: parseInt($('#number').val())
+					};
+				$('#total').html( value.price * value.number );
+				countInfo = value;
+			}
+
+			// 选择单价
+			$('#price a').click(function(){
+				$(this).addClass('act').siblings().removeClass('act');
+				count();
+			}).eq(0).click();
+
+			// 设置数量
+			$('#number').change(function(){
+				count();
+			});
+
+			// 设置赞助来源
+			$('#title').change(function(){
+				countInfo.title = $(this).val().replace(/\s+/g,"");
+			})
+
+			// 确认赞助
+			$('#yes').click(function(){
+				if ( !countInfo.title ) {
+					$('#title').focus();
+				} else {
+					console.log(countInfo);
+				}
+			});
+
+
+		</script>
+	</body>
+</html>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2015-10-15 19:32:55
+Date: 2015-10-16 01:07:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -283,6 +283,41 @@ INSERT INTO `game_select` VALUES ('85', 'a412456', '8', '1444908644', 'e88501dee
 INSERT INTO `game_select` VALUES ('86', 'a4124567', '9', '1444908651', 'e88501dee48f02e694d6a23d2ec7bc77', '0');
 
 -- ----------------------------
+-- Table structure for `game_sponsor`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_sponsor`;
+CREATE TABLE `game_sponsor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT '0' COMMENT '赞助用户id',
+  `title` varchar(100) DEFAULT '' COMMENT '赞助名称',
+  `price` int(11) DEFAULT '0' COMMENT '单价',
+  `number` int(11) DEFAULT '0' COMMENT '赞助数量',
+  `time` int(11) DEFAULT '0' COMMENT '赞助时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_sponsor
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `game_sponsor_receive`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_sponsor_receive`;
+CREATE TABLE `game_sponsor_receive` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `uid` int(11) DEFAULT NULL COMMENT '领取的用户id',
+  `sid` int(11) DEFAULT NULL COMMENT '领取的赞助id',
+  `time` int(11) DEFAULT '0' COMMENT '兑换时间',
+  `remark` text COMMENT '兑换时用户给的兑换到目标位置的信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_sponsor_receive
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `game_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `game_user`;
@@ -294,7 +329,7 @@ CREATE TABLE `game_user` (
   `status` int(11) DEFAULT '0' COMMENT '当前状态0=未登录，xxxx=最近活动时间，没结束一场就上报一次活动时间',
   `key` varchar(100) DEFAULT '' COMMENT '登录钥匙',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_user
@@ -368,6 +403,7 @@ INSERT INTO `game_user` VALUES ('75', '', 'a4124', '9', '0', '1718d4db1e12044fac
 INSERT INTO `game_user` VALUES ('76', '', 'a41245', '9', '0', 'f61ef227908f5807471595f40d351149');
 INSERT INTO `game_user` VALUES ('77', '', 'a412456', '9', '0', '53fdf802c2c6997b2315d7ebfb391dee');
 INSERT INTO `game_user` VALUES ('78', '', 'a4124567', '9', '0', '6728d4d200ec35e67d1ecbbb94c08a78');
+INSERT INTO `game_user` VALUES ('79', '', '啊', '10', '1444928292', '71ad5159cf4981ecfc51b27449bfdc9e');
 
 -- ----------------------------
 -- Table structure for `menu`

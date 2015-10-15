@@ -21,6 +21,8 @@
 
 .icon-qq:before { content: "\e600"; }
 .icon-sina:before { content: "\e601"; }
-.icon-time:before { content: "\e602"; }
-.icon-user:before { content: "\e605"; }
-.icon-score:before { content: "\e604"; }
+
+.icon-time:before { content: "\e609"; }
+.icon-user:before { content: "\e60b"; }
+.icon-score:before { content: "\e607"; }
+.icon-reward:before { content: "\e606"; }

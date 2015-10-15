@@ -94,6 +94,7 @@
 			
 			.depict{
 				margin-left: 50px;
+				margin-top: 30px;
 			}
 			.user{
 				margin: 30px 0 0 50px;
@@ -139,6 +140,9 @@
 				font-size: 12px;
 				float: left;
 			}
+			.comm-clear{
+				clear: both;
+			}
 
 			.select{
 				margin-top: 50px;
@@ -175,18 +179,67 @@
 				display: none;
 			}
 
+			.label{
+				margin-left: 50px;
+			}
+			.label span{
+				display: inline-block;
+				border: 1px solid black;
+				font-size: 12px;
+				border-radius: 3px;
+				line-height: 24px;
+				padding: 0 10px 0 0;
+				float: left;
+				margin-right: 10px;
+			}
+
+			.score{
+				margin-top: 30px;
+				margin-left: 50px;
+			}
+			.score em{
+				font-style: normal;
+				font-family: Arial;
+				margin-left: 10px;
+			}
+			.score a{
+				color: black;
+				font-size: 12px;
+				color: #333;
+				text-decoration: none;
+				padding: 2px 5px;
+			}
+			.score a:hover{
+				text-decoration: underline;
+				background: black;
+				border-radius: 3px;
+				color: white;
+			}
+
 			
 		</style>
 	</head>
 	<body>
 
 		<h1 class="title" id="aa"></h1>
-		<div class="depict" id="bb"><i class="iconfont icon-time"></i><span></span></div>
+
+		<div class="label">
+			<span><i class="iconfont icon-reward"></i>基础分+100</span>
+			<span><i class="iconfont icon-reward"></i>单次*3</span>
+			<div class="comm-clear"></div>
+		</div>
+
+		<div class="depict" id="bb"><i class="iconfont icon-time"></i><span>-</span></div>
 		
 		<div class="user">
-			<p><i class="iconfont icon-user"></i><input id="d" placeholder="请输入你的账号" /><span id="msg" class="comm-tip"><i></i><em>提示信息</em></span></p>
-			<p><span id="info"><i class="iconfont icon-score"></i><em id="score">0</em>&nbsp;分&nbsp;</span></p>
-			<span id="msg"></span>
+			<i class="iconfont icon-user"></i>
+			<input id="d" placeholder="请输入你的账号" />
+			<span id="msg" class="comm-tip"><i></i><em>提示信息</em></span>
+		</div>
+
+		<div class="score">
+			<span id="info"><i class="iconfont icon-score"></i><em id="score">0</em>&nbsp;分</span>
+			<a href="#">兑换</a>
 		</div>
 
 		<div class="select" id="select">
@@ -385,7 +438,7 @@
 					// 关闭中
 					} else if ( data.status == '0' ) {
 						$('#cc').hide();
-						$('#bb span').html('');
+						$('#bb span').html('每日早上10点开启');
 					}
 
 				});
