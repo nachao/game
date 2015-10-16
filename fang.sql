@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2015-10-16 01:07:07
+Date: 2015-10-16 18:02:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -119,7 +119,7 @@ CREATE TABLE `game_answer` (
   `under` int(11) DEFAULT '0' COMMENT '本场结束时间',
   `number` int(1) DEFAULT '0' COMMENT '给出的答案',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_answer
@@ -177,6 +177,41 @@ INSERT INTO `game_answer` VALUES ('50', 'eb664be0522f91a12f636d6db1791b73', '144
 INSERT INTO `game_answer` VALUES ('51', 'e3b1f361160b72a03ef3fcbbc0e1f77a', '1444907465', '1444908055', '1444908065', '2');
 INSERT INTO `game_answer` VALUES ('52', 'e88501dee48f02e694d6a23d2ec7bc77', '1444908065', '1444908655', '1444908665', '7');
 INSERT INTO `game_answer` VALUES ('53', '6e9d67c59bb751952e55bbe01d8bd21e', '1444908665', '1444909255', '1444909265', '2');
+INSERT INTO `game_answer` VALUES ('54', '3aba363001b21b265b68513eb9068a23', '1444969271', '1444969861', '1444969871', '0');
+INSERT INTO `game_answer` VALUES ('55', '66e36876e25547d03a48e7c32621b3dd', '1444969871', '1444970461', '1444970471', '1');
+INSERT INTO `game_answer` VALUES ('56', 'bb0c397d8b3fc472ea5b16339ef145f3', '1444970471', '1444971061', '1444971071', '6');
+INSERT INTO `game_answer` VALUES ('57', 'ffa99cb71f1133c1f2d6a055adb2bdbe', '1444971071', '1444971661', '1444971671', '5');
+INSERT INTO `game_answer` VALUES ('58', '1e7dce33f01f45fb8ad597d7c84ddd5c', '1444971671', '1444972261', '1444972271', '7');
+INSERT INTO `game_answer` VALUES ('59', '91256c179f6ee5b42602b22dd0fe875f', '1444972271', '1444972861', '1444972871', '6');
+INSERT INTO `game_answer` VALUES ('60', '768d65774dcb8a987bf07bd5b3074a36', '1444972871', '1444973461', '1444973471', '5');
+INSERT INTO `game_answer` VALUES ('61', 'd18258c5a9cc3d78b02def7e37eb2222', '1444973471', '1444974061', '1444974071', '2');
+INSERT INTO `game_answer` VALUES ('62', '85b7e80775c21eb0c260e11668d3e990', '1444974071', '1444974661', '1444974671', '5');
+INSERT INTO `game_answer` VALUES ('63', '20be86fc23c82ce77682c5d7386bd7f3', '1444974671', '1444975261', '1444975271', '5');
+INSERT INTO `game_answer` VALUES ('64', 'e51a9ab5d8c807eb6a57ca0b4faa8fdc', '1444975271', '1444975861', '1444975871', '2');
+INSERT INTO `game_answer` VALUES ('65', '1b4bc55b1d786d8611eb30a04fb07b4a', '1444975871', '1444976461', '1444976471', '0');
+INSERT INTO `game_answer` VALUES ('66', '992860711e6f9d13bff5ab894e73bace', '1444976471', '1444977061', '1444977071', '9');
+INSERT INTO `game_answer` VALUES ('67', '6164845422646bdbf1f35b845f2573b5', '1444977071', '1444977661', '1444977671', '2');
+INSERT INTO `game_answer` VALUES ('68', '6457ffe25b5b3baadd92e65a6ca4ab20', '1444977671', '1444978261', '1444978271', '6');
+INSERT INTO `game_answer` VALUES ('69', '7c2ab6e3585f66424e464a7e138628a8', '1444978271', '1444978861', '1444978871', '2');
+INSERT INTO `game_answer` VALUES ('70', '848d3e7d45585250c26c880d64d89f38', '1444978871', '1444979461', '1444979471', '6');
+INSERT INTO `game_answer` VALUES ('71', '8646c6be942e98c34f24875bba349987', '1444979471', '1444980061', '1444980071', '7');
+INSERT INTO `game_answer` VALUES ('72', 'a421d9ef47f5a5950d11ec6c08f7b427', '1444980071', '1444980661', '1444980671', '3');
+INSERT INTO `game_answer` VALUES ('73', '9e39d4d786ff180979a34ce3de7e2215', '1444980671', '1444981261', '1444981271', '5');
+INSERT INTO `game_answer` VALUES ('74', '2112c7361e7eaa3d40f2e1fa9dc2785a', '1444981271', '1444981861', '1444981871', '0');
+INSERT INTO `game_answer` VALUES ('75', 'eb185fa2aae99576243725a42a6f0438', '1444981871', '1444982461', '1444982471', '5');
+INSERT INTO `game_answer` VALUES ('76', '4a77479d991a806dc0217c973b57900c', '1444982471', '1444983061', '1444983071', '5');
+INSERT INTO `game_answer` VALUES ('77', '23e4de979e1e1ce7278362ce9854e4aa', '1444983071', '1444983661', '1444983671', '2');
+INSERT INTO `game_answer` VALUES ('78', 'f857116c2585d2dcfb71b0a7211322a6', '1444983671', '1444984261', '1444984271', '0');
+INSERT INTO `game_answer` VALUES ('79', '21d8b49ebe093c54d85938421874e63b', '1444984272', '1444984862', '1444984872', '5');
+INSERT INTO `game_answer` VALUES ('80', '14ffa7c6f47939eff7ef9dce7257dd1c', '1444984872', '1444985462', '1444985472', '8');
+INSERT INTO `game_answer` VALUES ('81', 'b4f49e0bf825f35e4549f0dfdcee7723', '1444985472', '1444986062', '1444986072', '8');
+INSERT INTO `game_answer` VALUES ('82', '470b834d0be8bfd1fc49248cb2dd0d2f', '1444986072', '1444986662', '1444986672', '9');
+INSERT INTO `game_answer` VALUES ('83', '746ac45c7ed78a553af5ae36b3f8a0e0', '1444986672', '1444987262', '1444987272', '3');
+INSERT INTO `game_answer` VALUES ('84', 'a806a7c2d0025c3e7079d63da1af4a21', '1444987272', '1444987862', '1444987872', '1');
+INSERT INTO `game_answer` VALUES ('85', '6798b9cdbd5818c403268a916a681a17', '1444987872', '1444988462', '1444988472', '8');
+INSERT INTO `game_answer` VALUES ('86', 'e4b10e04e39e85308f33250c84da4d30', '1444988472', '1444989062', '1444989072', '5');
+INSERT INTO `game_answer` VALUES ('87', '91f4e5ab863315bbdadd8bcb8bcdfef3', '1444989072', '1444989662', '1444989672', '7');
+INSERT INTO `game_answer` VALUES ('88', 'b6a0ee31f0d50ef2fc4d85090e75f03c', '1444989672', '1444990262', '1444990272', '2');
 
 -- ----------------------------
 -- Table structure for `game_select`
@@ -190,7 +225,7 @@ CREATE TABLE `game_select` (
   `tag` varchar(100) DEFAULT '' COMMENT '场次唯一标示',
   `provide` int(1) DEFAULT '0' COMMENT '是否已发放积分0=没，1=已发',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_select
@@ -281,6 +316,7 @@ INSERT INTO `game_select` VALUES ('83', 'a4124', '5', '1444908639', 'e88501dee48
 INSERT INTO `game_select` VALUES ('84', 'a41245', '6', '1444908641', 'e88501dee48f02e694d6a23d2ec7bc77', '0');
 INSERT INTO `game_select` VALUES ('85', 'a412456', '8', '1444908644', 'e88501dee48f02e694d6a23d2ec7bc77', '0');
 INSERT INTO `game_select` VALUES ('86', 'a4124567', '9', '1444908651', 'e88501dee48f02e694d6a23d2ec7bc77', '0');
+INSERT INTO `game_select` VALUES ('87', '啊', '7', '1444972750', '91256c179f6ee5b42602b22dd0fe875f', '0');
 
 -- ----------------------------
 -- Table structure for `game_sponsor`
@@ -288,17 +324,23 @@ INSERT INTO `game_select` VALUES ('86', 'a4124567', '9', '1444908651', 'e88501de
 DROP TABLE IF EXISTS `game_sponsor`;
 CREATE TABLE `game_sponsor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT '0' COMMENT '赞助用户id',
+  `user_token` varchar(100) DEFAULT '' COMMENT '赞助用户id',
+  `sid` varchar(100) DEFAULT '' COMMENT '赞助唯一标示',
   `title` varchar(100) DEFAULT '' COMMENT '赞助名称',
   `price` int(11) DEFAULT '0' COMMENT '单价',
-  `number` int(11) DEFAULT '0' COMMENT '赞助数量',
+  `number` int(11) DEFAULT '0' COMMENT '赞助剩余数量',
   `time` int(11) DEFAULT '0' COMMENT '赞助时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_sponsor
 -- ----------------------------
+INSERT INTO `game_sponsor` VALUES ('1', '123', '', '123', '123', '123', '123');
+INSERT INTO `game_sponsor` VALUES ('2', '123', '', '123', '123', '123', '123');
+INSERT INTO `game_sponsor` VALUES ('3', '8e9d262266e3ed8d745a7b4c685d7799', '', '11111', '1000', '1', '1444973289');
+INSERT INTO `game_sponsor` VALUES ('4', '8e9d262266e3ed8d745a7b4c685d7799', '', '222', '1000', '1', '1444973423');
+INSERT INTO `game_sponsor` VALUES ('5', '8e9d262266e3ed8d745a7b4c685d7799', '', '222', '1000', '1', '1444973423');
 
 -- ----------------------------
 -- Table structure for `game_sponsor_receive`
@@ -329,81 +371,12 @@ CREATE TABLE `game_user` (
   `status` int(11) DEFAULT '0' COMMENT '当前状态0=未登录，xxxx=最近活动时间，没结束一场就上报一次活动时间',
   `key` varchar(100) DEFAULT '' COMMENT '登录钥匙',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_user
 -- ----------------------------
-INSERT INTO `game_user` VALUES ('10', '', 'a1', '52', '1444908728', '36db7078cef2587b64a3d2f8805ae176');
-INSERT INTO `game_user` VALUES ('11', '', 'a2', '187', '0', '52990da0e7034a160b2b884fa24e462d');
-INSERT INTO `game_user` VALUES ('12', '', 'a3', '16', '0', 'e65a6e4f9c7cbd6b74f60b9361e46a05');
-INSERT INTO `game_user` VALUES ('13', '', 'a4', '6', '0', '84d9708238ee3c3164d78f1e3ce6f3b6');
-INSERT INTO `game_user` VALUES ('14', '0d4437d0df34785df86b7877cd59194f', 'aq1', '10', '0', '0fda027f7f2f9af3972342dfa5b9df05');
-INSERT INTO `game_user` VALUES ('15', '0fda027f7f2f9af3972342dfa5b9df05', '1', '10', '0', '8f6a6099e14e14d5ffa7216fca55dfa6');
-INSERT INTO `game_user` VALUES ('16', '675609ccd5ceed3f62cf6000b75573f1', 'a5', '6', '0', '5a5aa1b960eaad1137dc8514205038b6');
-INSERT INTO `game_user` VALUES ('17', '7badd9442d7ca7af9bade4905ef4b810', 'a23', '32', '0', '8d79ffb9e90936bd2940f985a512b2a1');
-INSERT INTO `game_user` VALUES ('18', '3cb7cd7ead8f3d9335abbb004a61c1ec', 'a7', '10', '0', 'fd7814bc6303b4045abfc016d191f947');
-INSERT INTO `game_user` VALUES ('19', '52bcfc061eb1bfdb4583b645d911d4b3', 'aa', '9', '0', '36417c63f9f4eb1c5beeee4e3d552fa0');
-INSERT INTO `game_user` VALUES ('20', '6d7bd9644c8e672e9a12e7d1f5de1c7f', 'aaa1', '10', '0', 'a4ad3e5acfb8fdaac8c7fed9b3134879');
-INSERT INTO `game_user` VALUES ('21', 'eed8c0e0d587863d835e22af2494420e', 'aa1', '10', '0', '7d3eb6b8f86f09385747eccc563de208');
-INSERT INTO `game_user` VALUES ('22', '', 'aa2', '10', '0', 'dd97b9237b8993d3dcd3c681c6c3b719');
-INSERT INTO `game_user` VALUES ('23', '', 'aa3', '10', '0', 'dbcb4203d34c7a4d4acb463b0560ce0b');
-INSERT INTO `game_user` VALUES ('24', '', 'aa4', '10', '0', 'f29f32b1cbe9db9205ada68a0c8f572f');
-INSERT INTO `game_user` VALUES ('25', '', 'a', '10', '0', '204c29a03f78fd3bd9c8e79cf06ca588');
-INSERT INTO `game_user` VALUES ('26', '', '啊实打实大阿萨德阿萨德阿萨德', '10', '0', '6ff13a631f10a28b19b0758e308b1f54');
-INSERT INTO `game_user` VALUES ('27', '', '1123', '10', '0', 'afac2ce69ea1b03fee53ac9fbe9796b8');
-INSERT INTO `game_user` VALUES ('28', '', '123', '10', '0', '98b83b0d11fda893706914bb3481c558');
-INSERT INTO `game_user` VALUES ('29', '', 'asd', '10', '0', '68417f2a16d878e3ba33b7415774af62');
-INSERT INTO `game_user` VALUES ('30', '', '4123', '10', '1444901413', '68417f2a16d878e3ba33b7415774af62');
-INSERT INTO `game_user` VALUES ('31', '', '1a', '10', '0', 'a5a1b452c5fcc4ccfc5e65a626eddaf6');
-INSERT INTO `game_user` VALUES ('32', '', '12', '10', '0', '04bcb662dbb3197905fcbd6f6112402d');
-INSERT INTO `game_user` VALUES ('33', '', '爱的', '10', '0', '85136aa057191bb6c080d6d9dcc43692');
-INSERT INTO `game_user` VALUES ('34', '', '2', '10', '1444905080', '63a4da1712e05a43cbda7a3c6d39227d');
-INSERT INTO `game_user` VALUES ('35', '', '3', '10', '1444905372', '65fdd59910e35314583d396457c6593d');
-INSERT INTO `game_user` VALUES ('36', '', 'a12', '10', '0', '21b5740b2a66300a3f13d57b285695a6');
-INSERT INTO `game_user` VALUES ('37', '', 'a123', '10', '0', '3495be39bec63509fc77a8953445c24e');
-INSERT INTO `game_user` VALUES ('38', '', 'a1234', '10', '0', 'a9ab17b221589b49466d5988729bf012');
-INSERT INTO `game_user` VALUES ('39', '', '1234', '10', '0', 'e9ce3655af1a07d66a35ea620fe13208');
-INSERT INTO `game_user` VALUES ('40', '', 'a8', '9', '0', '6fb398bdcee39475f7a53ac9e3d673d9');
-INSERT INTO `game_user` VALUES ('41', '', 'a11', '9', '0', '1eb753951da57f8861678622fff849e8');
-INSERT INTO `game_user` VALUES ('42', '', 'a22', '8', '0', '5c4c1b3c6e96ddaff624ee36a326c5a1');
-INSERT INTO `game_user` VALUES ('43', '', 'a32', '8', '0', '75aa9358743b3391daed1311e9e88e9f');
-INSERT INTO `game_user` VALUES ('44', '', 'a111', '9', '0', '4c81d7c2efabfe73264a3918f0f1c48e');
-INSERT INTO `game_user` VALUES ('45', '', 'a33', '9', '0', '846ef56b6aaf5681b44804544daf58b2');
-INSERT INTO `game_user` VALUES ('46', '', 'a6', '9', '0', '125eb051a4dfd1674c7855ddc2e27c0d');
-INSERT INTO `game_user` VALUES ('47', '', 'a112', '9', '0', 'e2de84b1c2de453c101fd0474f4fe018');
-INSERT INTO `game_user` VALUES ('48', '', 'a1123', '9', '0', 'd73aa97309e14f60b9f3579f9c34affb');
-INSERT INTO `game_user` VALUES ('49', '', 'a11234', '9', '0', '2c1157096a2c27601400cbf90e7b52f1');
-INSERT INTO `game_user` VALUES ('50', '', 'a112345', '9', '0', 'ecdf2a2c05933837bececd21afca3016');
-INSERT INTO `game_user` VALUES ('51', '', 'a1123456', '9', '0', '74e99580daef8cd1dc2730797d707163');
-INSERT INTO `game_user` VALUES ('52', '', 'a11234567', '9', '0', 'd7b3dffc4f290c35a5729bb70213fb3d');
-INSERT INTO `game_user` VALUES ('53', '', 'a112345678', '9', '0', '986abf99144b3071733fad1ae2bcba2a');
-INSERT INTO `game_user` VALUES ('54', '', 'a1123456789', '9', '0', '9fec7e78c1e1c6e49963582ee131e3dc');
-INSERT INTO `game_user` VALUES ('55', '', 'a11234567899', '9', '0', 'a00f7edaa9e6c15e99bf7f925e5e33f6');
-INSERT INTO `game_user` VALUES ('56', '', 'a112345678990', '9', '0', 'd16bc7ca8a3b792e85058171eb45d7f9');
-INSERT INTO `game_user` VALUES ('57', '', 'a1123456789901', '9', '0', '055f9582bc6e49e6c5b4800451e81e60');
-INSERT INTO `game_user` VALUES ('58', '', 'a223', '9', '0', '240ed37ab6b58cd0492d17fb7b88f46b');
-INSERT INTO `game_user` VALUES ('59', '', 'a21', '9', '0', 'd82008ebbf133fbb0fe74d1aaeab8702');
-INSERT INTO `game_user` VALUES ('60', '', 'a24', '9', '0', '306a62e493756928dbe8e06e22759e2f');
-INSERT INTO `game_user` VALUES ('61', '', 'a25', '9', '0', 'f96101420e0b4d942fe2149420175133');
-INSERT INTO `game_user` VALUES ('62', '', 'a26', '9', '0', 'a531d64e61d222120fbdd65b196eddc7');
-INSERT INTO `game_user` VALUES ('63', '', 'a27', '10', '0', '63060a5a6ba9f001ddf0b3e828f872f7');
-INSERT INTO `game_user` VALUES ('64', '', 'a31', '9', '0', '06b3572f903c39070a59529de5f67559');
-INSERT INTO `game_user` VALUES ('65', '', 'a323', '9', '0', '4648ec729751fcbb7a33ccf120e31da1');
-INSERT INTO `game_user` VALUES ('66', '', 'a3234', '9', '0', '50a78a7aa7bd07937e79d55f0efdadd8');
-INSERT INTO `game_user` VALUES ('67', '', 'a32345', '9', '0', 'a6b0222dabb88f342325b6b57e2506b9');
-INSERT INTO `game_user` VALUES ('68', '', 'a323456', '9', '0', 'e3010ecc4539324da255d4ed800a22dd');
-INSERT INTO `game_user` VALUES ('69', '', 'a3234567', '9', '0', '0aeb4204ec43458aac264729c33a7262');
-INSERT INTO `game_user` VALUES ('70', '', 'a32345671', '9', '0', '64d2fbd85e34ba698af95b9bb199faca');
-INSERT INTO `game_user` VALUES ('71', '', 'a323456712', '10', '0', '04a104119f0847846887c496ba63e106');
-INSERT INTO `game_user` VALUES ('72', '', '73', '9', '0', '421e981ee312479de3611dd51d43390e');
-INSERT INTO `game_user` VALUES ('73', '', 'a41', '9', '0', 'ae169726fd2dbb93cda499dc04090363');
-INSERT INTO `game_user` VALUES ('74', '', 'a412', '9', '0', '4f9408aad53ed3bf07e4774ea45982f3');
-INSERT INTO `game_user` VALUES ('75', '', 'a4124', '9', '0', '1718d4db1e12044facd1e67715a15b97');
-INSERT INTO `game_user` VALUES ('76', '', 'a41245', '9', '0', 'f61ef227908f5807471595f40d351149');
-INSERT INTO `game_user` VALUES ('77', '', 'a412456', '9', '0', '53fdf802c2c6997b2315d7ebfb391dee');
-INSERT INTO `game_user` VALUES ('78', '', 'a4124567', '9', '0', '6728d4d200ec35e67d1ecbbb94c08a78');
-INSERT INTO `game_user` VALUES ('79', '', '啊', '10', '1444928292', '71ad5159cf4981ecfc51b27449bfdc9e');
+INSERT INTO `game_user` VALUES ('1', '8e9d262266e3ed8d745a7b4c685d7799', '啊', '10', '1444974943', 'a195df6c184a219a3a320666b9d1fbbd');
 
 -- ----------------------------
 -- Table structure for `menu`

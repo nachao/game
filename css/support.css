@@ -1,0 +1,183 @@
+.support{
+	display: inline-block;
+	width: 600px;
+	height: 240px;
+	border-radius: 3px;
+	border: 1px solid black;
+	position: relative;
+	overflow: hidden;
+	float: left;
+	margin: 0 0 30px 50px;
+}
+.support .add-edit{
+	position: relative;
+	top: 240px;
+	left: 0px;
+	margin: 20px 0 0 30px;
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.support .add-edit input{
+	width: 200px;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	border-bottom: 1px solid black;
+	height: 33px;
+	padding: 0 10px;
+	outline: none;
+	font-size: 14px;
+	font-family: 微软雅黑;
+}
+.support .add-edit .btn{
+	display: inline-block;
+	color: black;
+	font-size: 14px;
+	padding: 3px 20px 4px;
+	margin-top: 20px;
+}
+.support .add-edit .btn:hover{
+	background: black;
+	color: white;
+	border-radius: 3px;
+}
+.support .add-edit .yes{
+	display: inline-block;
+	width: 100px;
+	line-height: 33px;
+	color: white;
+	background: black;
+	text-decoration: none;
+	font-family: 微软雅黑;
+	border-radius: 3px;
+	text-align: center;
+}
+.support .add-edit .no{
+
+}
+.support .add-edit .title{
+	font-size: 18px;
+	height: 50px;
+	padding: 0 0 0 5px;
+	width: 450px;
+}
+.support .add-edit .param{
+	margin-top: 30px;
+}
+.support .add-edit .num{
+	width: 50px;
+	text-align: center;
+}
+.support .add-edit .price{
+	float: left;
+}
+.support .add-edit .price a{
+	color: black;
+	text-decoration: none;
+	float: left;
+	font-size: 14px;
+	border: 1px solid #333;
+	border-radius: 3px;
+	padding: 0 10px;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 10px;
+}
+.support .add-edit .price a.act{
+	background: #333;
+	color: white;
+}
+.support .add-edit .txt{
+	font-size: 16px;
+	line-height: 33px;
+	display: inline-block;
+	padding: 0 10px;
+}
+.support .add-edit .txt em{
+	font-style: normal;
+	font-family: Arial;
+	padding: 0 3px;
+}
+.support .add{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: white;
+	font-size: 20px;
+	text-align: center;
+	line-height: 240px;
+	font-weight: bold;
+	color: #333;
+	cursor: pointer;
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.support .add span{
+	display: inline-block;
+	position: absolute;
+	top: -120px;
+	right: 50px;
+	width: 0px;
+	height: 120px;
+	border-left: 1px solid black;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
+.support .add span i{
+	position: absolute;
+	bottom: 0px;
+	left: -5px;
+	width: 10px;
+	height: 10px;
+	background: black;
+	border-radius: 5px;
+}
+.support .add:hover span{
+	top: -20px;
+}
+
+.support-list .info{
+	margin: 20px;
+}
+.support-list .info .title{
+	font-size: 24px;
+}
+
+
+
+.support-act{
+	border: 1px dashed #ccc;
+}
+.support-act .add-edit{
+	top: 0px;
+}
+.support-act .add{
+	top: -240px;
+}
+
+
+/* 兑换 */
+.support-change .add-edit,.support-change .add{
+	display: none;
+}
+.support-change .info{
+	display: inline-block;
+}
+
+.support-change-act{
+	
+}
+
+
+
+
+
+
+
+
+
+

@@ -103,13 +103,13 @@
 
 			// 未登录状态
 			if ( $info['status'] <= time() - $time ) {
-				$key = $game -> setUserStatus($uid, time());
 				$value = array(
 						'status' => 1,
 						'msg' => '登录成功',
 						'name' => $uid,
 						'score' => $info['score'],
-						'key' => $key,
+						'key' => $game -> setUserStatus($uid, time()),
+						'token' => $info['token'],
 						'valid' => $time
 					);
 
@@ -123,13 +123,14 @@
 
 		// 新建账户
 		} else {
-			$key = $game -> userAdd('', $uid);
+			$info = $game -> userAdd('', $uid);
 			$value = array(
 					'status' => 2,
 					'msg' => '创建用户且登录成功',
 					'name' => $uid,
 					'score' => 10,
-					'key' => $key,
+					'key' => $info['key'],
+					'token' => $info['token'],
 					'valid' => $time
 				);
 		}
@@ -157,6 +158,7 @@
 					'name' => $info['user'],
 					'score' => $info['score'],
 					'key' => $key,
+					'token' => $info['token'],
 					'valid' => $time
 				);
 		}
@@ -182,11 +184,25 @@
 
 
 
-
-
 	// 获取用户基本信息
 	if ( $key == 'get_game_answer' ) {
 		echo json_encode($game -> getGameAnswer($request['uid']));
+	}
+
+
+
+
+
+	// 添加赞助
+	if ( $key == 'add_sponsor' ) {
+		$value = $game -> addSponsor($request['token'], $request['title'], $request['price'], $request['number']);
+		echo json_encode($value);
+	}
+
+	// 获取赞助
+	if ( $key == 'get_sponsor' ) {
+		$value = $game -> getSponsor();
+		echo json_encode($value);
 	}
 
 

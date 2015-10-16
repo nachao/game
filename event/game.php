@@ -46,11 +46,17 @@
 
 		// 添加用户基本信息
 		public function userAdd( $token = '', $uid = '', $num = 10 ){
+			if ( !$token ) {
+				$token = md5(time() + rand(0, time()));
+			}
 			if ( $uid ) {
 				$key = md5(time() / 123456789);
 				$sql = "insert INTO `fang`.`game_user` (`id`, `token`, `user`, `score`, `status`, `key`) VALUES (NULL, '".$token."', '".$uid."', '".$num."', '".time()."', '".$key."');";
 				$query = mysql_query($sql);
-				return $key;
+				return array(
+						'key' => $key,
+						'token' => $token
+					);
 			}
 		}
 
@@ -300,6 +306,32 @@
 						);
 				}
 			}
+		}
+
+
+		// 添加赞助
+		public function addSponsor ( $token='', $title='', $price=0, $number=0 ) {
+			$sql = "insert INTO `fang`.`game_sponsor` (`id`, `user_token`, `title`, `price`, `number`, `time`) VALUES (NULL, '".$token."', '".$title."', '".$price."', '".$number."', '".time()."');";
+			echo $sql;
+			$query = mysql_query($sql);
+		}
+
+
+		// 获取赞助
+		public function getSponsor () {
+			$sql = "select * FROM  `game_sponsor`  WHERE `number` > 0 LIMIT 0 , 30";
+			$query = mysql_query($sql);
+			$value = array();
+			if ( $query ) {
+				while( $row = mysql_fetch_array($query)){	//获取单个内容数
+					array_push($value, array(
+							'title' => $row['title'],
+							'price' => $row['price'],
+							'number' => $row['number']
+						));
+				}
+			}
+			return $value;
 		}
 
 	}

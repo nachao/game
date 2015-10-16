@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>七十三号馆 - 方方乐 - 体现</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<style type="text/css">
+			
+			body{
+				font-family: 微软雅黑;
+			}
+
+
+		</style>
+	</head>
+	<body>
+
+		
+
+		<script src="./js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="./js/comm.js" ></script>
+		<script type="text/javascript">
+
+			// 打开编辑界面
+			$('.support').mousedown(function(){
+				$(this).find('.add span').css({ top: 0 });
+			}).mouseup(function(){
+				$(this).addClass('support-act');
+				$(this).find('.add span').css({ top: -20 });
+			});
+
+			// 关闭编辑界面
+			$('#no').click(function(){
+				$(this).parents('.support').removeClass('support-act').find('.add span').css({ top: '' });
+			});
+
+			// 计算总金额
+			var countInfo = null;
+			function count () {
+				var value = {
+						price: parseInt($('#price a[class=act]').attr('n')),
+						number: parseInt($('#number').val())
+					};
+				$('#total').html( value.price * value.number );
+				countInfo = value;
+			}
+
+			// 选择单价
+			$('#price a').click(function(){
+				$(this).addClass('act').siblings().removeClass('act');
+				count();
+			}).eq(0).click();
+
+			// 设置数量
+			$('#number').change(function(){
+				count();
+			});
+
+			// 设置赞助来源
+			$('#title').change(function(){
+				countInfo.title = $(this).val().replace(/\s+/g,"");
+			})
+
+			// 确认赞助
+			$('#yes').click(function(){
+				if ( !countInfo.title ) {
+					$('#title').focus();
+				} else {
+					ajax({
+						key: 'add_sponsor',
+						token: 
+					})
+				}
+			});
+
+
+		</script>
+	</body>
+</html>
