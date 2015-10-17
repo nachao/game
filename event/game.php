@@ -178,6 +178,7 @@
 		// 获取指定用户，根据名称
 		public function getUserByName ( $name='' ) {
 			$sql = "select *  FROM `game_user` WHERE `name` LIKE '".$name."'";
+			echo $sql;
 			$query = mysql_query($sql);
 			$value = null;
 			if ( $query ) {
@@ -315,6 +316,39 @@
 				}
 			}
 			return $value;
+		}
+
+
+
+
+
+		// 获取兑换方式
+		public function getChangeMode ( $token='' ) {
+			$sql = "select *  FROM `game_mode` WHERE `token` LIKE '".$token."'";
+			$query = mysql_query($sql);
+			$value = array();
+			if ( $query ) {
+				while( $row = mysql_fetch_array($query)){	//获取单个内容数
+					array_push($value, array(
+							'type' => $row['type'],
+							'account' => $row['account'],
+							'name' => $row['name']
+						));
+				}
+			}
+			return $value;
+		}
+
+		// 添加兑换方式
+		public function addChangeMode ( $token='', $account='', $name='', $type=1 ) {
+			$sql = "insert INTO `game`.`game_mode` (`id`, `token`, `type`, `accountt`, `name`, `time`) VALUES (NULL, '".$token."', '".$type."', '".$account."', '".$name."', '".time()."');";
+			$query = mysql_query($sql);
+		}
+
+		// 修改兑换方式
+		public function updateChangeMode ( $token='', $account='', $name='', $typ=1 ) {
+			$sql = "update `game`.`game_mode` SET `accountt` = '".$accountt."', `name` = '".$name."' WHERE `token` LIKE ".$token. " AND `type` = ".$type.";";
+			$query = mysql_query($sql);
 		}
 
 	}

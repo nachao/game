@@ -1,0 +1,1 @@
+insert INTO `fang`.`game_answer` (`id`, `aid`, `time`, `valid`, `under`, `number`) VALUES (NULL, 'b6a0ee31f0d50ef2fc4d85090e75f03c', '1444989672', '1444990262', '1444990272', '2');177
