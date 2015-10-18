@@ -20,7 +20,9 @@
 
 
 
-	$key = $request['key'];
+	if ( isset($request['key']) ) {
+		$key = $request['key'];
+	}
 
 	if ( isset($request['_']) ) {
 		$key = $request['_'];
@@ -109,11 +111,13 @@
 				$value = array(
 						'status' => 1,
 						'msg' => '登录成功',
-						'name' => $userinfo['info'],
-						'score' => $userinfo['score'],
-						'key' => $game -> setUserStatus($uid, time()),
-						'token' => $userinfo['token'],
-						'valid' => $time
+						'user' => array(
+								'name' => $userinfo['user'],
+								'score' => $userinfo['score'],
+								'key' => $game -> setUserStatus($userinfo['token'], time()),
+								'token' => $userinfo['token'],
+								'valid' => $time
+							)
 					);
 
 			// 如果是登录状态
@@ -147,24 +151,25 @@
 	if ( $key == 'get_user_bykey' ) {
 
 		$time = 60;	// 登录钥匙有效时间（秒）
-		$code = $request['code'];
+		$key = $request['code'];
 		$value = array(
 				'status' => 0,
 				'msg' => '无效的钥匙',
 			);
 
-		$userinfo = $game -> getUserByKey($code, time() - $time);
+		$userinfo = $game -> getUserByKey($key, time() - $time);
 
 		if ( $userinfo ) {
-			$key = $game -> setUserStatus($userinfo['token'], time());
 			$value = array(
 					'status' => 1,
 					'msg' => '自动登录',
-					'name' => $userinfo['user'],
-					'score' => $userinfo['score'],
-					'key' => $key,
-					'token' => $userinfo['token'],
-					'valid' => $time
+					'user' => array(
+							'name' => $userinfo['user'],
+							'score' => $userinfo['score'],
+							'key' => $game -> setUserStatus($userinfo['token'], time()),
+							'token' => $userinfo['token'],
+							'valid' => $time
+						)
 				);
 		}
 
@@ -175,7 +180,7 @@
 	if ( $key == 'set_user_status' ) {
 		$time = 60;	// 登录钥匙有效时间（秒）
 		$value = array(
-				'key' => $game -> setUserStatus($request['uid'], time()),
+				'key' => $game -> setUserStatus($request['token'], time()),
 				'valid' => $time
 			);
 		echo json_encode($value);
@@ -214,14 +219,32 @@
 
 	// 获取兑换方式
 	if ( $key == 'get_user_changeMode' ) {
-		$vaule = $game -> getChangeMode($request['token']);
-		echo json_decode($value);
+		$value = $game -> getChangeMode($request['token']);
+		echo json_encode(array(
+				'status' => 1,
+				'msg' => '成功获取用户兑换方式',
+				'res' => $value
+			));
 	}
 
-	// 设置兑换方式
+	// 添加或者设置兑换方式
 	if ( $key == 'set_user_changeMode' ) {
-		$value = $game -> addChangeMode($request['token'], $request['type'], $request['account'], $request['name']);
-		echo json_decode($value);
+
+		// 设置
+		if ( isset($request['id']) ) {
+			$value = $game -> updateChangeMode($request['id'], $request['account'], $request['name'], $request['remark']);
+
+		// 新增
+		} else {
+			$value = $game -> addChangeMode($request['token'], $request['account'], $request['name'], $request['remark'], $request['type']);
+		}
+		echo json_encode($value);
+	}
+
+	// 删除兑换方式
+	if ( $key == 'delete_user_changeMode' ) {
+		$value = $game -> deleteChangeMode($request['id']);
+		echo json_encode($value);
 	}
 
 ?>

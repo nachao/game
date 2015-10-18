@@ -31,3 +31,8 @@ function getCookie ( name ){
 	else
 		return null;
 }
+
+// 去空格
+function ntfs ( value ){
+	return value.replace(/\s+/g,"");
+}

@@ -139,7 +139,7 @@
 .main .score{
 	margin-top: 30px;
 	margin-left: 50px;
-	display: none;
+	display: inline-block;
 }
 .main .score em{
 	font-style: normal;
@@ -152,14 +152,19 @@
 	color: #333;
 	text-decoration: none;
 	padding: 2px 5px;
+	float: left;
+	margin-right: 5px;
+}
+.main .score-mode a{
+	padding: 2px 5px 2px 0;
 }
 .main .score a:hover,.main .score a.act{
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 	background: black;
 	border-radius: 3px;
 	color: white;
 }
-.main .score span{
+.main .score .score-number{
 	margin-right: 10px;
 }
 .main .score-item{
@@ -167,9 +172,20 @@
 	border-radius: 2px;
 	cursor: pointer;
 }
-.score-edit{
-	margin: 20px 0 0 80px;
+.main .score-item .iconfont{
+	margin: 0 3px 0 2px;
+}
+.main .score-number{
+	float: left;
+}
+.main .score-mode{
 	display: none;
+	float: left;
+}
+.score-edit{
+	margin: 20px 0 0 30px;
+	display: none;
+	float: left;
 }
 .score-edit input,.score-edit select{
 	float: left;

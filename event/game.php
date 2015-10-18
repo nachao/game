@@ -15,7 +15,7 @@
 		}
 
 		// 添加用户基本信息
-		public function userAdd( $name = '', $token = '', $num = 10 ){
+		public function userAdd( $name = '', $token = '', $num = 100 ){
 			if ( !$token ) {
 				$token = md5(time() + rand(0, time()));
 			}
@@ -177,8 +177,7 @@
 
 		// 获取指定用户，根据名称
 		public function getUserByName ( $name='' ) {
-			$sql = "select *  FROM `game_user` WHERE `name` LIKE '".$name."'";
-			echo $sql;
+			$sql = "select *  FROM `game_user` WHERE `user` LIKE '".$name."'";
 			$query = mysql_query($sql);
 			$value = null;
 			if ( $query ) {
@@ -188,8 +187,8 @@
 		}
 
 		// 获取指定用户，根据钥匙且指定有效时间内的
-		public function getUserByKey ( $code='', $time=0 ) {
-			$sql = "select *  FROM `game_user` WHERE `key` LIKE '".$code."' AND `status` > ".$time;
+		public function getUserByKey ( $key='', $time=0 ) {
+			$sql = "select *  FROM `game_user` WHERE `key` LIKE '".$key."' AND `status` > ".$time;
 			$query = mysql_query($sql);
 			$value = null;
 			if ( $query ) {
@@ -330,9 +329,11 @@
 			if ( $query ) {
 				while( $row = mysql_fetch_array($query)){	//获取单个内容数
 					array_push($value, array(
+							'id' => $row['mode_id'],
 							'type' => $row['type'],
 							'account' => $row['account'],
-							'name' => $row['name']
+							'name' => $row['name'],
+							'remark' => $row['remark']
 						));
 				}
 			}
@@ -340,15 +341,41 @@
 		}
 
 		// 添加兑换方式
-		public function addChangeMode ( $token='', $account='', $name='', $type=1 ) {
-			$sql = "insert INTO `game`.`game_mode` (`id`, `token`, `type`, `accountt`, `name`, `time`) VALUES (NULL, '".$token."', '".$type."', '".$account."', '".$name."', '".time()."');";
+		public function addChangeMode ( $token='', $account='', $name='', $remark='', $type=1 ) {
+			$mode_id = md5($token.time());
+			$sql = "insert INTO `game`.`game_mode` (`id`, `mode_id`, `token`, `type`, `account`, `name`, `time`, `remark`) VALUES (NULL, '".$mode_id."', '".$token."', '".$type."', '".$account."', '".$name."', '".time()."', '".$remark."');";
 			$query = mysql_query($sql);
+			return array(
+					'status' => 1,
+					'msg' => '成功修改兑换方式',
+					'info' => array(
+							'id' => $mode_id,
+							'type' => $type,
+							'account' => $account,
+							'name' => $name,
+							'remark' => $remark
+						)
+				);
 		}
 
 		// 修改兑换方式
-		public function updateChangeMode ( $token='', $account='', $name='', $typ=1 ) {
-			$sql = "update `game`.`game_mode` SET `accountt` = '".$accountt."', `name` = '".$name."' WHERE `token` LIKE ".$token. " AND `type` = ".$type.";";
+		public function updateChangeMode ( $mode_id='', $account='', $name='', $remark='' ) {
+			$sql = "update `game`.`game_mode` SET `account` = '".$account."', `name` = '".$name."', `remark` = '".$remark."' WHERE `mode_id` LIKE '".$mode_id."';";
 			$query = mysql_query($sql);
+			return array(
+					'status' => 1,
+					'msg' => '成功修改兑换方式'
+				);
+		}
+
+		// 删除兑换方式
+		public function deleteChangeMode ( $mode_id='' ) {
+			$sql = "delete FROM `game`.`game_mode` WHERE `game_mode`.`mode_id` LIKE '".$mode_id."'";
+			$query = mysql_query($sql);
+			return array(
+					'status' => 1,
+					'msg' => '成功删除兑换方式'
+				);
 		}
 
 	}
