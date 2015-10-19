@@ -1,26 +1,26 @@
 // 获取用户信息，根据名称
-function getUserByName ( name, callback ) {
-	var token = user ? user.token : '';
-	ajax({
-		key: 'get_user_byname',
-		name: name,
-		token: token
-	}, function(data, param){
-		callback ? callback(data) : null;
-		// console.log(data);
-	});
-}
+// function getUserByName ( name, callback ) {
+// 	var token = user ? user.token : '';
+// 	ajax({
+// 		key: 'get_user_byname',
+// 		name: name,
+// 		token: token
+// 	}, function(data, param){
+// 		callback ? callback(data) : null;
+// 		// console.log(data);
+// 	});
+// }
 
 // 获取用户信息，根据钥匙
-function getUserByKey ( key, callback ) {
-	ajax({
-		key: 'get_user_bykey',
-		code: key
-	}, function(data, param){
-		callback ? callback(data) : null;
-		// console.log(data);
-	});
-}
+// function getUserByKey ( key, callback ) {
+// 	ajax({
+// 		key: 'get_user_bykey',
+// 		code: key
+// 	}, function(data, param){
+// 		callback ? callback(data) : null;
+// 		// console.log(data);
+// 	});
+// }
 
 // 获取用户信息的本场选择
 // function getUserSelect ( callback ) {
@@ -39,57 +39,57 @@ function getUserByKey ( key, callback ) {
 // }
 
 // 设置用户信息
-function setUserUI ( data ) {
-	if ( data ) {
+// function setUserUI ( data ) {
+// 	if ( data ) {
 
-		// 账号正在被使用中
-		if ( data.status == 0 ) {
-			$('#info').hide();
-			$('#cc').hide();
+// 		// 账号正在被使用中
+// 		if ( data.status == 0 ) {
+// 			$('#info').hide();
+// 			$('#cc').hide();
 
-		// 刷新界面用户信息
-		} else {
-			$('#info').show();
-			$('#cc').show();
-			$('#score').html(data.score);
-			setCookie('FFL_key', data.key, data.valid);		// 保存用户登录钥匙
-		}
-	}
-}
+// 		// 刷新界面用户信息
+// 		} else {
+// 			$('#info').show();
+// 			$('#cc').show();
+// 			$('#score').html(data.score);
+// 			setCookie('FFL_key', data.key, data.valid);		// 保存用户登录钥匙
+// 		}
+// 	}
+// }
 
 // 每分钟刷新一次用户登录状态
-function setUserRefresh ( data ) {
+// function setUserRefresh ( data ) {
 
-	if ( user ) {
+// 	if ( user ) {
 
-		// 发送账号当前活动状态
-		ajax({ 
-			key: 'set_user_status',
-			uid: user.name
-		}, function(data){
-			setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
-		});
-	}
+// 		// 发送账号当前活动状态
+// 		ajax({ 
+// 			key: 'set_user_status',
+// 			uid: user.name
+// 		}, function(data){
+// 			setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
+// 		});
+// 	}
 
-	setTimeout(function(){
-		setUserRefresh();
-	}, 1000 * 60);
-}
+// 	setTimeout(function(){
+// 		setUserRefresh();
+// 	}, 1000 * 60);
+// }
 
 // 获取用户兑换方式
-function getChangeMode ( user ) {
-	ajax({
-		key: 'get_user_changeMode',
-		token: this.info('token')
-	}, function(data){
-		// callback ? callback(data) : null;
-		var template = $('#changeModeTemplate');
+// function getChangeMode ( user ) {
+// 	ajax({
+// 		key: 'get_user_changeMode',
+// 		token: this.info('token')
+// 	}, function(data){
+// 		// callback ? callback(data) : null;
+// 		var template = $('#changeModeTemplate');
 
-		console.log(data);
+// 		console.log(data);
 
-		// $('#changeMode').append();
-	})
-}
+// 		// $('#changeMode').append();
+// 	})
+// }
 
 
 
@@ -111,16 +111,26 @@ function User () {
 	};
 
 	this.refresh_ = null;	// 是否开启了每分钟刷新用户登录钥匙
+
+	this.init();	// 初始化用户
 }
 
 
 /*
 *  设置用户基本信息
 *
+*  @param {object| string|number|null} = value 需要替换的参数
+*  @param {string} key = 需要替换的参数的键值，选填
 *  @public  
 */
-User.prototype.setInfo = function ( value ) {
-	this.param_ = value;
+User.prototype.setInfo = function ( value, key ) {
+
+	if ( key && $.type(key) == 'string' ) {
+		this.param_[key] = value;
+
+	} else {
+		this.param_ = value;
+	}
 }
 
 
@@ -143,28 +153,49 @@ User.prototype.info = function ( value ) {
 
 
 /*
-*  获取用户信息的本场选择
+*  获取缓存钥匙，如果有钥匙则获取用户信息
 *
 *  @public  
 */
-User.prototype.getUserSelect = function ( callback ) {
-	$('#select a').removeClass('act');
-	if ( field && this.info('token') ) {
-		ajax({
-			key: 'get_user_select',
-			tag: field.id,
-			token: this.info('token')
-		}, function ( key ) {
-			if ( key ) {
-				$('#select a[sid='+ key +']').addClass('act');
-			}
+User.prototype.init = function ( callback ) {
+	// 初始化进入界面，获取缓存中的登录账户钥匙
+	var key = getCookie('FFL_key');
+	if ( key ) {
+		this.getUserByKey(key, function(data){
+			callback ? callback(data) : null;
+			// setTip(data.msg);
+			// console.log(data.msg);
+			// if ( data.status ) {
+			// 	$('#d').val(data.user.name);
+			// }
 		});
 	}
 }
 
 
 /*
-*  每分钟刷新一次用户登录状态
+*  获取用户信息的本场选择
+*
+*  @public  
+*/
+// User.prototype.getUserSelect = function ( callback ) {
+// 	$('#select a').removeClass('act');
+// 	if ( field && this.info('token') ) {
+// 		ajax({
+// 			key: 'get_user_select',
+// 			tag: field.id,
+// 			token: this.info('token')
+// 		}, function ( key ) {
+// 			if ( key ) {
+// 				$('#select a[sid='+ key +']').addClass('act');
+// 			}
+// 		});
+// 	}
+// }
+
+
+/*
+*  每分钟刷新一次用户登录缓存钥匙
 *
 *  @public  
 */
@@ -215,6 +246,19 @@ User.prototype.setUserUI = function () {
 
 
 /*
+*  设置用户界面积分显示
+*
+*  @param {number} value = 指定需要增或减的数值，可以是整数也可以是负数
+*  @public  
+*/
+User.prototype.setUserScore = function ( value ) {
+	var number = this.info('score') + value;
+	this.setInfo(number, 'score');
+	$('#score').html(number);
+}
+
+
+/*
 *  获取用户兑换方式
 *
 *  @public  
@@ -247,6 +291,14 @@ User.prototype.getChangeMode = function () {
 User.prototype.setChangeMode = function ( el, value ) {
 	el.removeClass('act').find('span').html(value.name);
 	el.data('val', value);
+	if ( value.type == 1 ) {	// lol
+		el.prop('title', '英雄联盟 - ' + $('#scoreLol_server option[value='+ value.remark +']').text());
+		el.find('i').addClass('icon-lol');
+	}
+	if ( value.type == 2 ) {	// 支付宝
+		el.prop('title', '支付宝');
+		el.find('i').addClass('icon-alipay');
+	}
 	el.unbind('click').click(function(){
 		if ( $(this).hasClass('act') ) {
 			$(this).removeClass('act');
@@ -258,26 +310,19 @@ User.prototype.setChangeMode = function ( el, value ) {
 			$('#scoreEdit_account').val(value.account);
 			$('#scoreEdit_name').val(value.name);
 			$('#scoreEdit_type').val(value.type).attr('disabled', true);
-			
+
 			// lol
 			if ( value.type == 1 ) {
-				var option = $('#scoreLol_server option[value='+ value.remark +']').prop('selected', true);
+				var option = $('#scoreLol_server option[value='+ value.remark +']').show().prop('selected', true);
+				$('#scoreEdit_log').show().attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName='+ option.text() +'&playerName='+ value.name);
+			}
+
+			// 支付宝
+			if ( value.type == 2 ) {
+				$('#scoreEdit_log').hide();
 			}
 		}
 	});
-
-	console.log(value);
-	// lol
-	if ( value.type == 1 ) {
-		el.prop('title', '英雄联盟 - ' + $('#scoreLol_server option[value='+ value.remark +']').text());
-		el.find('i').addClass('icon-lol');
-	}
-
-	// 支付宝
-	if ( value.type == 2 ) {
-		el.prop('title', '支付宝');
-		el.find('i').addClass('icon-alipay');
-	}
 
 	return el;
 }
@@ -304,6 +349,7 @@ User.prototype.initChangeMode = function () {
 	$('#scoreEdit_type').val(1).prop('disabled', false);
 	$('#scoreLol_server option[value=1]').prop('selected', true);
 	$('#score_del').hide();
+	$('#scoreEdit_log').hide();
 	// $('.score-edit').hide();
 }
 
@@ -373,7 +419,7 @@ User.prototype.getUserByName = function ( name, callback ) {
 		if ( data.status ) {
 			that.setInfo(data.user);	// 更新本地用户数据
 			that.setUserUI();			// 刷新用户界面
-			that.getUserSelect();		// 获取用户之前的选择
+			// that.getUserSelect();		// 获取用户之前的选择
 			that.setUserRefresh();		// 开始刷新用户钥匙
 
 			that.getChangeMode();		// 获取用户的全部兑换方式
@@ -381,6 +427,7 @@ User.prototype.getUserByName = function ( name, callback ) {
 		callback ? callback(data) : null;
 	});
 }
+
 
 // 获取用户信息，根据钥匙
 User.prototype.getUserByKey = function ( key, callback ) {
@@ -392,11 +439,29 @@ User.prototype.getUserByKey = function ( key, callback ) {
 		if ( data.status ) {
 			that.setInfo(data.user);	// 更新本地用户数据
 			that.setUserUI();			// 刷新用户界面
-			that.getUserSelect();		// 获取用户之前的选择
+			// that.getUserSelect();		// 获取用户之前的选择
 			that.setUserRefresh();		// 开始刷新用户钥匙
 
 			that.getChangeMode();		// 获取用户的全部兑换方式
 		}
 		callback ? callback(data) : null;
 	});
+}
+
+
+/*
+*  用户提示
+*
+*  @param {string} value = 需要提示的内容
+*  @param {number} time = 提示显示时长，选填
+*  @public  
+*/
+User.prototype.setTip = function ( value, time ) {
+	time = time || 3000;
+	var el = $('#msg'),	
+		loop = el.data('loop');
+	el.css({ display: 'inline-block' }).find('em').html(value);
+	clearTimeout(loop);
+	loop = setTimeout(function(){ el.hide(); }, time);
+	el.data('loop', loop);
 }

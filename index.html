@@ -73,6 +73,7 @@
 					<input id="scoreEdit_account" type="text" placeholder="账号" />
 					<div class="comm-clear"></div>
 					<input id="scoreEdit_name" type="text" placeholder="名称" />
+					<a id="scoreEdit_log" href="javascript:;" target="_blank">查看战绩</a>
 					<div class="comm-clear"></div>
 					<a id="score_yes" href="javascript:;" >确认</a>
 					<a id="score_del" href="javascript:;" >删除</a>
@@ -147,65 +148,39 @@
 		<script src="./js/jquery-1.11.0.min.js" ></script>
 		<script type="text/javascript" src="./js/game.comm.js" ></script>
 		<script type="text/javascript" src="./js/game.user.js" ></script>
+		<script type="text/javascript" src="./js/game.guess.js" ></script>
 		<script type="text/javascript" src="./js/game.support.js" ></script>
 		<!--	<script type="text/javascript" src="./js/game.Guess.nmber.js" ></script>
 		-->
 		<script type="text/javascript">
 
-			var my = new User();
+			var my = new User();	// 初始用户功能
+
+			var guess = new Guess();	// 初始用户功能
 
 
-			// 当前场信息
-			var field = null;
 
-			// 当前用户信息
-			var user = null;
-
-			// 当前游戏名称
-			var title = '猜 - ';
+			// guess.go();
 
 
-			// 显示提示
-			var tipClose = null;
-			function setTip ( value, time ) {
-				time = time || 3000;
-				var el = $('#msg');
-				el.stop().css({ display: 'inline-block', opacity: 1 }).find('em').html(value);
-				clearTimeout(tipClose);
-				tipClose = setTimeout(function(){
-					el.fadeOut('slow');
-				}, time);
-			}
-
-			// 用户参与的场次
-			var partake = 0;
-
+			// 选择
 			$('#select a').click(function(){
-				if ( field && user ) {
-					$(this).addClass('act').siblings().removeClass('act');
-					ajax({
-						key: 'set_user_select',
-						tag: field.id,
-						token: user.token,
-						select: $(this).attr('sid')
-					}, function(data, param){
-						if ( data && data == 'add' && user ) {
-							user.score -= 1;
-							$('#score').html(user.score);
-						}
-					});
-				}
+				guess.getSelect(function(data){
+					if ( data && data == 'add' ) {
+						my.setUserScore(-1);
+					}
+				});
 			});
 
 			// 快速登录
 			$('#d').change(function(){
-				var name = $(this).val();
-				if ( name == '' ) {
-					setTip('无效的名称');
+				var value = $(this).val();
+				if ( value == '' ) {
+					my.setTip('无效的名称');
 					$(this).val(user.name);
 				} else {
-					my.getUserByName(name, function(data){
-						setTip(data.msg);
+					my.getUserByName(value, function(data){
+						my.setTip(data.msg);
 					});
 				}
 				$('.score-edit').hide();
@@ -213,97 +188,14 @@
 			});
 
 
-			// 初始化进入界面，获取缓存中的登录账户钥匙
-			var key = getCookie('FFL_key');
-			if ( key ) {
-				my.getUserByKey(key, function(data){
-					setTip(data.msg);
-					if ( data.status ) {
-						$('#d').val(data.user.name);
-					}
-				});
-			}
 
 
 
-			// 滚动状态
-			function go () {
-
-				var time = 1000;
-
-				var param = {
-						key: 'get_game_answer',
-						token: user ? user.name : ''
-					};
-
-				ajax(param, function(data){
-
-					var current = new Date().getTime() / 1000;
-
-					field = data;
-
-					$('#aa').html(title + data.msg);
-
-					// 选择
-					if ( data.status == '1' ) {
-						if ( user ) {
-							$('#cc').show();
-						}
-
-						var time = parseInt(data.end - current),
-							min = 0,
-							sec = time;
-						if ( time / 60 > 0 ) {
-							min = parseInt(time / 60);
-							sec = time - (min*60);
-							time = min + '分' + sec + '秒';
-						} else {
-							time = sec + '秒';
-						}
-						$('#bb span').html('剩余时间：' + time);
-
-						// 输出选择情况
-						var def = 30,
-							size = 0;
-						for ( var key in data.res ) {
-							size = def + parseInt(data.res[key]);
-							$('#select a[sid='+ key +']').animate({ height: size, width: size }).find('em').css({  }).html(data.res[key]);
-						}
-
-					// 公布答案
-					} else if ( data.status == '2' ) {
-						$('#aa').html(data.msg +'::'+ data.result);
-						$('#cc').hide();
-						$('#c').val('');
-						$('#bb span').html('稍等，下一场准备中');
-
-						if ( Number(data.get) ) {
-							setTip('获得'+ Number(data.get) + '分', 5000);
-						} else {
-							setTip('很遗憾', 5000);
-						}
-
-						if ( user && Number(data.get) ) {
-							user.score = Number(user.score) + Number(data.get);
-							$('#score').html(user.score);
-						}
-
-					// 关闭中
-					} else if ( data.status == '0' ) {
-						$('#cc').hide();
-						$('#bb span').html('每日早上10点开启');
-					}
-
-				});
-				
-				setTimeout(function(){ go(); }, time);
-			}
-
-			console.log(key);
+			// console.log(key);
 
 			// go();
 
-
+/*
 			// 计算总金额
 			var countInfo = null;
 			function count ( value ) {
@@ -361,12 +253,12 @@
 				}
 			});
 
-
+*/
 
 			// getSuport();
 
 			// 打开兑换方式编辑界面
-			$('.score-item').click(function(){
+			$('#changeModeTemplate').click(function(){
 				if ( $(this).hasClass('act') ) {
 					$(this).removeClass('act');
 					$('.score-edit').hide();
@@ -374,15 +266,14 @@
 					$(this).addClass('act').siblings().removeClass('act');
 					$('.score-edit').show();
 					$('#scoreEdit_type').show();
+					$('#scoreEdit_log').show();
 
-					// 如果是打开新增编辑界面，则初始化
-					if ( $(this).attr('id') == 'changeModeTemplate' ) {
-						my.initChangeMode();
-					}
+					// 初始化编辑界面
+					my.initChangeMode();
 				}
 			});
 
-			// 添加方式
+			// 点击编辑界面的确认按钮
 			$('#score_yes').click(function(){
 				var source = $('.score-item.act').data('val'),
 					value = {
@@ -402,7 +293,7 @@
 					return;
 				}
 
-				// 修改
+				// 修改当时方式
 				if ( source ) {
 					value['id'] = source.id;
 					my.updateChangeMode(value, function(data){
@@ -413,7 +304,7 @@
 						}
 					});
 
-				// 新增
+				// 新增当前方式
 				} else {
 					my.addChangeMode(value, function(data){
 						if ( data.status ) {
@@ -449,10 +340,28 @@
 			$('#scoreEdit_type').change(function(){
 				var val = $(this).val();
 
-				var lol = $('#scoreLol_server').hide();
+				var lol = $('#scoreLol_server').hide(),
+					see = $('#scoreEdit_log').hide();
 				if ( val == 1 ) {
 					lol.show();
+
+					var server = $('#scoreLol_server option:selected').text();
+					see.show().attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName=裁决之地&playerName=qonsecom');
 				}
+			});
+
+			// 设置分区
+			$('#scoreLol_server').change(function(){
+				var server = $(this).find('option:selected').text(),
+					name = $('#scoreEdit_name').val();
+				see.show().attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName='+ server +'&playerName='+ name);
+			});
+
+			// 查看战绩
+			$('#scoreEdit_log').mouseover(function(){
+				var server = $('#scoreLol_server option:selected').text(),
+					name = $('#scoreEdit_name').val();
+				$(this).attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName='+ server +'&playerName='+ name);
 			});
 
 
