@@ -19,7 +19,6 @@
 
 
 
-
 	if ( isset($request['key']) ) {
 		$key = $request['key'];
 	}
@@ -27,42 +26,14 @@
 	if ( isset($request['_']) ) {
 		$key = $request['_'];
 	}
-/*
-	if ( $key == 'get_select' ) {
 
-		$info = $game -> selectStatus();
-		$start = $info['start_time'];
-		$end = $info['end_time'];
-		$time = $end - $start;
-
-		$value = array(
-				'status' => $info['status'],
-				'time' => $info['end_time'],
-				'interval' => $end - time(),
-				'go' => array(),
-				'res' => array()
-			);
-
-		for ( $i = 0; $i <= 9; $i++ ) {
-			$value['res'][$i] = $game -> selectTotal($i, $time);
-		}
-
-		$total = $game -> selectTotal($info['selected'], $time);
-		$number = 0;
-
-		if ( $total ) {
-			$number = ceil($game -> getTotal($time) / $total);
-		}
-
-		$value['go'] = array(
-				'selected' => $info['selected'],
-				'right' => $game -> selectTotal($info['selected'], $time, $request['uid']),
-				'income' => $number,
-			);
-
-		echo json_encode($value);
+	if ( !isset($key) ) {
+		echo json_encode(array(
+				'status' => '404',
+				'msg' => '无关键字：Key'
+			));
+		return;
 	}
-	*/
 
 	// 添加选择
 	if ( $key == 'set_user_select' ) {
@@ -97,7 +68,7 @@
 		// 新登录或的账号信息
 		$userinfo = $game -> getUserByName($name);
 
-		$time = 60;	// 登录钥匙有效时间（秒）
+		$time = 60 * 60;	// 登录钥匙有效时间（秒）
 
 		if ( $token ) {
 			$game -> setUserStatus($token, 0);
@@ -113,7 +84,7 @@
 						'msg' => '登录成功',
 						'user' => array(
 								'name' => $userinfo['user'],
-								'score' => $userinfo['score'],
+								'score' => ceil($userinfo['score']),
 								'key' => $game -> setUserStatus($userinfo['token'], time()),
 								'token' => $userinfo['token'],
 								'valid' => $time
@@ -135,7 +106,7 @@
 					'status' => 2,
 					'msg' => '创建用户且登录成功',
 					'user' => array(
-							'score' => $userinfo['score'],
+							'score' => ceil($userinfo['score']),
 							'name' => $userinfo['user'],
 							'key' => $userinfo['key'],
 							'token' => $userinfo['token'],
@@ -150,7 +121,7 @@
 	// 获取用户基本信息，根据钥匙，且快速登录
 	if ( $key == 'get_user_bykey' ) {
 
-		$time = 60;	// 登录钥匙有效时间（秒）
+		$time = 60 * 60;	// 登录钥匙有效时间（秒）
 		$key = $request['code'];
 		$value = array(
 				'status' => 0,
@@ -162,10 +133,10 @@
 		if ( $userinfo ) {
 			$value = array(
 					'status' => 1,
-					'msg' => '自动登录',
+					'msg' => '自动登录成功',
 					'user' => array(
 							'name' => $userinfo['user'],
-							'score' => $userinfo['score'],
+							'score' => ceil($userinfo['score']),
 							'key' => $game -> setUserStatus($userinfo['token'], time()),
 							'token' => $userinfo['token'],
 							'valid' => $time
@@ -178,10 +149,12 @@
 
 	// 设置指定用户最近活动状态
 	if ( $key == 'set_user_status' ) {
-		$time = 60;	// 登录钥匙有效时间（秒）
+		$time = 60 * 60;	// 登录钥匙有效时间（一小时）
 		$value = array(
 				'key' => $game -> setUserStatus($request['token'], time()),
-				'valid' => $time
+				'valid' => $time,
+				'status' => 1,
+				'msg' => '成功刷新钥匙'
 			);
 		echo json_encode($value);
 	}
@@ -192,11 +165,77 @@
 		echo json_encode($value['select']);
 	}
 
-
-
 	// 获取用户基本信息
 	if ( $key == 'get_game_answer' ) {
 		echo json_encode($game -> getGameAnswer($request['token']));
+	}
+
+	// 判断是否可以领取每日福利
+	if ( $key == 'get_welfare_daily' ) {
+
+		$uid = $request['token'];
+		$userinfo = $game -> getUser($uid);
+
+		// 如果用户不存在
+		if ( !$userinfo ) {
+			$value = array(
+					'status' => 0,
+					'msg' => '每日福利领取失败，用户不存在'
+				);
+
+		// 是否可以领取每日福利
+		} else if ( $game -> getWelfareDaily($uid) == 0 ) {
+			$reap = $game -> addWelfareDaily($uid);
+			$number = $game -> setUserScore($uid, $reap);
+			$value = array(
+					'status' => 1,
+					'msg' => '每日福利领取成功，获得'.$reap.'分的日常福利',
+					'number' => $reap
+				);
+
+		// 已领取
+		} else {
+			$value = array(
+					'status' => 0,
+					'msg' => '每日福利领取失败，已领取'
+				);
+		}
+
+		echo json_encode($value);
+	}
+
+	// 判断是否可以领取挂机福利
+	if ( $key == 'get_welfare_hangup' ) {
+
+		$uid = $request['token'];
+		$userinfo = $game -> getUser($uid);
+
+		// 如果用户不存在
+		if ( !$userinfo ) {
+			$value = array(
+					'status' => 0,
+					'msg' => '挂机福利领取失败，用户不存在'
+				);
+
+		// 是否可以领取每日福利
+		} else if ( $game -> getWelfareHangup($uid) == 0 ) {
+			$reap = $game -> addWelfareHangup($uid);
+			$number = $game -> setUserScore($uid, $reap);
+			$value = array(
+					'status' => 1,
+					'msg' => '挂机福利领取成功，获得'.$reap.'分的日常福利',
+					'number' => $reap
+				);
+
+		// 已领取
+		} else {
+			$value = array(
+					'status' => 0,
+					'msg' => '挂机福利领取失败，时间错误'
+				);
+		}
+
+		echo json_encode($value);
 	}
 
 

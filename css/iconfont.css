@@ -30,3 +30,8 @@
 
 .icon-alipay:before { content: "\e604"; }
 .icon-lol:before { content: "\e603"; }
+
+.icon-menu:before { content: "\e60f"; }
+.icon-menu-guess:before { content: "\e611"; }
+.icon-menu-match:before { content: "\e608"; }
+.icon-menu-invest:before { content: "\e613"; }

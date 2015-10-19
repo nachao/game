@@ -15,24 +15,24 @@
 			<a href="./index.html" class="menu-btn iconfont icon-menu"></a>
 			<div class="comm-clear"></div>
 			<div class="menu-are">
-				<a href="./guess.html" ><i class="iconfont icon-menu-guess"></i>竞猜</a>
+				<a href="#" ><i class="iconfont icon-menu-guess"></i>竞猜</a>
 				<a href="#" ><i class="iconfont icon-menu-match"></i>比赛</a>
 				<a href="#" ><i class="iconfont icon-menu-invest"></i>投资</a>
 			</div>
 		</div>
 
-		<h1 class="comm-title" id="aa">Welcome to "Yellow"</h1>
+		<h1 class="comm-title" id="aa">Welcome to "Guess"</h1>
 		
 		<!-- 主体部分 -->
 		<div class="main">
 			<div class="label">
-				<span><i class="iconfont icon-reward"></i>三分钟+1</span>
-				<span><i class="iconfont icon-reward"></i>每日登录+100</span>
+				<span><i class="iconfont icon-reward"></i>基础分+100</span>
+				<span><i class="iconfont icon-reward"></i>单次*3</span>
 				<div class="comm-clear"></div>
 			</div>
 
 			<div class="depict" id="bb">
-				<!-- <i class="iconfont icon-time"></i><span>欢迎来到这个简单的网站。</span> -->
+				<i class="iconfont icon-time"></i><span>-</span>
 			</div>
 			
 			<div class="user">
@@ -44,56 +44,10 @@
 			<div class="score">
 				<span class="score-number" id="info"><i class="iconfont icon-score"></i><em id="score">0</em>&nbsp;分</span>
 				<span class="score-mode" id="changeMode">
-					<a class="score-item score-item-value" id="changeModeTemplate" style="display:none;" href="javascript:;" title="添加兑换方式" ><i class="iconfont"></i><span>+</span></a>
-					<a class="score-item" id="changeModeAdd" href="javascript:;" title="添加兑换方式" ><i class="iconfont"></i><span>+</span></a>
+					<a class="score-item score-item-value" id="changeModeTemplate" style="display: none;" href="javascript:;" title="" ><i class="iconfont"></i><span>-</span></a>
 				</span>
-				<div class="comm-clear"></div>
-				<div class="score-edit">
-					<select id="scoreEdit_type">
-						<option value="1">英雄联盟</option>
-						<option value="2">支付宝</option>
-					</select>
-					<select id="scoreLol_server">
-						<option value="1">艾欧尼亚</option>
-						<option value="2">祖安</option>
-						<option value="3">诺克萨斯</option>
-						<option value="4">班德尔城</option>
-						<option value="5">皮尔特沃夫</option>
-						<option value="6">战争学院</option>
-						<option value="7">巨神峰</option>
-						<option value="8">雷瑟守备</option>
-						<option value="9">钢铁烈阳</option>
-						<option value="10">裁决之地</option>
-						<option value="11">黑色玫瑰</option>
-						<option value="12">暗影岛</option>
-						<option value="13">均衡教派</option>
-						<option value="14">水晶之痕</option>
-						<option value="15">影流</option>
-						<option value="16">守望之海</option>
-						<option value="17">征服之海</option>
-						<option value="18">卡拉曼达</option>
-						<option value="19">皮城警备</option>
-						<option value="20">比尔吉沃特</option>
-						<option value="21">德玛西亚</option>
-						<option value="22">弗雷尔卓德</option>
-						<option value="23">无畏先锋</option>
-						<option value="24">恕瑞玛</option>
-						<option value="25">扭曲丛林</option>
-						<option value="26">巨龙之巢</option>
-					</select>
-					<div class="comm-clear"></div>
-					<input id="scoreEdit_account" type="text" placeholder="账号" />
-					<div class="comm-clear"></div>
-					<input id="scoreEdit_name" type="text" placeholder="名称" />
-					<a id="scoreLol_log" href="javascript:;" target="_blank">查看战绩</a>
-					<div class="comm-clear"></div>
-					<a id="score_yes" href="javascript:;" >确认</a>
-					<a id="score_del" href="javascript:;" >删除</a>
-					<a id="score_no" href="javascript:;" >取消</a>
-				</div>
 			</div>
 
-<!--
 			<div class="select" id="select">
 				<a sid="1" href="javascript:;"><i>1</i><em>0</em></a>
 				<a sid="2" href="javascript:;"><i>2</i><em>0</em></a>
@@ -106,15 +60,14 @@
 				<a sid="9" href="javascript:;"><i>9</i><em>0</em></a>
 				<a sid="0" href="javascript:;"><i>0</i><em>0</em></a>
 			</div>
-			-->
 		</div>
 	
 		<!-- 分割 -->
-		<!-- <div class="comm-gap"></div> -->
+		<div class="comm-gap"></div>
 	
-		<!-- <h2 class="comm-subtitle">赞助和兑换<a href="#seat_support" id="seat_support">#</a></h2> -->
+		<h2 class="comm-subtitle">赞助和兑换<a href="#seat_support" id="seat_support">#</a></h2>
 
-		<!-- 赞助和兑换 
+		<!-- 赞助和兑换 -->
 		<div class="support support-change support-change-act" id="support">
 			<div class="add">+ 参与赞助<span><i></i></span></div>
 			<div class="add-edit">
@@ -153,7 +106,7 @@
 				<a class="btn" id="support_yes" href="javascript:;" >确定</a>
 				<a class="btn" id="support_no" href="javascript:;" >取消</a>
 			</div>
-		</div>-->
+		</div>
 	
 		<!-- 分割 -->
 		<div class="comm-gap"></div>
@@ -170,7 +123,7 @@
 
 			var my = new User();	// 初始用户功能
 
-			// var guess = new Guess();	// 初始用户功能
+			var guess = new Guess();	// 初始用户功能
 
 
 			my.init(function(data){
@@ -184,13 +137,13 @@
 
 
 			// 选择
-			// $('#select a').click(function(){
-			// 	guess.getSelect(function(data){
-			// 		if ( data && data == 'add' ) {
-			// 			my.setUserScore(-1);
-			// 		}
-			// 	});
-			// });
+			$('#select a').click(function(){
+				guess.getSelect(function(data){
+					if ( data && data == 'add' ) {
+						my.setUserScore(-1);
+					}
+				});
+			});
 
 			// 快速登录
 			$('#d').change(function(){
@@ -273,27 +226,24 @@
 				}
 			});
 
-*/
+
 
 			// getSuport();
 
 			// 打开兑换方式编辑界面
-			$('#changeModeAdd').click(function(){
-				$(this).siblings().removeClass('act');
+			$('#changeModeTemplate').click(function(){
 				if ( $(this).hasClass('act') ) {
 					$(this).removeClass('act');
 					$('.score-edit').hide();
 				} else {
-					$(this).addClass('act')
-					$('.score-edit').show();
+					$(this).addClass('act').siblings().removeClass('act');
 
 					// 初始化编辑界面
 					my.initChangeMode();
 				}
-
+				$('.score-edit').show();
 				$('#scoreEdit_type').show();
-				$('#scoreLol_server').show();
-				$('#scoreLol_log').hide();
+				$('#scoreEdit_log').show();
 			});
 
 			// 点击编辑界面的确认按钮
@@ -332,7 +282,7 @@
 					my.addChangeMode(value, function(data){
 						if ( data.status ) {
 							var template = $('#changeModeTemplate'),
-								temp = template.clone(false).removeAttr('id');
+								temp = template.clone().removeAttr('id');
 							temp = my.setChangeMode(temp, data.info);
 							template.before(temp);
 							$('.score-edit').hide();
@@ -361,24 +311,21 @@
 
 			// 兑换方式分类选择
 			$('#scoreEdit_type').change(function(){
-				var el_lol = $('#scoreLol_server'),
-					val = $(this).val();
+				var val = $(this).val(),
+					lol = $('#scoreLol_server').hide();
 				if ( val == 1 ) {
-					el_lol.show();
-				}
-				if ( val == 2 ) {
-					el_lol.hide();
+					lol.show();
 				}
 			});
 
 			// 查看战绩
-			$('#scoreLol_log').mouseover(function(){
+			$('#scoreEdit_log').mouseover(function(){
 				var server = $('#scoreLol_server option:selected').text(),
 					name = $('#scoreEdit_name').val();
 				$(this).attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName='+ server +'&playerName='+ name);
 			});
 
-
+*/
 		</script>
 	</body>
 </html>

@@ -15,7 +15,7 @@
 		}
 
 		// 添加用户基本信息
-		public function userAdd( $name = '', $token = '', $num = 100 ){
+		public function userAdd( $name = '', $token = '', $num = 0 ){
 			if ( !$token ) {
 				$token = md5(time() + rand(0, time()));
 			}
@@ -26,7 +26,7 @@
 				return array(
 						'key' => $key,
 						'token' => $token,
-						'score' => 100,			// 默认注册的用户奖励
+						'score' => 0,
 						'user' => $name
 					);
 			}
@@ -199,12 +199,17 @@
 
 
 		// 设置指定用户的积分
-		public function setUserScore ( $user='', $sum=0 ) {
-			$info = $this -> getUser($user);
+		public function setUserScore ( $token='', $sum=0 ) {
+			$info = $this -> getUser($token);
 			if ( $info ) {
-				$sql = "update `game`.`game_user` SET `score` = '".($info['score'] + $sum)."' WHERE `game_user`.`token` LIKE '".$user."';";
+				$value = $info['score'];
+				$sql = "update `game`.`game_user` SET `score` = '".($value + $sum)."' WHERE `game_user`.`token` LIKE '".$token."';";
 				$query = mysql_query($sql);
+				if ( $query ) {
+					$value = $value + $sum;
+				}
 			}
+			return $value;
 		}
 
 		// 设置指定用户的最近活动时间
@@ -376,6 +381,48 @@
 					'status' => 1,
 					'msg' => '成功删除兑换方式'
 				);
+		}
+
+
+
+		// 判断用户是否可以领取福利之日常
+		public function getWelfareDaily ( $token='' ) {
+			$sql = "select `number`  FROM `game_welfare_daily` WHERE `token` LIKE '".$token."' AND `time` > ".strtotime(date('Y-m-d'));
+			$query = mysql_query($sql);
+			$value = 0;
+			if ( $query ) {
+				$row = mysql_fetch_array($query);
+				$value = $row['number'];
+			}
+			return $value;
+		}
+
+		// 添加福利之日常
+		public function addWelfareDaily ( $token='' ) {
+			$number = 100;
+			$sql = "insert INTO `game`.`game_welfare_daily` (`id`, `token`, `time`, `number`) VALUES (NULL, '".$token."', '".time()."', ".$number.");";
+			$query = mysql_query($sql);
+			return $number;
+		}
+
+		// 判断用户是否可以领取福利之挂机
+		public function getWelfareHangup ( $token='' ) {
+			$sql = "select `number`  FROM `game_welfare_hangup` WHERE `token` LIKE '".$token."' AND `time` > ".time() - 60 * 3;
+			$query = mysql_query($sql);
+			$value = 0;
+			if ( $query ) {
+				$row = mysql_fetch_array($query);
+				$value = $row['number'];
+			}
+			return $value;
+		}
+
+		// 添加福利之挂机
+		public function addWelfareHangup ( $token='' ) {
+			$number = 1;
+			$sql = "insert INTO `game`.`game_welfare_hangup` (`id`, `token`, `time`, `number`) VALUES (NULL, '".$token."', '".time()."', '".$number."');";
+			$query = mysql_query($sql);
+			return $number;
 		}
 
 	}

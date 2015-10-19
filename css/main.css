@@ -71,6 +71,7 @@
 .main .depict{
 	margin-left: 50px;
 	margin-top: 30px;
+	height: 24px;
 }
 .main .user{
 	margin: 30px 0 0 50px;
@@ -165,7 +166,7 @@
 	color: white;
 }
 .main .score .score-number{
-	margin-right: 10px;
+	margin-right: 20px;
 }
 .main .score-item{
 	border: 1px solid #333;
@@ -193,8 +194,73 @@
 	border-radius: 2px;
 	border: 1px solid #666;
 	outline: none;
+	margin-right: 5px;
+	height: 20px;
+	padding: 0px;
+}
+.score-edit select{
+	height: 22px;
 }
 .score-edit input{
-	padding: 2px 5px;
+	padding: 0 5px;
 }
 
+
+
+.menu{ 
+	float: right;
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	z-index: 2;
+ }
+.menu .menu-btn{
+	color: #000;
+	font-size: 33px;
+	cursor: pointer;
+	width: 100px;
+	line-height: 100px;
+	text-align: center;
+	margin: 0px;
+	border-radius: 3px;
+	border: 3px solid white;
+	float: right;
+	text-decoration: none;
+	background: white;
+}
+.menu-are{
+	display: none;
+	width: 150px;
+	background: white;
+}
+.menu-are a{
+	display: inline-block;
+	line-height:28px;
+	font-size: 22px;
+	color: black;
+	text-decoration: none;
+	text-align: right;
+	margin-top: 30px;
+	border-radius: 2px;
+	padding-right: 20px;
+	display: block;
+	border-right: 3px solid white;
+}
+.menu-are a i{
+	font-size: 22px;
+	margin-right: 10px;
+}
+.menu-are a:hover{
+	border-right-color: black;
+/*	background: black;
+	color: white;*/
+}
+.menu-are a:hover i{
+	/*color: white;*/
+}
+.menu:hover .menu-btn{
+	border-color: black;
+}
+.menu:hover .menu-are{
+	display: inline-block;
+}

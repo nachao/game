@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2015-10-19 00:07:23
+Date: 2015-10-20 00:52:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -115,19 +115,19 @@ CREATE TABLE `game_mode` (
   `type` int(1) DEFAULT NULL,
   `remark` varchar(100) DEFAULT NULL COMMENT '备注，游戏的话，则是分区',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_mode
 -- ----------------------------
-INSERT INTO `game_mode` VALUES ('6', '1361b0a01d4d2b12db59da179db58efb', 'bb0af0869b45ccac5fd11c2937410d5d', '357586693', 'qonsecpm', '1445176672', '1', '2');
-INSERT INTO `game_mode` VALUES ('10', '1bd6ee74bc525e124deb1187268da109', 'bb0af0869b45ccac5fd11c2937410d5d', '641600670', '命名为老A', '1445177660', '1', '10');
-INSERT INTO `game_mode` VALUES ('12', 'c2bf1a78e8c0c8b3d2f612ec4ff191b5', 'bb0af0869b45ccac5fd11c2937410d5d', '641600670', 'Mr.阿斯达', '1445180747', '1', '6');
+INSERT INTO `game_mode` VALUES ('6', '1361b0a01d4d2b12db59da179db58efb', 'bb0af0869b45ccac5fd11c2937410d5d', '357586693', 'qonsecpm', '1445176672', '1', '10');
 INSERT INTO `game_mode` VALUES ('13', '12f88bbdc2fb0e5d4748918a2b552354', 'bb0af0869b45ccac5fd11c2937410d5d', '15680033681', '那超', '1445182204', '2', '1');
 INSERT INTO `game_mode` VALUES ('18', '6fd0941a712e14de09d49f8600e2ff30', '9870a2814efc60ed310d2e7ead315616', '641600670', 'qonsecom', '1445183674', '1', '2');
 INSERT INTO `game_mode` VALUES ('20', '5b5ed9efe270a1df40944ccdc90f39f5', '9870a2814efc60ed310d2e7ead315616', '357586693', '命名为老A', '1445183977', '1', '10');
-INSERT INTO `game_mode` VALUES ('22', 'fc82f236517ed76fef96441ba909a92f', '9870a2814efc60ed310d2e7ead315616', '123', '123123', '1445184088', '1', '1');
-INSERT INTO `game_mode` VALUES ('23', 'ec77492d658fdd89686f951d97ed0b54', '9870a2814efc60ed310d2e7ead315616', '1231', '3123123', '1445184113', '1', '10');
+INSERT INTO `game_mode` VALUES ('24', '77f87b52192ce6bf6cea029c1471a68e', '21f1ab8bd5e891594873e8bc3ed87750', '15680033681', '那超', '1445263463', '2', '1');
+INSERT INTO `game_mode` VALUES ('25', '9924e64c53d7d51d8be6b9d2dcf14a88', '21f1ab8bd5e891594873e8bc3ed87750', '123', '123123', '1445263586', '1', '9');
+INSERT INTO `game_mode` VALUES ('27', '2b00b78a735feaf01362b0a596930df2', '21f1ab8bd5e891594873e8bc3ed87750', '123', '123', '1445265342', '2', '1');
+INSERT INTO `game_mode` VALUES ('28', '3476dc11a4ff6884ad40d7a05f3497b7', '9870a2814efc60ed310d2e7ead315616', 'asd', 'asd', '1445265615', '2', '1');
 
 -- ----------------------------
 -- Table structure for `game_select`
@@ -180,7 +180,7 @@ CREATE TABLE `game_sponsor` (
   `number` int(11) DEFAULT '0' COMMENT '赞助剩余数量',
   `time` int(11) DEFAULT '0' COMMENT '赞助时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_sponsor
@@ -215,38 +215,65 @@ CREATE TABLE `game_user` (
   `status` int(11) DEFAULT '0' COMMENT '当前状态0=未登录，xxxx=最近活动时间，没结束一场就上报一次活动时间',
   `key` varchar(100) DEFAULT '' COMMENT '登录钥匙',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_user
 -- ----------------------------
-INSERT INTO `game_user` VALUES ('2', '9870a2814efc60ed310d2e7ead315616', 'a1', '10', '0', '72b047db98633ffa1d5c619eca9e3373');
-INSERT INTO `game_user` VALUES ('3', '8c38f2b6b92e5bfe4e48831af6ae6aee', 'ff', '10', '0', '2b7c3a03376be6a07b423ba2bc1c6cff');
-INSERT INTO `game_user` VALUES ('4', 'bb0af0869b45ccac5fd11c2937410d5d', 'a2', '10', '0', '32c2f676bfb1d2089e20967fb6e1beec');
-INSERT INTO `game_user` VALUES ('5', '5d8c8038fbe7967ef7ec251a71df9475', 'a3', '10', '0', '0176b26820beb392afa0ab64655f2d5d');
-INSERT INTO `game_user` VALUES ('6', '3ec6c92e6581a6a7bcfdfd680373c92c', 'a11', '10', '0', '08d97c7535d98c8ab10daa33d2647e2c');
-INSERT INTO `game_user` VALUES ('7', 'c2efa50c97a7635f19c1c8e72389719f', 'a22', '10', '0', '69205190a6a3896728dd8fee342fdd16');
-INSERT INTO `game_user` VALUES ('8', 'b0035d8ddde84294925a5fb6d51ee54f', 'a12', '10', '0', 'f70936b7b8baba270807a3960c116285');
-INSERT INTO `game_user` VALUES ('9', 'af117bf310ff3d134b81a8a2e9095d37', 'a123', '10', '0', '6c1ef2121c505eebc05a115b999f53e6');
-INSERT INTO `game_user` VALUES ('10', '07cdee19778958924bd838c5127b483e', 'a1234', '10', '0', '8ab2c3b294efa8ae46b3b124e4b0c8c4');
-INSERT INTO `game_user` VALUES ('11', 'a447f7c6b40f33e8d478306d46ded535', 'a12345', '10', '0', 'dba9a7e4323fafd1f3230596e9732e58');
-INSERT INTO `game_user` VALUES ('12', '84aa15586e5f028ccbb63fd6805f651d', 'a123456', '10', '0', '88ae51cf1500a815eb42e225bdc0dfd7');
-INSERT INTO `game_user` VALUES ('13', 'ba155d26820fc238daec4aa8d0454e73', 'a1234567', '10', '0', '0b83a721ed7c3ef4f171ba1cd5b10cc7');
-INSERT INTO `game_user` VALUES ('14', '390745b78d83d1951ecf8c7a4851831d', 'a12345678', '10', '0', '9f2c8b69378adc8deb13403119f51b14');
-INSERT INTO `game_user` VALUES ('15', 'fb160bc206e50507e61a92127b5f47b4', 'a123456789', '10', '0', '421734986cc3588ce1e9f8dd15e69e48');
-INSERT INTO `game_user` VALUES ('16', '5c0eff36adc6c73bf07b14e91de38f8b', 'a1234567890', '10', '0', 'acf51eb31f844169db33e25c77cdcf34');
-INSERT INTO `game_user` VALUES ('17', 'e90af6e12ef115104a7dfe00b99b86c1', 'a12345678901', '10', '0', '533aed096f77c24ebaed37a0aae9c68a');
-INSERT INTO `game_user` VALUES ('18', '94ca9b9506e5bed4d6dd5f8c31ed1a31', 'a123456789011', '10', '0', '05fab2fc044bb06263236185c89b60fe');
-INSERT INTO `game_user` VALUES ('19', '03c2dfc9ea44875beac4c34f1f97da6a', 'a1234567890111', '10', '0', '4c9ab15347d59b4a75498205117d136d');
-INSERT INTO `game_user` VALUES ('20', '90a0e41ea15c84d472ab56c7b2f3d48b', 'f', '10', '0', '6a1ff3f88bc54619550f2d0278f7bcfd');
-INSERT INTO `game_user` VALUES ('21', '334337e1104d5f115947014488f0b5ba', 'fff', '10', '1445059538', '1ea678a96914ecd1dd208795a05c4603');
-INSERT INTO `game_user` VALUES ('22', 'f6af38342860bad4951aa4235e9ca90e', 'a', '10', '0', '1ef66f4f1719eec41ea65931ad12b213');
-INSERT INTO `game_user` VALUES ('23', '62337cc724dc321abadcb8b7afa64aef', 'a12', '9', '1445059622', 'ca9eaacf79555b2a1ab38c7053c0a3dc');
-INSERT INTO `game_user` VALUES ('24', 'e39c2c943de64e9a5a43583573d66373', 'a1', '10', '1445059745', 'a67a39818bcf751f33f7127d4651ed53');
-INSERT INTO `game_user` VALUES ('25', '3a701c58a2eb119272b2990300b2f454', 'a1', '10', '1445060501', '503611bce89c79cd80d45316843dc79f');
-INSERT INTO `game_user` VALUES ('26', '16adf9de59008bd8027887657e44c7c8', 'a1', '10', '1445060506', '2ae61e763b255e56ed0c758f3dcf9608');
-INSERT INTO `game_user` VALUES ('27', '22d05ddffcdabc6f6ecce8d9f12688af', 'a5123', '100', '0', '51125a16712ef61addc10946f4c4a6ad');
-INSERT INTO `game_user` VALUES ('28', '2e5de02d6dac1871e6f3ea399cc2e26d', '2', '100', '0', '458c6102c9b2c4f980fb198a2395d0f9');
-INSERT INTO `game_user` VALUES ('29', '6573330635d40bb16fa6abd112b611f5', 'a1123', '100', '0', '248848a88954677225c12c5f6be1ba4b');
-INSERT INTO `game_user` VALUES ('30', '61393bc2d2466a835d968df93125e7b4', 'a33', '100', '0', '4b139ed3923148906fb4f696fa8b1633');
-INSERT INTO `game_user` VALUES ('31', '122a86d2ddb448722da55efc3df8bc49', 'a333', '100', '1445184412', '1b976f5460db78a438e808594dc5d082');
+INSERT INTO `game_user` VALUES ('2', '9870a2814efc60ed310d2e7ead315616', 'a1', '124', '1445272860', '93640fd6ab02850048ec9508b0ebfe78');
+INSERT INTO `game_user` VALUES ('4', 'bb0af0869b45ccac5fd11c2937410d5d', 'a2', '116', '1445273530', '9d2ced04682f7081d3fae447769d3de8');
+INSERT INTO `game_user` VALUES ('5', '5d8c8038fbe7967ef7ec251a71df9475', 'a3', '220', '1445271763', 'c56d4b50a192e53ee175248bc7cee3be');
+INSERT INTO `game_user` VALUES ('33', '21f1ab8bd5e891594873e8bc3ed87750', 'fangfang', '100', '1445265543', 'f8f448956401b6dc0ea5e603698600dc');
+INSERT INTO `game_user` VALUES ('34', '247ef39b877dc6533d2c588f71643dae', 'a4', '300', '0', '24f015bca2c9a6788ffc6e1cb633c8b1');
+INSERT INTO `game_user` VALUES ('36', 'adc2eb15142a8be4e1106354819b0949', 'a5', '100', '1445267923', '6379f8116c5cd40e78b4c0131a15a0f3');
+INSERT INTO `game_user` VALUES ('37', '1256d74248a90d7ffe3295be641f53d8', 'a6', '100', '0', '7eb404b6605bd33e0b9d17b622d7b21e');
+INSERT INTO `game_user` VALUES ('41', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'fang', '204700', '0', '947b126f901a8d22722a687d17f7a958');
+
+-- ----------------------------
+-- Table structure for `game_welfare_daily`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_welfare_daily`;
+CREATE TABLE `game_welfare_daily` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(100) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_welfare_daily
+-- ----------------------------
+INSERT INTO `game_welfare_daily` VALUES ('21', '9870a2814efc60ed310d2e7ead315616', '1445270796', '100');
+INSERT INTO `game_welfare_daily` VALUES ('22', 'bb0af0869b45ccac5fd11c2937410d5d', '1445270986', '100');
+INSERT INTO `game_welfare_daily` VALUES ('23', '5d8c8038fbe7967ef7ec251a71df9475', '1445270998', '100');
+
+-- ----------------------------
+-- Table structure for `game_welfare_hangup`
+-- ----------------------------
+DROP TABLE IF EXISTS `game_welfare_hangup`;
+CREATE TABLE `game_welfare_hangup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(100) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of game_welfare_hangup
+-- ----------------------------
+INSERT INTO `game_welfare_hangup` VALUES ('21', '9870a2814efc60ed310d2e7ead315616', '1445270796', '100');
+INSERT INTO `game_welfare_hangup` VALUES ('22', 'bb0af0869b45ccac5fd11c2937410d5d', '1445270986', '100');
+INSERT INTO `game_welfare_hangup` VALUES ('23', '5d8c8038fbe7967ef7ec251a71df9475', '1445270998', '100');
+INSERT INTO `game_welfare_hangup` VALUES ('24', '123', '123', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('25', '9870a2814efc60ed310d2e7ead315616', '1445272180', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('26', '9870a2814efc60ed310d2e7ead315616', '1445272335', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('27', '9870a2814efc60ed310d2e7ead315616', '1445272395', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('28', '9870a2814efc60ed310d2e7ead315616', '1445272551', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('29', 'bb0af0869b45ccac5fd11c2937410d5d', '1445272617', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('30', 'bb0af0869b45ccac5fd11c2937410d5d', '1445272632', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('31', 'bb0af0869b45ccac5fd11c2937410d5d', '1445272955', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('32', 'bb0af0869b45ccac5fd11c2937410d5d', '1445273026', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('33', 'bb0af0869b45ccac5fd11c2937410d5d', '1445273210', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('34', 'bb0af0869b45ccac5fd11c2937410d5d', '1445273392', '1');

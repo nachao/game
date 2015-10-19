@@ -110,9 +110,7 @@ function User () {
 		valid: 0		// 刷新缓存钥匙的时间间隔（秒）
 	};
 
-	this.refresh_ = null;	// 是否开启了每分钟刷新用户登录钥匙
-
-	this.init();	// 初始化用户
+	this.refresh_ = null;	// 是否开启了刷新用户登录钥匙
 }
 
 
@@ -160,14 +158,10 @@ User.prototype.info = function ( value ) {
 User.prototype.init = function ( callback ) {
 	// 初始化进入界面，获取缓存中的登录账户钥匙
 	var key = getCookie('FFL_key');
+	console.log(key);
 	if ( key ) {
 		this.getUserByKey(key, function(data){
 			callback ? callback(data) : null;
-			// setTip(data.msg);
-			// console.log(data.msg);
-			// if ( data.status ) {
-			// 	$('#d').val(data.user.name);
-			// }
 		});
 	}
 }
@@ -208,13 +202,14 @@ User.prototype.setUserRefresh = function () {
 			token: this.info('token')
 		}, function(data){
 			setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
+
+			clearTimeout(that.refresh_);
+			that.refresh_ = setTimeout(function(){
+				that.setUserRefresh();
+			}, 1000 * data.valid);
 		});
 	}
 
-	clearTimeout(this.refresh_);
-	this.refresh_ = setTimeout(function(){
-		that.setUserRefresh();
-	}, 1000 * 60);
 }
 
 
@@ -252,6 +247,7 @@ User.prototype.setUserUI = function () {
 *  @public  
 */
 User.prototype.setUserScore = function ( value ) {
+	value = value || 0;
 	var number = this.info('score') + value;
 	this.setInfo(number, 'score');
 	$('#score').html(number);
@@ -273,7 +269,7 @@ User.prototype.getChangeMode = function () {
 		if ( data.status ) {
 			var template = $('#changeModeTemplate');
 			$(data.res).each(function(i, val){
-				var temp = template.clone();
+				var temp = template.clone(false);
 				temp.removeAttr('id').removeClass('act');
 				temp = that.setChangeMode(temp, val);
 				template.before(temp);
@@ -289,40 +285,47 @@ User.prototype.getChangeMode = function () {
 *  @public  
 */
 User.prototype.setChangeMode = function ( el, value ) {
-	el.removeClass('act').find('span').html(value.name);
+
+	el.show().removeClass('act').find('span').html(value.name);
 	el.data('val', value);
 	if ( value.type == 1 ) {	// lol
-		el.prop('title', '英雄联盟 - ' + $('#scoreLol_server option[value='+ value.remark +']').text());
+		el.prop('title', '英雄联盟');
 		el.find('i').addClass('icon-lol');
 	}
 	if ( value.type == 2 ) {	// 支付宝
 		el.prop('title', '支付宝');
 		el.find('i').addClass('icon-alipay');
 	}
-	el.unbind('click').click(function(){
-		if ( $(this).hasClass('act') ) {
-			$(this).removeClass('act');
-			$('.score-edit').hide();
-		} else {
-			$(this).addClass('act').siblings().removeClass('act');
-			$('.score-edit').show();
-			$('#score_del').show();
-			$('#scoreEdit_account').val(value.account);
-			$('#scoreEdit_name').val(value.name);
-			$('#scoreEdit_type').val(value.type).attr('disabled', true);
 
-			// lol
-			if ( value.type == 1 ) {
-				var option = $('#scoreLol_server option[value='+ value.remark +']').show().prop('selected', true);
-				$('#scoreEdit_log').show().attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName='+ option.text() +'&playerName='+ value.name);
-			}
+	// 是否有编辑界面
+	if ( $('.score-edit').length ) {
+		el.unbind('click').click(function(){
+			if ( $(this).hasClass('act') ) {
+				$(this).removeClass('act');
+				$('.score-edit').hide();
+			} else {
+				$(this).addClass('act').siblings().removeClass('act');
+				$('.score-edit').show();
+				$('#score_del').show();
+				$('#scoreEdit_account').val(value.account);
+				$('#scoreEdit_name').val(value.name);
+				$('#scoreEdit_type').val(value.type).attr('disabled', true);
 
-			// 支付宝
-			if ( value.type == 2 ) {
-				$('#scoreEdit_log').hide();
+				// lol
+				if ( value.type == 1 ) {
+					var option = $('#scoreLol_server option[value='+ value.remark +']').show().prop('selected', true).text();
+					$('#scoreLol_server').show();
+					$('#scoreLol_log').show().attr('href', 'http://lolbox.duowan.com/playerDetail.php?serverName='+ option +'&playerName='+ value.name);
+				}
+
+				// 支付宝
+				if ( value.type == 2 ) {
+					$('#scoreLol_log').hide();
+					$('#scoreLol_server').hide();
+				}
 			}
-		}
-	});
+		});
+	}
 
 	return el;
 }
@@ -334,7 +337,7 @@ User.prototype.setChangeMode = function ( el, value ) {
 *  @public  
 */
 User.prototype.emptyChangeMode = function () {
-	$('#changeModeTemplate').siblings().remove();
+	$('.score-item-value:not(#changeModeTemplate)').remove();
 }
 
 
@@ -349,7 +352,7 @@ User.prototype.initChangeMode = function () {
 	$('#scoreEdit_type').val(1).prop('disabled', false);
 	$('#scoreLol_server option[value=1]').prop('selected', true);
 	$('#score_del').hide();
-	$('#scoreEdit_log').hide();
+	$('#scoreLol_log').hide();
 	// $('.score-edit').hide();
 }
 
@@ -417,12 +420,20 @@ User.prototype.getUserByName = function ( name, callback ) {
 		token: that.info('token')
 	}, function(data, param){
 		if ( data.status ) {
-			that.setInfo(data.user);	// 更新本地用户数据
+			that.setInfo(data.user);	// 刷新本地用户数据
 			that.setUserUI();			// 刷新用户界面
-			// that.getUserSelect();		// 获取用户之前的选择
-			that.setUserRefresh();		// 开始刷新用户钥匙
 
 			that.getChangeMode();		// 获取用户的全部兑换方式
+			that.getWelfareDaily(function(data){		// 获取每日福利
+				if ( data.status ) {
+					that.setUserScore(data.number);
+				}
+			});
+			that.getWelfareHangup();	// 开启挂机福利
+
+			that.setUserRefresh();		// 开始刷新用户钥匙
+
+			// that.getUserSelect();		// 获取用户之前的选择
 		}
 		callback ? callback(data) : null;
 	});
@@ -437,12 +448,20 @@ User.prototype.getUserByKey = function ( key, callback ) {
 		code: key
 	}, function(data, param){
 		if ( data.status ) {
-			that.setInfo(data.user);	// 更新本地用户数据
+			that.setInfo(data.user);	// 刷新本地用户数据
 			that.setUserUI();			// 刷新用户界面
-			// that.getUserSelect();		// 获取用户之前的选择
-			that.setUserRefresh();		// 开始刷新用户钥匙
 
 			that.getChangeMode();		// 获取用户的全部兑换方式
+			that.getWelfareDaily(function(data){		// 获取每日福利
+				if ( data.status ) {
+					that.setUserScore(data.number);
+				}
+			});
+			that.getWelfareHangup();	// 开启挂机福利
+
+			that.setUserRefresh();		// 开始刷新用户钥匙
+			
+			// that.getUserSelect();		// 获取用户之前的选择
 		}
 		callback ? callback(data) : null;
 	});
@@ -464,4 +483,48 @@ User.prototype.setTip = function ( value, time ) {
 	clearTimeout(loop);
 	loop = setTimeout(function(){ el.hide(); }, time);
 	el.data('loop', loop);
+}
+
+
+/*
+*  用户领取每日福利
+*
+*  @public  
+*/
+User.prototype.getWelfareDaily = function ( callback ) {
+	ajax({
+		key: 'get_welfare_daily',
+		token: this.info('token')
+	}, function(data){
+		callback ? callback(data) : null;
+	});
+}
+
+
+/*
+*  用户领取挂机福利（三分钟+1）
+*
+*  @public  
+*/
+User.prototype.getWelfareHangup = function () {
+	var that = this,
+		interval = 60 * 3,
+		key = 'FFL_Hangup_' + that.info('token'),
+		time = getCookie(key) || interval;
+	setTimeout(function(){
+		if ( time > 0 ) {
+			time -= 3;
+			if ( time <= 0 ) {
+				time = interval;
+				ajax({
+					key: 'get_welfare_hangup',
+					token: that.info('token')
+				}, function(data){
+					that.setUserScore(data.number);
+				});
+			}
+		}
+		setCookie(key, time, 60);	// 离开页面超过一分钟则需要重新开始挂机
+		that.getWelfareHangup();
+	}, 3000);;
 }
