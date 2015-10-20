@@ -2,14 +2,18 @@
 
 // 获取后台数据
 function ajax ( param, callback ) {
+	var value = { _: param };
+	if ( $.type(param) != 'string' ) {
+		value = param;
+	}
 	$.ajax({ 
 		type: "POST", 
 		url: './ajax/comm.php', 
 		contentType:"application/json",
 		dataType:"json",
-		data: JSON.stringify(param),
-		success: function(msg){
-			callback ? callback(msg, param) : null;
+		data: JSON.stringify(value),
+		success: function(data){
+			callback ? callback(data, value) : null;
 		}
 	});
 }

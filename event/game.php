@@ -300,7 +300,22 @@
 
 		// 添加赞助
 		public function addSponsor ( $token='', $title='', $price=0, $number=0 ) {
-			$sql = "insert INTO `game`.`game_sponsor` (`id`, `user_token`, `title`, `price`, `number`, `time`) VALUES (NULL, '".$token."', '".$title."', '".$price."', '".$number."', '".time()."');";
+			$sponsor_id = md5($token.time());
+			$sql = "insert INTO `game`.`game_sponsor` (`id`, `user_token`, `sid`, `title`, `price`, `number`, `time`, `depict`) VALUES (NULL, '".$token."', '".$sponsor_id."', '".$title."', '".$price."', '".$number."', '".time()."', NULL);";
+			$query = mysql_query($sql);
+			if ( $query ) {
+				return array(
+						'id' => $sponsor_id,
+						'title' => $title,
+						'price' => $price,
+						'number' => $number
+					);
+			}
+		}
+
+		// 更新赞助
+		public function updateSponsor ( $sponsor_id='', $title='' ) {
+			$sql = "update `game`.`game_sponsor` SET  `title` =  '".$title."' WHERE  `game_sponsor`.`sid` ='".$sponsor_id."';";
 			$query = mysql_query($sql);
 		}
 
@@ -313,13 +328,18 @@
 			if ( $query ) {
 				while( $row = mysql_fetch_array($query)){	//获取单个内容数
 					array_push($value, array(
+							'id' => $row['sid'],
 							'title' => $row['title'],
 							'price' => $row['price'],
 							'number' => $row['number']
 						));
 				}
 			}
-			return $value;
+			return array(
+					'status' => 1,
+					'msg' => '成功获取所有赞助',
+					'res' => $value
+				);
 		}
 
 

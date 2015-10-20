@@ -125,6 +125,7 @@
 
 .main .label{
 	margin-left: 50px;
+	min-height: 26px;
 }
 .main .label span{
 	display: inline-block;
@@ -145,9 +146,8 @@
 .main .score em{
 	font-style: normal;
 	font-family: Arial;
-	margin-left: 10px;
 }
-.main .score a{
+.main .score-mode a,.main .score-edit a{
 	color: black;
 	font-size: 12px;
 	color: #333;
@@ -159,7 +159,7 @@
 .main .score-mode a{
 	padding: 2px 5px 2px 0;
 }
-.main .score a:hover,.main .score a.act{
+.main .score-mode a:hover,.main .score-mode a.act,.main .score-edit a:hover{
 	/*text-decoration: underline;*/
 	background: black;
 	border-radius: 3px;
@@ -167,6 +167,8 @@
 }
 .main .score .score-number{
 	margin-right: 20px;
+	color: black;
+	text-decoration: none;
 }
 .main .score-item{
 	border: 1px solid #333;
@@ -216,51 +218,58 @@
  }
 .menu .menu-btn{
 	color: #000;
-	font-size: 33px;
+	font-size: 24px;
 	cursor: pointer;
-	width: 100px;
-	line-height: 100px;
+	width: 55px;
+	line-height: 55px;
 	text-align: center;
 	margin: 0px;
-	border-radius: 3px;
-	border: 3px solid white;
+	border-radius: 0 2px 2px 0;
+	border: 1px solid white;
 	float: right;
 	text-decoration: none;
 	background: white;
+	position: relative;
+	z-index: 2;
+	border-left: 0px;
 }
 .menu-are{
 	display: none;
-	width: 150px;
 	background: white;
+	float: right;
+	margin-right: -2px;
+	border-right: 2px solid white;
+}
+.menu-are p{
+	display: inline-block;
+	width: 90%;
+	border-bottom: 1px solid #ccc;
 }
 .menu-are a{
 	display: inline-block;
-	line-height:28px;
-	font-size: 22px;
+	line-height: 24px;
+	font-size: 16px;
 	color: black;
 	text-decoration: none;
-	text-align: right;
-	margin-top: 30px;
-	border-radius: 2px;
-	padding-right: 20px;
 	display: block;
-	border-right: 3px solid white;
+	padding: 0 20px 0 0 ;
+	height: 40px;
 }
 .menu-are a i{
-	font-size: 22px;
-	margin-right: 10px;
+	font-size: 16px;
 }
-.menu-are a:hover{
-	border-right-color: black;
-/*	background: black;
-	color: white;*/
+.menu-are a:hover span{
+	text-decoration: underline;
 }
 .menu-are a:hover i{
 	/*color: white;*/
 }
 .menu:hover .menu-btn{
 	border-color: black;
+	background: black;
+	color: white;
 }
 .menu:hover .menu-are{
 	display: inline-block;
+	border-right-color: black;
 }

@@ -195,21 +195,18 @@ User.prototype.init = function ( callback ) {
 */
 User.prototype.setUserRefresh = function () {
 	var that = this;
-
-	if ( this.info('token') ) {
-		ajax({ 
-			key: 'set_user_status',
-			token: this.info('token')
-		}, function(data){
-			setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
-
-			clearTimeout(that.refresh_);
-			that.refresh_ = setTimeout(function(){
-				that.setUserRefresh();
-			}, 1000 * data.valid);
-		});
-	}
-
+	clearTimeout(that.refresh_);
+	that.refresh_ = setTimeout(function(){
+		if ( that.info('token') ) {
+			ajax({ 
+				key: 'set_user_status',
+				token: that.info('token')
+			}, function(data){
+				setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
+			});
+		}
+		that.setUserRefresh();
+	}, 1000 * that.info('valid'));
 }
 
 
@@ -323,6 +320,19 @@ User.prototype.setChangeMode = function ( el, value ) {
 					$('#scoreLol_log').hide();
 					$('#scoreLol_server').hide();
 				}
+			}
+		});
+	}
+
+	// 选择兑换方式
+	if ( $('#scoreSelected').length ) {
+		el.unbind('click').click(function(){
+			if ( $(this).hasClass('act') ) {
+				$(this).removeClass('act');
+				$('#scoreSelected').val('');
+			} else {
+				$(this).addClass('act').siblings().removeClass('act');
+				$('#scoreSelected').val(value.id);
 			}
 		});
 	}

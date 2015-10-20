@@ -244,14 +244,55 @@
 
 	// 添加赞助
 	if ( $key == 'add_sponsor' ) {
-		$value = $game -> addSponsor($request['token'], $request['title'], $request['price'], $request['number']);
+
+		$uid = $request['token'];
+		$title = $request['title'];
+		$price = $request['price'];
+		$number = $request['number'];
+		$userinfo = $game -> getUser($uid);
+
+		if ( !$userinfo ) {
+			$value = array(
+					'status' => 0,
+					'msg' => '无效用户'
+				);
+		} else if ( $price * $number < 10 || !$title ) {	// 最小赞助金额
+			$value = array(
+					'status' => 0,
+					'msg' => '参数错误'
+				);
+		} else if ( $userinfo && $userinfo['score'] > $price * $number ) {
+			$value = $game -> addSponsor($uid, $request['title'], $price, $number);
+			$value = array(
+					'status' => 1,
+					'msg' => '添加赞助成功',
+					'info' => $value
+				);
+			$game -> setUserScore($uid, -$price * $number);
+		} else {
+			$value = array(
+					'status' => 0,
+					'msg' => '赞助失败，积分不足（'.$userinfo['score'].'）'
+				);
+		}
+		echo json_encode($value);
+	}
+
+	// 更新赞助广告语
+	if ( $key == 'get_sponsor' ) {
+		$value = $game -> getSponsor();
 		echo json_encode($value);
 	}
 
 	// 获取赞助
-	if ( $key == 'get_sponsor' ) {
-		$value = $game -> getSponsor();
-		echo json_encode($value);
+	if ( $key == 'update_sponsor_title' ) {
+		$sid = $request['sid'];
+		$title = $request['title'];
+		$game -> updateSponsor($sid, $title);
+		echo json_encode(array(
+				'status' => 1,
+				'msg' => '成功更新广告语'
+			));
 	}
 
 

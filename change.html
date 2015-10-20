@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>七十三号馆 - 方方乐</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<link type="text/css" rel="stylesheet" href="./css/iconfont.css" />
+		<link type="text/css" rel="stylesheet" href="./css/comm.css" />
+		<link type="text/css" rel="stylesheet" href="./css/main.css" />
+		<link type="text/css" rel="stylesheet" href="./css/support.css" />
+	</head>
+	<body>
+
+		<!-- 菜单 -->
+		<div class="menu" >
+			<a href="./index.html" class="menu-btn iconfont icon-menu"></a>
+			<div class="menu-are">
+				<a href="./index.html" ><i class="iconfont icon-user"></i><span>个人</span></a>
+				<a href="./change.html" ><i class="iconfont icon-score"></i><span>兑换</span></a>
+				<p></p>
+				<a href="./guess.html" ><i class="iconfont icon-menu-guess"></i><span>竞猜</span></a>
+				<a href="#" ><i class="iconfont icon-menu-match"></i><span>比赛</span></a>
+				<a href="#" ><i class="iconfont icon-menu-invest"></i><span>投资</span></a>
+			</div>
+		</div>
+
+		<h1 class="comm-title" id="aa">Welcome to "Change界面"</h1>
+		
+		<!-- 主体部分 -->
+		<div class="main">
+			<div class="label">
+				<!-- <span><i class="iconfont icon-reward"></i>三分钟+1</span>
+				<span><i class="iconfont icon-reward"></i>每日登录+100</span> -->
+				<div class="comm-clear"></div>
+			</div>
+
+			<div class="depict" id="bb">
+				<!-- <i class="iconfont icon-time"></i><span>欢迎来到这个简单的网站。</span> -->
+			</div>
+			
+			<div class="user">
+				<i class="iconfont icon-user"></i>
+				<input id="d" placeholder="请输入你的账号" />
+				<span id="msg" class="comm-tip"><i></i><em>提示信息</em></span>
+			</div>
+
+			<div class="score">
+				<a class="score-number" id="info" href="#" title="进入兑换界面" >
+					<i class="iconfont icon-score"></i>
+					<em id="score">0</em>分
+				</a>
+				<span class="score-mode" id="changeMode">
+					<a class="score-item score-item-value" id="changeModeTemplate" style="display:none;" href="javascript:;" title="添加兑换方式" ><i class="iconfont"></i><span>+</span></a>
+				</span>
+				<input type="hidden" value="" id="scoreSelected" />
+			</div>
+		</div>
+	
+		<!-- 分割 -->
+		<div class="comm-gap"></div>
+	
+		<!-- <h2 class="comm-subtitle">赞助和兑换<a href="#seat_support" id="seat_support">#</a></h2> -->
+	
+		<div id="supportList">
+
+			<!-- 赞助  -->
+			<div class="support support-add" id="support">
+				<div class="add">+ 参与赞助<span><i></i></span></div>
+				<div class="edit add-edit">
+					<input class="title" id="support_title" placeholder="赞助单位" />
+					<div class="param">
+						<div class="price" id="support_price">
+							<a href="javascript:;" n="10" >10分</a>
+							<a href="javascript:;" n="50" >50分</a>
+							<a href="javascript:;" n="100" >100分</a>
+							<!-- <a href="javascript:;" n="1000" >1000分</a>
+							<a href="javascript:;" n="3000" >3000分</a>
+							<a href="javascript:;" n="5000" >5000分</a> -->
+						</div>
+						<span class="txt">*</span>
+						<input class="num" id="support_number" placeholder="数量" value="1" />份
+						<span class="txt">=&nbsp;<em id="support_total">1000</em>分（需支付）</span>
+					</div>
+					<a class="btn" id="support_yes" href="javascript:;" >确定</a>
+					<a class="btn" id="support_no" href="javascript:;" >取消</a>
+					<span id="supportMsg" class="comm-tip"><i></i><em>提示信息</em></span>
+				</div>
+				<div class="loading"></div>
+			</div>
+
+			<!-- 兑换  -->
+			<div class="support support-change" id="supportTemplate" style="display: none;" >
+				<div class="change">
+					<div class="depict">
+						<p class="title">芳芳出差赞助</p>
+						<p><span class="price">1000</span>分</p>
+						<p>剩余<span class="number">10</span>张&nbsp;&nbsp;<a href="javascript:;">兑换</a></p>
+					</div>
+				</div>
+				<div class="edit change-edit">
+					<input class="title" placeholder="赞助单位" />
+					<div class="param"></div>
+					<a class="btn btn_yes" href="javascript:;" >确定</a>
+					<a class="btn btn_no" href="javascript:;" >取消</a>
+					<span id="supportMsg" class="comm-tip"><i></i><em>提示信息</em></span>
+				</div>
+				<div class="loading"></div>
+			</div>
+		</div>
+	
+		<!-- 分割 -->
+		<div class="comm-gap"></div>
+
+
+		<script src="./js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="./js/game.comm.js" ></script>
+		<script type="text/javascript" src="./js/game.user.js" ></script>
+		<script type="text/javascript" src="./js/game.support.js" ></script>
+		<script type="text/javascript">
+
+			// 初始功能
+			var my = new User(),
+				money = new Money();
+
+
+			// 初始化用户
+			my.init(function(data){
+				my.setTip(data.msg);
+				if ( data.status ) {
+					$('#d').val(data.user.name);
+				}
+			});	
+
+
+			// 快速登录
+			$('#d').change(function(){
+				var value = $(this).val();
+				if ( value == '' ) {
+					my.setTip('无效的名称');
+					$(this).val(user.name);
+				} else {
+					my.getUserByName(value, function(data){
+						my.setTip(data.msg);
+					});
+				}
+				$('.score-edit').hide();
+				$('.score-item').removeClass('act');
+			});
+
+
+
+
+			// 计算总金额
+			var countInfo = null;
+			function count ( value ) {
+				var value = {
+						price: parseInt($('#support_price a[class=act]').attr('n')),
+						number: parseInt($('#support_number').val())
+					};
+				$('#support_total').html( value.price * value.number );
+				countInfo = value;
+			}
+
+			// 打开编辑界面
+			$('.support:not(.support-list)').mousedown(function(){
+				$(this).find('.add span').css({ top: 0 });
+			}).mouseup(function(){
+				$(this).addClass('support-act');
+				$(this).find('.add span').css({ top: -20 });
+			});
+
+			// 关闭编辑界面
+			$('#support_no').click(function(){
+				$(this).parents('.support').removeClass('support-act').find('.add span').css({ top: '' });
+			});
+
+
+			// 选择单价
+			$('#support_price a').click(function(){
+				$(this).addClass('act').siblings().removeClass('act');
+				count();
+			}).eq(0).click();
+
+			// 设置数量
+			$('#support_number').change(function(){
+				count();
+			});
+
+			// 设置赞助来源
+			$('#support_title').change(function(){
+				countInfo.title = $(this).val().replace(/\s+/g,"");
+			})
+
+			// 确认赞助
+			$('#support_yes').click(function(){
+				countInfo.title = $('#support_title').val().replace(/\s+/g,"");
+				countInfo.token = my.info('token');
+				if ( !countInfo.title ) {
+					$('#support_title').focus();
+					money.tipEdit('请输入你的广告语');
+				} else {
+					if ( countInfo.price * countInfo.number <= my.info('score') ) {
+						var loading = $(this).parents('.support').find('.loading').slideDown();
+
+						setTimeout(function(){
+							money.add(countInfo, function(data){
+								loading.slideUp();
+								if ( data.status ) {
+									my.setUserScore(-countInfo.price * countInfo.number);
+									$('#support_title').val('')
+									$('#support_number').val('1')
+									$('#support_price a:eq(0)').click();
+									money.tipEdit(data.msg);
+									money.inserSupporHtml(data.info);
+								} else {
+									money.tipEdit(data.msg);
+								}
+							});
+						}, 1200);
+
+					} else {
+						money.tipEdit('积分不足');
+					}
+				}
+			});
+
+			// 获取全部赞助
+			money.getAll(function(data){
+				var template = $('#supportTemplate'),
+					temp = null;
+				if ( data.status ) {
+					money.inserSupporHtml(data.res);
+				}
+			});
+
+			// 点击兑换
+			$().click(function(){
+				var mode = $('#scoreSelected').val();
+			})
+
+
+		</script>
+	</body>
+</html>
