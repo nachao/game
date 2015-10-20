@@ -40,3 +40,22 @@ function getCookie ( name ){
 function ntfs ( value ){
 	return value.replace(/\s+/g,"");
 }
+
+// 显示提示
+function tips ( el, value, time ) {
+	time = time || 3000;
+	if ( el ) {
+		var loop = el.data('loop');
+		el.css({ display: 'inline-block' }).find('em').html(value);
+		clearTimeout(loop);
+		loop = setTimeout(function(){ el.hide(); }, time);
+		el.data('loop', loop);
+		el.hover(function(){
+			clearTimeout(loop);
+		}, function(){
+			clearTimeout(loop);
+			loop = setTimeout(function(){ el.hide(); }, time);
+			el.data('loop', loop);
+		});
+	}
+}

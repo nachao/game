@@ -298,17 +298,23 @@
 		}
 
 
+
+
+
+
+
 		// 添加赞助
 		public function addSponsor ( $token='', $title='', $price=0, $number=0 ) {
 			$sponsor_id = md5($token.time());
-			$sql = "insert INTO `game`.`game_sponsor` (`id`, `user_token`, `sid`, `title`, `price`, `number`, `time`, `depict`) VALUES (NULL, '".$token."', '".$sponsor_id."', '".$title."', '".$price."', '".$number."', '".time()."', NULL);";
+			$sql = "insert INTO `game`.`game_sponsor` (`id`, `token`, `sid`, `title`, `price`, `number`, `time`) VALUES (NULL, '".$token."', '".$sponsor_id."', '".$title."', '".$price."', '".$number."', '".time()."');";
 			$query = mysql_query($sql);
 			if ( $query ) {
 				return array(
 						'id' => $sponsor_id,
 						'title' => $title,
 						'price' => $price,
-						'number' => $number
+						'number' => $number,
+						'boss' => $token
 					);
 			}
 		}
@@ -319,10 +325,10 @@
 			$query = mysql_query($sql);
 		}
 
-
 		// 获取赞助
 		public function getSponsor () {
-			$sql = "select * FROM  `game_sponsor`  WHERE `number` > 0 LIMIT 0 , 30";
+			// $sql = "select * FROM  `game_sponsor`  WHERE `number` > 0 LIMIT 0 , 30";
+			$sql = "select * FROM `game_sponsor`  WHERE `number` > (SELECT count(`id`) From `game_sponsor_receive`  WHERE `game_sponsor_receive`.`sid` = `game_sponsor`.`sid`)";
 			$query = mysql_query($sql);
 			$value = array();
 			if ( $query ) {
@@ -331,7 +337,8 @@
 							'id' => $row['sid'],
 							'title' => $row['title'],
 							'price' => $row['price'],
-							'number' => $row['number']
+							'number' => $row['number'] - $this -> getSponsorChangeTotal($row['sid']),
+							'boss' => $row['token']
 						));
 				}
 			}
@@ -341,6 +348,57 @@
 					'res' => $value
 				);
 		}
+
+		// 获取指定的赞助
+		public function getSponsorBySid ( $sid='' ) {
+			$sql = "select *  FROM `game_sponsor` WHERE `sid` LIKE '".$sid."'";
+			$query = mysql_query($sql);
+			$value = array();
+			if ( $query ) {
+				if ( $row = mysql_fetch_array($query) ) {	//获取单个内容数
+					$value = array(
+							'id' => $row['sid'],
+							'title' => $row['title'],
+							'price' => $row['price'],
+							'number' => $row['number'],
+							'boss' => $row['token']
+						);
+				}
+			}
+			return array(
+					'status' => 1,
+					'msg' => '成功获取指定的赞助',
+					'info' => $value
+				);
+		}
+
+		// 获取指定的赞助的兑换总数
+		public function getSponsorChangeTotal ( $sponsor_id='' ) {
+			$sql = "select count(`id`)  FROM `game_sponsor_receive` WHERE `sid` LIKE '".$sponsor_id."'";
+			$query = mysql_query($sql);
+			if ( $query ) {
+				$row = mysql_fetch_array($query);
+				return $row[0];
+			}
+		}
+
+		// 兑换
+		public function addChange ( $token='', $sid='', $mid='' ) {
+			$sql = "insert INTO `game`.`game_sponsor_receive` (`id`, `uid`, `sid`, `mid`, `time`, `remark`) VALUES (NULL, '".$token."', '".$sid."', '".$mid."', '".time()."', NULL);";
+			$query = mysql_query($sql);
+			if ( $query ) {
+				return true;
+				// return array(
+				// 		'id' => $row['sid'],
+				// 		'title' => $row['title'],
+				// 		'price' => $row['price'],
+				// 		'number' => $row['number'],
+				// 		'boss' => $row['token']
+				// 	);
+			}
+		}
+
+
 
 
 

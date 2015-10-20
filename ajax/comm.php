@@ -242,6 +242,8 @@
 
 
 
+
+
 	// 添加赞助
 	if ( $key == 'add_sponsor' ) {
 
@@ -256,12 +258,12 @@
 					'status' => 0,
 					'msg' => '无效用户'
 				);
-		} else if ( $price * $number < 10 || !$title ) {	// 最小赞助金额
+		} else if ( $price * $number < 1000 || !$title ) {	// 最小赞助金额
 			$value = array(
 					'status' => 0,
 					'msg' => '参数错误'
 				);
-		} else if ( $userinfo && $userinfo['score'] > $price * $number ) {
+		} else if ( $userinfo['score'] >= $price * $number ) {
 			$value = $game -> addSponsor($uid, $request['title'], $price, $number);
 			$value = array(
 					'status' => 1,
@@ -294,6 +296,60 @@
 				'msg' => '成功更新广告语'
 			));
 	}
+
+
+
+
+
+
+
+	// 兑换
+	if ( $key == 'add_user_change' ) {
+		$token = $request['uid'];
+		$sid = $request['sid'];
+		$user_info = $game -> getUser($token);
+		$support_info = $game -> getSponsorBySid($sid);
+		$price = $support_info['info']['price'];
+		$total = $support_info['info']['number'];
+		$number = $game -> getSponsorChangeTotal($sid);
+		if ( !$user_info ) {
+			$value = array(
+					'status' => 0,
+					'msg' => '兑换失败，无效用户'
+				);
+		} else if ( $user_info['score'] < $price ) {
+			$value = array(
+					'status' => 0,
+					'msg' => '兑换失败，积分不足('.$price.')'
+				);
+		} else if ( $total < $number ) {
+			$value = array(
+					'status' => 0,
+					'msg' => '兑换失败，已经被兑换完'
+				);
+		} else {
+			$game -> setUserScore($token, -$price);
+			if ( $game -> addChange($token, $sid, $request['mid']) ) {
+				$value = array(
+						'status' => 1,
+						'msg' => '兑换成功',
+						'support' => array(
+								'number' => $total - $number - 1,
+								'price' => $price
+							)
+					);
+			} else {
+				$value = array(
+						'status' => 0,
+						'msg' => 'mysql error'
+					);
+			}
+		}
+		echo json_encode($value);
+	}
+
+
+
 
 
 

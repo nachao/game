@@ -163,17 +163,6 @@
 
 
 
-.support-act{
-	border: 1px dashed #ccc;
-}
-.support-act .add-edit{
-	top: 0px;
-}
-.support-act .add{
-	top: -240px;
-}
-
-
 /* 兑换 */
 .support-change .add-edit,.support-change .add{
 	display: none;
@@ -185,29 +174,60 @@
 
 .support .change{
 	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	transition: 1s;
+	-webkit-transition: 1s;
 }
 .support-change .change{
 	display: inline-block;
 }
 .support-change .change-edit{
-	display: none;
+	/*display: none;*/
 }
 .support-change .change .depict{
 	margin: 20px 20px 20px 100px;
 }
+.support-change .change .depict .comm-tip{
+	top: 5px;
+	left: 10px;
+}
 .support-change .change .title{
-	font-size: 24px;
 	margin-top: 50px;
-	line-height: 1.5em;
-	height: 70px;
-	overflow: hidden;
 	margin-bottom: 20px;
+	position: relative;
+}
+.support-change .change .title span{
+	display: inline-block;
+	font-size: 24px;
+	height: 70px;
+	line-height: 1.5em;
+	overflow: hidden;
+}
+.support .change .title .icon-edit{
+	position: absolute;
+	top: 5px;
+	left: -50px;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+.support .change .title .icon-edit:hover{
+	background: black;
+	color: white;
+	border-radius: 30px;
 }
 .support-change .change p{
 	margin: 0px;
 	line-height: 1.8em;
 }
-.support-change .change a{
+.support-change .change .exchange{
 	background: black;
 	color: white;
 	text-decoration: none;
@@ -227,7 +247,7 @@
 	background: black url(../img/loading.gif) no-repeat center;
 	background-size: 300px;
 }
-.support-change-act .change-edit{
+/*.change-edit{
 	display: inline-block;
 	position: absolute;
 	top: 0px;
@@ -236,12 +256,22 @@
 	height: 100%;
 	z-index: 2;
 	background: white;
+	transition: 1s;
+	-webkit-transition: 1s;
+}*/
+
+
+
+
+
+/* 进入编辑界面 */
+.support-act{
+	border: 1px dashed #ccc;
 }
-
-
-
-
-
-
-
+.support-act .edit{
+	top: 0px;
+}
+.support-act .add,.support-act .change{
+	top: -240px;
+}
 

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2015-10-20 00:52:48
+Date: 2015-10-21 00:23:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -115,7 +115,7 @@ CREATE TABLE `game_mode` (
   `type` int(1) DEFAULT NULL,
   `remark` varchar(100) DEFAULT NULL COMMENT '备注，游戏的话，则是分区',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_mode
@@ -128,6 +128,10 @@ INSERT INTO `game_mode` VALUES ('24', '77f87b52192ce6bf6cea029c1471a68e', '21f1a
 INSERT INTO `game_mode` VALUES ('25', '9924e64c53d7d51d8be6b9d2dcf14a88', '21f1ab8bd5e891594873e8bc3ed87750', '123', '123123', '1445263586', '1', '9');
 INSERT INTO `game_mode` VALUES ('27', '2b00b78a735feaf01362b0a596930df2', '21f1ab8bd5e891594873e8bc3ed87750', '123', '123', '1445265342', '2', '1');
 INSERT INTO `game_mode` VALUES ('28', '3476dc11a4ff6884ad40d7a05f3497b7', '9870a2814efc60ed310d2e7ead315616', 'asd', 'asd', '1445265615', '2', '1');
+INSERT INTO `game_mode` VALUES ('29', 'fbca1590ccf7e5f6590342eebde6c270', 'c2b366caeed42e6b4fa19d0a09f68d2f', '123', '123123', '1445347236', '2', '1');
+INSERT INTO `game_mode` VALUES ('30', '4f21387e464d20030e867b92b5c04e44', '8b83b2ebe86ab593d5206bc3153a9cb4', '15680033681', '那超', '1445350394', '2', '1');
+INSERT INTO `game_mode` VALUES ('31', 'f3cef5f26c7a4502e78361d304b4d380', 'a0d250a05a44ca4ca4a18e86daecc20e', '111', '111', '1445356469', '2', '1');
+INSERT INTO `game_mode` VALUES ('32', 'af74ef93101d17dbb1d8aa526c1babae', 'a0d250a05a44ca4ca4a18e86daecc20e', '222', '222', '1445356474', '1', '1');
 
 -- ----------------------------
 -- Table structure for `game_select`
@@ -173,35 +177,117 @@ INSERT INTO `game_select` VALUES ('107', '62337cc724dc321abadcb8b7afa64aef', '4'
 DROP TABLE IF EXISTS `game_sponsor`;
 CREATE TABLE `game_sponsor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_token` varchar(100) DEFAULT '' COMMENT '赞助用户id',
+  `token` varchar(100) DEFAULT '' COMMENT '赞助用户id',
   `sid` varchar(100) DEFAULT '' COMMENT '赞助唯一标示',
   `title` varchar(100) DEFAULT '' COMMENT '赞助名称',
   `price` int(11) DEFAULT '0' COMMENT '单价',
   `number` int(11) DEFAULT '0' COMMENT '赞助剩余数量',
   `time` int(11) DEFAULT '0' COMMENT '赞助时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_sponsor
 -- ----------------------------
+INSERT INTO `game_sponsor` VALUES ('1', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '《韩国宇航局》赞助：我们要去远方看看还有什么是我们的，思密达！', '10', '31', '1445344260');
+INSERT INTO `game_sponsor` VALUES ('2', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'df910da771aff12b18eed4e191e51fff', '手机淘宝好啊，欧巴都说吊啊。', '1000', '41', '1445344637');
+INSERT INTO `game_sponsor` VALUES ('3', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', '“自来水公司”赞助：请开门，我们查一下水表，是真滴。', '1000', '111', '1445345992');
+INSERT INTO `game_sponsor` VALUES ('4', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', '心灵鸡汤学会赞助：你可能会觉得自己又矮又丑又没钱，但至少你的判断是对的。', '3000', '222', '1445346759');
+INSERT INTO `game_sponsor` VALUES ('5', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'b5ce00a86d0fe4efb1e7eb5dd14d7437', '《3D手游铁血战神》赞助：“建议每日游戏时间不要超过二十四小时哟！”', '5000', '1', '1445356871');
+INSERT INTO `game_sponsor` VALUES ('6', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'c3e6889a9dd84fc901951699abb633fe', '《3D手游铁血战神》赞助：“建议每日游戏时间不要超过二十四小时哟！”', '1000', '5', '1445356965');
+INSERT INTO `game_sponsor` VALUES ('7', 'c2b366caeed42e6b4fa19d0a09f68d2f', '0095a6edbf82428a3e4c7f0e41a44f2b', '【官方】《站长夫人的零花钱》赞助：“体力好，脑力好，要是有钱就更好。“', '100', '10', '1445358023');
 
 -- ----------------------------
 -- Table structure for `game_sponsor_receive`
 -- ----------------------------
 DROP TABLE IF EXISTS `game_sponsor_receive`;
 CREATE TABLE `game_sponsor_receive` (
-  `id` int(11) NOT NULL DEFAULT '0',
-  `uid` int(11) DEFAULT NULL COMMENT '领取的用户id',
-  `sid` int(11) DEFAULT NULL COMMENT '领取的赞助id',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` varchar(100) DEFAULT NULL COMMENT '领取的用户id',
+  `sid` varchar(100) DEFAULT NULL COMMENT '领取的赞助id',
+  `mid` varchar(100) DEFAULT NULL,
   `time` int(11) DEFAULT '0' COMMENT '兑换时间',
   `remark` text COMMENT '兑换时用户给的兑换到目标位置的信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_sponsor_receive
 -- ----------------------------
+INSERT INTO `game_sponsor_receive` VALUES ('1', '123', '123123', null, '123123', null);
+INSERT INTO `game_sponsor_receive` VALUES ('2', '123', '123', '123', '123', null);
+INSERT INTO `game_sponsor_receive` VALUES ('3', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445350317', null);
+INSERT INTO `game_sponsor_receive` VALUES ('4', '8b83b2ebe86ab593d5206bc3153a9cb4', 'e1139d56b03dd513b72a08793780c6ee', '4f21387e464d20030e867b92b5c04e44', '1445350477', null);
+INSERT INTO `game_sponsor_receive` VALUES ('5', '8b83b2ebe86ab593d5206bc3153a9cb4', 'e1139d56b03dd513b72a08793780c6ee', '4f21387e464d20030e867b92b5c04e44', '1445350606', null);
+INSERT INTO `game_sponsor_receive` VALUES ('6', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445353359', null);
+INSERT INTO `game_sponsor_receive` VALUES ('7', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445353380', null);
+INSERT INTO `game_sponsor_receive` VALUES ('8', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445353744', null);
+INSERT INTO `game_sponsor_receive` VALUES ('9', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445353744', null);
+INSERT INTO `game_sponsor_receive` VALUES ('10', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445353744', null);
+INSERT INTO `game_sponsor_receive` VALUES ('11', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355278', null);
+INSERT INTO `game_sponsor_receive` VALUES ('12', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355382', null);
+INSERT INTO `game_sponsor_receive` VALUES ('13', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355449', null);
+INSERT INTO `game_sponsor_receive` VALUES ('14', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355506', null);
+INSERT INTO `game_sponsor_receive` VALUES ('15', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355534', null);
+INSERT INTO `game_sponsor_receive` VALUES ('16', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355562', null);
+INSERT INTO `game_sponsor_receive` VALUES ('17', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355612', null);
+INSERT INTO `game_sponsor_receive` VALUES ('18', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355655', null);
+INSERT INTO `game_sponsor_receive` VALUES ('19', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355712', null);
+INSERT INTO `game_sponsor_receive` VALUES ('20', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355745', null);
+INSERT INTO `game_sponsor_receive` VALUES ('21', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355772', null);
+INSERT INTO `game_sponsor_receive` VALUES ('22', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'df910da771aff12b18eed4e191e51fff', 'fbca1590ccf7e5f6590342eebde6c270', '1445355845', null);
+INSERT INTO `game_sponsor_receive` VALUES ('23', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'df910da771aff12b18eed4e191e51fff', 'fbca1590ccf7e5f6590342eebde6c270', '1445355849', null);
+INSERT INTO `game_sponsor_receive` VALUES ('24', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355951', null);
+INSERT INTO `game_sponsor_receive` VALUES ('25', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355976', null);
+INSERT INTO `game_sponsor_receive` VALUES ('26', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445355983', null);
+INSERT INTO `game_sponsor_receive` VALUES ('27', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'c6571c525420eecdcd862c7c22ef8b52', 'fbca1590ccf7e5f6590342eebde6c270', '1445355989', null);
+INSERT INTO `game_sponsor_receive` VALUES ('28', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445356001', null);
+INSERT INTO `game_sponsor_receive` VALUES ('29', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445356004', null);
+INSERT INTO `game_sponsor_receive` VALUES ('30', 'c2b366caeed42e6b4fa19d0a09f68d2f', '2395d3d7e6efb6b96f7fc3a1bee1c35c', 'fbca1590ccf7e5f6590342eebde6c270', '1445356006', null);
+INSERT INTO `game_sponsor_receive` VALUES ('31', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356016', null);
+INSERT INTO `game_sponsor_receive` VALUES ('32', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356016', null);
+INSERT INTO `game_sponsor_receive` VALUES ('33', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356017', null);
+INSERT INTO `game_sponsor_receive` VALUES ('34', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356017', null);
+INSERT INTO `game_sponsor_receive` VALUES ('35', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356017', null);
+INSERT INTO `game_sponsor_receive` VALUES ('36', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356017', null);
+INSERT INTO `game_sponsor_receive` VALUES ('37', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356017', null);
+INSERT INTO `game_sponsor_receive` VALUES ('38', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356017', null);
+INSERT INTO `game_sponsor_receive` VALUES ('39', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('40', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('41', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('42', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('43', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('44', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('45', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356018', null);
+INSERT INTO `game_sponsor_receive` VALUES ('46', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356019', null);
+INSERT INTO `game_sponsor_receive` VALUES ('47', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356019', null);
+INSERT INTO `game_sponsor_receive` VALUES ('48', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356019', null);
+INSERT INTO `game_sponsor_receive` VALUES ('49', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356019', null);
+INSERT INTO `game_sponsor_receive` VALUES ('50', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356019', null);
+INSERT INTO `game_sponsor_receive` VALUES ('51', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356019', null);
+INSERT INTO `game_sponsor_receive` VALUES ('52', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356021', null);
+INSERT INTO `game_sponsor_receive` VALUES ('53', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356021', null);
+INSERT INTO `game_sponsor_receive` VALUES ('54', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356022', null);
+INSERT INTO `game_sponsor_receive` VALUES ('55', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356022', null);
+INSERT INTO `game_sponsor_receive` VALUES ('56', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356022', null);
+INSERT INTO `game_sponsor_receive` VALUES ('57', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356022', null);
+INSERT INTO `game_sponsor_receive` VALUES ('58', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356022', null);
+INSERT INTO `game_sponsor_receive` VALUES ('59', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356025', null);
+INSERT INTO `game_sponsor_receive` VALUES ('60', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356025', null);
+INSERT INTO `game_sponsor_receive` VALUES ('61', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'e1139d56b03dd513b72a08793780c6ee', 'fbca1590ccf7e5f6590342eebde6c270', '1445356025', null);
+INSERT INTO `game_sponsor_receive` VALUES ('62', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357728', null);
+INSERT INTO `game_sponsor_receive` VALUES ('63', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357731', null);
+INSERT INTO `game_sponsor_receive` VALUES ('64', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357732', null);
+INSERT INTO `game_sponsor_receive` VALUES ('65', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357734', null);
+INSERT INTO `game_sponsor_receive` VALUES ('66', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357735', null);
+INSERT INTO `game_sponsor_receive` VALUES ('67', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357736', null);
+INSERT INTO `game_sponsor_receive` VALUES ('68', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357738', null);
+INSERT INTO `game_sponsor_receive` VALUES ('69', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357740', null);
+INSERT INTO `game_sponsor_receive` VALUES ('70', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357741', null);
+INSERT INTO `game_sponsor_receive` VALUES ('71', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357743', null);
+INSERT INTO `game_sponsor_receive` VALUES ('72', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357744', null);
+INSERT INTO `game_sponsor_receive` VALUES ('73', '9870a2814efc60ed310d2e7ead315616', 'c6571c525420eecdcd862c7c22ef8b52', '5b5ed9efe270a1df40944ccdc90f39f5', '1445357745', null);
+INSERT INTO `game_sponsor_receive` VALUES ('74', '9870a2814efc60ed310d2e7ead315616', '0095a6edbf82428a3e4c7f0e41a44f2b', '5b5ed9efe270a1df40944ccdc90f39f5', '1445358159', null);
 
 -- ----------------------------
 -- Table structure for `game_user`
@@ -215,19 +301,22 @@ CREATE TABLE `game_user` (
   `status` int(11) DEFAULT '0' COMMENT '当前状态0=未登录，xxxx=最近活动时间，没结束一场就上报一次活动时间',
   `key` varchar(100) DEFAULT '' COMMENT '登录钥匙',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_user
 -- ----------------------------
-INSERT INTO `game_user` VALUES ('2', '9870a2814efc60ed310d2e7ead315616', 'a1', '124', '1445272860', '93640fd6ab02850048ec9508b0ebfe78');
+INSERT INTO `game_user` VALUES ('2', '9870a2814efc60ed310d2e7ead315616', 'a1', '1', '1445358156', '73de0c071097fc1c6977f642dabb8ef2');
 INSERT INTO `game_user` VALUES ('4', 'bb0af0869b45ccac5fd11c2937410d5d', 'a2', '116', '1445273530', '9d2ced04682f7081d3fae447769d3de8');
 INSERT INTO `game_user` VALUES ('5', '5d8c8038fbe7967ef7ec251a71df9475', 'a3', '220', '1445271763', 'c56d4b50a192e53ee175248bc7cee3be');
 INSERT INTO `game_user` VALUES ('33', '21f1ab8bd5e891594873e8bc3ed87750', 'fangfang', '100', '1445265543', 'f8f448956401b6dc0ea5e603698600dc');
 INSERT INTO `game_user` VALUES ('34', '247ef39b877dc6533d2c588f71643dae', 'a4', '300', '0', '24f015bca2c9a6788ffc6e1cb633c8b1');
 INSERT INTO `game_user` VALUES ('36', 'adc2eb15142a8be4e1106354819b0949', 'a5', '100', '1445267923', '6379f8116c5cd40e78b4c0131a15a0f3');
 INSERT INTO `game_user` VALUES ('37', '1256d74248a90d7ffe3295be641f53d8', 'a6', '100', '0', '7eb404b6605bd33e0b9d17b622d7b21e');
-INSERT INTO `game_user` VALUES ('41', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'fang', '204700', '0', '947b126f901a8d22722a687d17f7a958');
+INSERT INTO `game_user` VALUES ('41', 'c2b366caeed42e6b4fa19d0a09f68d2f', 'fang', '0', '0', '26a6cf2cb06d97c1409fcf1f29a65a94');
+INSERT INTO `game_user` VALUES ('42', '8b83b2ebe86ab593d5206bc3153a9cb4', 'na', '104', '0', 'a423c7320a39417584e313d3e964461b');
+INSERT INTO `game_user` VALUES ('43', 'a0d250a05a44ca4ca4a18e86daecc20e', 'fang1', '10000', '0', '9e581241ccfd6a2ffb6d6f3ee6f7b6d2');
+INSERT INTO `game_user` VALUES ('44', '21af63b967ad6098f7cb0e0cd07c3456', 'q1', '100', '0', '3ef28270c02fa9667afb281f0ec92070');
 
 -- ----------------------------
 -- Table structure for `game_welfare_daily`
@@ -239,7 +328,7 @@ CREATE TABLE `game_welfare_daily` (
   `time` int(11) DEFAULT NULL,
   `number` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_welfare_daily
@@ -247,6 +336,12 @@ CREATE TABLE `game_welfare_daily` (
 INSERT INTO `game_welfare_daily` VALUES ('21', '9870a2814efc60ed310d2e7ead315616', '1445270796', '100');
 INSERT INTO `game_welfare_daily` VALUES ('22', 'bb0af0869b45ccac5fd11c2937410d5d', '1445270986', '100');
 INSERT INTO `game_welfare_daily` VALUES ('23', '5d8c8038fbe7967ef7ec251a71df9475', '1445270998', '100');
+INSERT INTO `game_welfare_daily` VALUES ('24', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445344630', '100');
+INSERT INTO `game_welfare_daily` VALUES ('25', '8b83b2ebe86ab593d5206bc3153a9cb4', '1445350368', '100');
+INSERT INTO `game_welfare_daily` VALUES ('26', 'a0d250a05a44ca4ca4a18e86daecc20e', '1445356456', '100');
+INSERT INTO `game_welfare_daily` VALUES ('27', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445356811', '100');
+INSERT INTO `game_welfare_daily` VALUES ('28', '21af63b967ad6098f7cb0e0cd07c3456', '1445357054', '100');
+INSERT INTO `game_welfare_daily` VALUES ('29', '9870a2814efc60ed310d2e7ead315616', '1445357055', '100');
 
 -- ----------------------------
 -- Table structure for `game_welfare_hangup`
@@ -258,7 +353,7 @@ CREATE TABLE `game_welfare_hangup` (
   `time` int(11) DEFAULT NULL,
   `number` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of game_welfare_hangup
@@ -277,3 +372,60 @@ INSERT INTO `game_welfare_hangup` VALUES ('31', 'bb0af0869b45ccac5fd11c2937410d5
 INSERT INTO `game_welfare_hangup` VALUES ('32', 'bb0af0869b45ccac5fd11c2937410d5d', '1445273026', '1');
 INSERT INTO `game_welfare_hangup` VALUES ('33', 'bb0af0869b45ccac5fd11c2937410d5d', '1445273210', '1');
 INSERT INTO `game_welfare_hangup` VALUES ('34', 'bb0af0869b45ccac5fd11c2937410d5d', '1445273392', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('35', '9870a2814efc60ed310d2e7ead315616', '1445344235', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('36', '9870a2814efc60ed310d2e7ead315616', '1445344421', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('37', '9870a2814efc60ed310d2e7ead315616', '1445344602', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('38', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445344813', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('39', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445344994', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('40', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445345184', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('41', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445345372', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('42', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445345567', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('43', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445345750', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('44', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445345934', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('45', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445346122', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('46', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445346305', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('47', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445346493', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('48', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445346679', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('49', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445346863', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('50', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445347045', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('51', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445347228', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('52', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445347415', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('53', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445347598', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('54', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445347778', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('55', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445348882', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('56', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445349062', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('57', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445349242', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('58', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445349422', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('59', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445349606', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('60', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445349786', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('61', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445349967', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('62', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445350149', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('63', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445350333', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('64', '8b83b2ebe86ab593d5206bc3153a9cb4', '1445350551', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('65', '8b83b2ebe86ab593d5206bc3153a9cb4', '1445350914', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('66', '8b83b2ebe86ab593d5206bc3153a9cb4', '1445352764', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('67', '8b83b2ebe86ab593d5206bc3153a9cb4', '1445352947', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('68', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445353149', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('69', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445353329', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('70', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445353517', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('71', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445353698', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('72', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445353881', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('73', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445354244', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('74', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445354424', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('75', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445354604', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('76', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445354785', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('77', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445354966', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('78', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445355146', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('79', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445355328', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('80', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445355529', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('81', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445355719', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('82', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445355904', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('83', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445356091', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('84', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445356273', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('85', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445356454', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('86', 'a0d250a05a44ca4ca4a18e86daecc20e', '1445356647', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('87', 'c2b366caeed42e6b4fa19d0a09f68d2f', '1445356896', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('88', '9870a2814efc60ed310d2e7ead315616', '1445357248', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('89', '9870a2814efc60ed310d2e7ead315616', '1445357434', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('90', '9870a2814efc60ed310d2e7ead315616', '1445357623', '1');
+INSERT INTO `game_welfare_hangup` VALUES ('91', '9870a2814efc60ed310d2e7ead315616', '1445357809', '1');

@@ -106,6 +106,8 @@ function User () {
 		name: '',		// 用户名称
 		score: 0,		// 用户积分
 
+		mode: [],		// 兑换方式
+
 		key: '',		// 缓存钥匙
 		valid: 0		// 刷新缓存钥匙的时间间隔（秒）
 	};
@@ -271,6 +273,7 @@ User.prototype.getChangeMode = function () {
 				temp = that.setChangeMode(temp, val);
 				template.before(temp);
 			});
+			that.setInfo(data.res, 'mode');		// 保存用户的所有兑换方式
 		}
 	});
 }
@@ -283,7 +286,7 @@ User.prototype.getChangeMode = function () {
 */
 User.prototype.setChangeMode = function ( el, value ) {
 
-	el.show().removeClass('act').find('span').html(value.name);
+	el.addClass('score-item-value').show().removeClass('act').find('span').html(value.name);
 	el.data('val', value);
 	if ( value.type == 1 ) {	// lol
 		el.prop('title', '英雄联盟');
