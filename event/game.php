@@ -327,8 +327,7 @@
 
 		// 获取赞助
 		public function getSponsor () {
-			// $sql = "select * FROM  `game_sponsor`  WHERE `number` > 0 LIMIT 0 , 30";
-			$sql = "select * FROM `game_sponsor`  WHERE `number` > (SELECT count(`id`) From `game_sponsor_receive`  WHERE `game_sponsor_receive`.`sid` = `game_sponsor`.`sid`)";
+			$sql = "select * FROM `game_sponsor`  WHERE `number` > (SELECT count(`id`) From `game_sponsor_receive`  WHERE `game_sponsor_receive`.`sid` = `game_sponsor`.`sid`) ORDER BY (`price` * `number`) ASC";
 			$query = mysql_query($sql);
 			$value = array();
 			if ( $query ) {

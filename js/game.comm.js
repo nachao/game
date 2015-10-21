@@ -1,14 +1,15 @@
 
 
 // 获取后台数据
-function ajax ( param, callback ) {
+function ajax ( url, param, callback ) {
+	url = url || './ajax/comm.php';
 	var value = { _: param };
 	if ( $.type(param) != 'string' ) {
 		value = param;
 	}
 	$.ajax({ 
 		type: "POST", 
-		url: './ajax/comm.php', 
+		url: url, 
 		contentType:"application/json",
 		dataType:"json",
 		data: JSON.stringify(value),

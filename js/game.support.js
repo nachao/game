@@ -15,9 +15,17 @@ function Money () {
 
 
 // 添加赞助
+Money.prototype.a = function ( param, callback ) {
+	ajax('./ajax/ajax.user.php', param, function(data){
+		callback ? callback(data) : null;
+	});
+}
+
+
+// 添加赞助
 Money.prototype.add = function ( value, callback ) {
 	value = value || {};
-	ajax({
+	this.a({
 		_: 'add_sponsor',
 		token: value.token,
 		title: value.title,
@@ -32,7 +40,7 @@ Money.prototype.add = function ( value, callback ) {
 // 修改赞助广告语
 Money.prototype.update = function ( value, callback ) {
 	value = value || {};
-	ajax({
+	this.a({
 		_: 'update_sponsor_title',
 		sid: value.sid,
 		title: value.title
@@ -44,7 +52,7 @@ Money.prototype.update = function ( value, callback ) {
 
 // 获取全部赞助
 Money.prototype.getAll = function ( callback ) {
-	ajax('get_sponsor', function(data){
+	this.a('get_sponsor', function(data){
 		callback ? callback(data): null;
 	});
 }
@@ -53,7 +61,7 @@ Money.prototype.getAll = function ( callback ) {
 // 选择兑换
 Money.prototype.setChange = function ( value, callback ) {
 	value = value || {};
-	ajax({
+	this.a({
 		_: 'add_user_change',
 		uid: value.uid,
 		sid: value.sid,
@@ -131,7 +139,9 @@ Money.prototype.inserSupporHtml = function ( value, token ) {
 				support = $(this).parents('.support'),
 				loading = support.find('.loading'),
 				el_tip = support.find('.depict .comm-tip');
-			if ( $('.score-item-value').length <= 0 ) {
+			if ( !my.info('token') ) {
+				tips(el_tip, '请登录');
+			} else if ( $('.score-item-value').length <= 0 ) {
 				tips(el_tip, '请在个人中心“添加兑换方式”');
 			} else if ( !mode ) {
 				tips(el_tip, '请选择你的兑换方式');

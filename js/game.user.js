@@ -1,97 +1,3 @@
-// 获取用户信息，根据名称
-// function getUserByName ( name, callback ) {
-// 	var token = user ? user.token : '';
-// 	ajax({
-// 		key: 'get_user_byname',
-// 		name: name,
-// 		token: token
-// 	}, function(data, param){
-// 		callback ? callback(data) : null;
-// 		// console.log(data);
-// 	});
-// }
-
-// 获取用户信息，根据钥匙
-// function getUserByKey ( key, callback ) {
-// 	ajax({
-// 		key: 'get_user_bykey',
-// 		code: key
-// 	}, function(data, param){
-// 		callback ? callback(data) : null;
-// 		// console.log(data);
-// 	});
-// }
-
-// 获取用户信息的本场选择
-// function getUserSelect ( callback ) {
-// 	$('#select a').removeClass('act');
-// 	if ( field && user ) {
-// 		ajax({
-// 			key: 'get_user_select',
-// 			tag: field.id,
-// 			token: 1
-// 		}, function ( key ) {
-// 			if ( key ) {
-// 				$('#select a[sid='+ key +']').addClass('act');
-// 			}
-// 		});
-// 	}
-// }
-
-// 设置用户信息
-// function setUserUI ( data ) {
-// 	if ( data ) {
-
-// 		// 账号正在被使用中
-// 		if ( data.status == 0 ) {
-// 			$('#info').hide();
-// 			$('#cc').hide();
-
-// 		// 刷新界面用户信息
-// 		} else {
-// 			$('#info').show();
-// 			$('#cc').show();
-// 			$('#score').html(data.score);
-// 			setCookie('FFL_key', data.key, data.valid);		// 保存用户登录钥匙
-// 		}
-// 	}
-// }
-
-// 每分钟刷新一次用户登录状态
-// function setUserRefresh ( data ) {
-
-// 	if ( user ) {
-
-// 		// 发送账号当前活动状态
-// 		ajax({ 
-// 			key: 'set_user_status',
-// 			uid: user.name
-// 		}, function(data){
-// 			setCookie('FFL_key', data.key, data.valid);	// 保存用户的新登录钥匙
-// 		});
-// 	}
-
-// 	setTimeout(function(){
-// 		setUserRefresh();
-// 	}, 1000 * 60);
-// }
-
-// 获取用户兑换方式
-// function getChangeMode ( user ) {
-// 	ajax({
-// 		key: 'get_user_changeMode',
-// 		token: this.info('token')
-// 	}, function(data){
-// 		// callback ? callback(data) : null;
-// 		var template = $('#changeModeTemplate');
-
-// 		console.log(data);
-
-// 		// $('#changeMode').append();
-// 	})
-// }
-
-
 
 /*
 *  用户
@@ -170,24 +76,15 @@ User.prototype.init = function ( callback ) {
 
 
 /*
-*  获取用户信息的本场选择
+*  每分钟刷新一次用户登录缓存钥匙
 *
 *  @public  
 */
-// User.prototype.getUserSelect = function ( callback ) {
-// 	$('#select a').removeClass('act');
-// 	if ( field && this.info('token') ) {
-// 		ajax({
-// 			key: 'get_user_select',
-// 			tag: field.id,
-// 			token: this.info('token')
-// 		}, function ( key ) {
-// 			if ( key ) {
-// 				$('#select a[sid='+ key +']').addClass('act');
-// 			}
-// 		});
-// 	}
-// }
+User.prototype.a = function ( param, callback ) {
+	ajax('./ajax/ajax.user.php', param, function(data){
+		callback ? callback(data) : null;
+	});
+}
 
 
 /*
@@ -200,7 +97,7 @@ User.prototype.setUserRefresh = function () {
 	clearTimeout(that.refresh_);
 	that.refresh_ = setTimeout(function(){
 		if ( that.info('token') ) {
-			ajax({ 
+			that.a({ 
 				key: 'set_user_status',
 				token: that.info('token')
 			}, function(data){
@@ -247,6 +144,7 @@ User.prototype.setUserUI = function () {
 */
 User.prototype.setUserScore = function ( value ) {
 	value = value || 0;
+	if ( !!this.info('token') )
 	var number = this.info('score') + value;
 	this.setInfo(number, 'score');
 	$('#score').html(number);
@@ -261,7 +159,7 @@ User.prototype.setUserScore = function ( value ) {
 User.prototype.getChangeMode = function () {
 	var that = this;
 	that.emptyChangeMode();
-	ajax({
+	that.a({
 		key: 'get_user_changeMode',
 		token: this.info('token')
 	}, function(data){
@@ -377,7 +275,7 @@ User.prototype.initChangeMode = function () {
 */
 User.prototype.addChangeMode = function ( value, callback ) {
 	value = value || {};
-	ajax({
+	this.a({
 		key: 'set_user_changeMode',
 		token: this.info('token'),
 		type: value.type,
@@ -397,7 +295,7 @@ User.prototype.addChangeMode = function ( value, callback ) {
 */
 User.prototype.updateChangeMode = function ( value, callback ) {
 	value = value || {};
-	ajax({
+	this.a({
 		key: 'set_user_changeMode',
 		id: value.id,
 		account: value.account,
@@ -415,7 +313,7 @@ User.prototype.updateChangeMode = function ( value, callback ) {
 *  @public  
 */
 User.prototype.delChangeMode = function ( id, callback ) {
-	ajax({
+	this.a({
 		key: 'delete_user_changeMode',
 		id: id
 	}, function(data){
@@ -427,7 +325,7 @@ User.prototype.delChangeMode = function ( id, callback ) {
 // 获取用户信息，根据名称
 User.prototype.getUserByName = function ( name, callback ) {
 	var that = this;
-	ajax({
+	this.a({
 		_: 'get_user_byname',
 		name: name,
 		token: that.info('token')
@@ -456,7 +354,7 @@ User.prototype.getUserByName = function ( name, callback ) {
 // 获取用户信息，根据钥匙
 User.prototype.getUserByKey = function ( key, callback ) {
 	var that = this;
-	ajax({
+	this.a({
 		key: 'get_user_bykey',
 		code: key
 	}, function(data, param){
@@ -505,7 +403,7 @@ User.prototype.setTip = function ( value, time ) {
 *  @public  
 */
 User.prototype.getWelfareDaily = function ( callback ) {
-	ajax({
+	this.a({
 		key: 'get_welfare_daily',
 		token: this.info('token')
 	}, function(data){
@@ -529,7 +427,7 @@ User.prototype.getWelfareHangup = function () {
 			time -= 3;
 			if ( time <= 0 ) {
 				time = interval;
-				ajax({
+				that.a({
 					key: 'get_welfare_hangup',
 					token: that.info('token')
 				}, function(data){

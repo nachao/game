@@ -59,7 +59,7 @@
 		<!-- 分割 -->
 		<div class="comm-gap"></div>
 	
-		<div id="supportList">
+		<div class="support-list" id="supportList">
 
 			<!-- 赞助  -->
 			<div class="support support-add" id="support">
@@ -133,16 +133,17 @@
 				if ( data.status ) {
 					$('#d').val(data.user.name);
 				}
-
-				money = new Money();
-
-				// 获取全部赞助
-				money.getAll(function(data){
-					if ( data.status ) {
-						money.inserSupporHtml(data.res, my.info('token'));
-					}
-				});
 			});	
+
+
+			money = new Money();
+
+			// 获取全部赞助
+			money.getAll(function(data){
+				if ( data.status ) {
+					money.inserSupporHtml(data.res, my.info('token'));
+				}
+			});
 
 			// 快速登录
 			$('#d').change(function(){
@@ -203,7 +204,10 @@
 						title: $('#support_title').val().replace(/\s+/g,"") || '',
 						token: my.info('token')
 					};
-				if ( !value.title ) {
+				if ( !value.token ) {
+					$('#d').focus();
+					money.tipEdit('请先登录账号');
+				} else if ( !value.title ) {
 					$('#support_title').focus();
 					money.tipEdit('请输入你的广告语');
 				} else {

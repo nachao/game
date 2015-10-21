@@ -19,7 +19,7 @@
 	$end = 10;			// 总次数
 
 	do {
-	    if( date('h', time()) > 22 )	//$stop >= $end  
+	    if( $stop >= $end || date('h', time()) > 22 )	//$stop >= $end  
 	    	break;
 
 	    append(time() + $interval, $stop);
