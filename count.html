@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>七十三号馆 - 方方乐</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<link type="text/css" rel="stylesheet" href="./css/iconfont.css" />
+		<link type="text/css" rel="stylesheet" href="./css/comm.css" />
+		<link type="text/css" rel="stylesheet" href="./css/main.css" />
+		<link type="text/css" rel="stylesheet" href="./css/count.css" />
+	</head>
+	<body>
+
+		<!-- 菜单 -->
+		<div class="menu" >
+			<a href="./index.html" class="menu-btn iconfont icon-menu"></a>
+			<div class="menu-are">
+				<a href="./index.html" ><i class="iconfont icon-user"></i><span>个人中心</span></a>
+				<a href="./change.html" ><i class="iconfont icon-score"></i><span>兑换</span></a>
+				<p></p>
+				<a href="./count.html" ><i class="iconfont icon-menu-guess"></i><span>数数</span></a>
+				<a href="./guess.html" ><i class="iconfont icon-menu-guess"></i><span>竞猜</span></a>
+				<a href="#" ><i class="iconfont icon-menu-match"></i><span>比赛</span></a>
+				<a href="#" ><i class="iconfont icon-menu-invest"></i><span>投资</span></a>
+			</div>
+		</div>
+
+		<h1 class="comm-title" id="aa">Welcome to "Count"</h1>
+		
+		<!-- 主体部分 -->
+		<div class="main">
+			<div class="label">
+				<span><i class="iconfont icon-reward"></i>奖励+1000</span>
+				<div class="comm-clear"></div>
+			</div>
+
+			<div class="depict" id="bb">
+				<i class="iconfont icon-time"></i><span>当前无参与者。</span>
+			</div>
+			
+			<div class="user">
+				<i class="iconfont icon-user"></i>
+				<input id="d" placeholder="请输入你的账号" />
+				<span id="msg" class="comm-tip"><i></i><em>提示信息</em></span>
+			</div>
+
+			<div class="score">
+				<span class="score-number" id="info" >
+					<i class="iconfont icon-score"></i>
+					<em id="score">0</em>分
+				</span>
+				<span class="score-mode" style="display:inline-block;">
+					<!-- <a class="score-item" id="changeModeTemplate" style="display:none;" href="javascript:;" title="添加兑换方式" ><i class="iconfont"></i><span>-</span></a> -->
+					<a class="score-item" href="javascript:;" title="玩法：&#10;点击1后，就开始计时，依次点击到25时，结束计时，每天最快的用户将获得奖励。" ><i class="iconfont"></i><span>!</span></a>
+				</span>
+			</div>
+	
+			<!-- 分割 -->
+			<div class="comm-gap"></div>
+
+			<div class="count-operate">
+				<div class="">
+					<span id="current">请点击1开始</span>&nbsp;-&nbsp;
+					<span id="time">0:00</span>
+				</div>
+			</div>
+			<div class="comm-clear"></div>
+			<div class="count-contain"></div>
+		</div>
+	
+		<!-- 分割 -->
+		<div class="comm-gap"></div>
+
+		<script src="./js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="./js/game.comm.js" ></script>
+		<script type="text/javascript" src="./js/game.user.js" ></script>
+		<script type="text/javascript" src="./js/game.guess.js" ></script>
+		<script type="text/javascript">
+
+			var my = new User();	// 初始用户功能
+
+
+
+			// 初始化用户界面及参数
+			my.init(function(data){
+				my.setTip(data.msg);
+				if ( data.status ) {
+					$('#d').val(data.user.name);
+				}
+			});
+
+
+
+			var arr=[];
+			for(var i=1;i<=25;i++){
+				arr[i]=i;
+			}
+			arr.sort(function(){ return 0.5 - Math.random() });
+			$(arr).each(function(i, n){
+				if ( n ) {
+					$('.count-contain').append("<span>"+ n +"</span>");
+				}
+			});
+
+
+			var current = 1;
+			$('.count-contain span').click(function(){
+				var number = $(this).html();
+				if ( !my.info('token') ) {
+					$('#d').focus();
+					my.setTip('请先登录');
+					return;
+				}
+
+				if ( $(this).html() == '1' ) {
+					downtime();
+				}
+				if ( $(this).html() == '25' && current == 25 ) {
+					clearTimeout(loop);
+					$('#current').html('您的成绩');
+					return;
+				}
+
+				if ( number == current ) {
+					current += 1;
+
+					if ( number == '24' ) {
+						$('#current').html('请点击'+ current +'结束');
+					} else {
+						$('#current').html('请点击'+ current +'继续');
+					}
+				}
+			});
+
+
+			var el_time = $('#time'),
+				min = 0,
+				sec = 0,
+				mil = 0,
+				loop = null;
+			function downtime () {
+				mil += 1;
+
+				var value = mil;
+
+				sec = parseInt(value / 10);
+				if ( sec > 0 ) {
+					value = value - sec * 10;
+				}
+
+				min = parseInt(sec / 60);
+				if ( min > 0 ) {
+					sec = sec - min * 60;
+				}
+
+				if ( sec <= 9 ) {
+					sec = '0' + sec;
+				}
+				$('#time').html(min + ':' + sec + ':' + value);
+
+				loop = setTimeout(function(){
+					downtime();
+				}, 100);
+			}
+
+
+
+
+
+
+			// 快速登录
+			$('#d').change(function(){
+				var value = $(this).val();
+				if ( value == '' ) {
+					my.setTip('无效的名称');
+					$(this).val(user.name);
+				} else {
+					my.getUserByName(value, function(data){
+						my.setTip(data.msg);
+					});
+				}
+				$('.score-edit').hide();
+				$('.score-item').removeClass('act');
+			});
+
+
+		</script>
+	</body>
+</html>

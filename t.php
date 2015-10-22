@@ -1,16 +1,16 @@
 <?php
 
+	inclu
+	SplClassLoader.php
 
-	// date_default_timezone_set('PRC');
-	
-	$d = date('Y-m-d');
-	echo $d.'<br/>';
-	echo strtotime($d).'<br/>';//(date('Y-d-m H:i:s'));
-
-	echo date('Y-m-d H:i:s', strtotime($d)).'<br/>';
-
-	echo strtotime(date('Y-m-d')).'<br/>';
-	echo date('Y').'-'.date('d').'<br/>';
-	echo strtotime(date('Y').'-'.date('m')).'<br/>';
+	$server = new \Wrench\BasicServer('ws://localhost:8000', array(
+	    'allowed_origins' => array(
+	        'mysite.com',
+	        'mysite.dev.localdomain'
+	    )
+	));
+	$server->registerApplication('echo', new \Wrench\Examples\EchoApplication());
+	$server->registerApplication('chat', new \My\ChatApplication());
+	$server->run();
 
 ?>

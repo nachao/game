@@ -1,1 +1,1 @@
-insert INTO `game`.`game_answer` (`id`, `aid`, `time`, `valid`, `under`, `number`) VALUES (NULL, 'bf3311a9ff28236acf629e360bd36387', '1445409276', '1445409866', '1445409876', '0');7
+insert INTO `game`.`game_answer` (`id`, `aid`, `time`, `valid`, `under`, `number`) VALUES (NULL, '07122a2029bb77b049f1986f22b42810', '1445410476', '1445411066', '1445411076', '2');9
