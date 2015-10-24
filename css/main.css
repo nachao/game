@@ -148,6 +148,10 @@
 .main .score-number{
 	float: left;
 }
+.main .score-number a{
+	color: black;
+	text-decoration: none;
+}
 .main .score-mode{
 	display: none;
 	float: left;

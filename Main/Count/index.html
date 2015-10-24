@@ -1,31 +1,6 @@
 
-	<!-- 主体部分
+	<!-- 主体部分 -->
 	<div class="main">
-		<div class="label">
-			<span><i class="iconfont icon-reward"></i>奖励+1000</span>
-			<div class="comm-clear"></div>
-		</div>
-
-		<div class="depict" id="bb">
-			<i class="iconfont icon-time"></i><span>当前无参与者。</span>
-		</div>
-		
-		<div class="user">
-			<i class="iconfont icon-user"></i>
-			<input id="d" placeholder="请输入你的账号" />
-			<span id="msg" class="comm-tip"><i></i><em>提示信息</em></span>
-		</div>
-
-		<div class="score">
-			<span class="score-number" id="info" >
-				<i class="iconfont icon-score"></i>
-				<em id="score">0</em>分
-			</span>
-			<span class="score-mode" style="display:inline-block;">
-				<a class="score-item" href="javascript:;" title="玩法：&#10;点击1后，就开始计时，依次点击到25时，结束计时，每天最快的用户将获得奖励。" ><i class="iconfont"></i><span>!</span></a>
-			</span>
-		</div> -->
-
 		<!-- 分割 -->
 		<div class="comm-gap"></div>
 
@@ -38,29 +13,9 @@
 		<div class="comm-clear"></div>
 		<div class="count-contain"></div>
 	</div>
-
-	<!-- 分割 -->
-	<div class="comm-gap"></div>
-
-	<script src="./js/jquery-1.11.0.min.js" ></script>
-	<script type="text/javascript" src="./js/game.comm.js" ></script>
-	<script type="text/javascript" src="./js/game.user.js" ></script>
-	<script type="text/javascript" src="./js/game.guess.js" ></script>
 	<script type="text/javascript">
 
-		var my = new User();	// 初始用户功能
-
-
-
-		// 初始化用户界面及参数
-		my.init(function(data){
-			my.setTip(data.msg);
-			if ( data.status ) {
-				$('#d').val(data.user.name);
-			}
-		});
-
-
+		var my = new User();
 
 		var arr=[];
 		for(var i=1;i<=25;i++){
@@ -134,25 +89,6 @@
 			}, 100);
 		}
 
-
-
-
-
-
-		// 快速登录
-		$('#d').change(function(){
-			var value = $(this).val();
-			if ( value == '' ) {
-				my.setTip('无效的名称');
-				$(this).val(user.name);
-			} else {
-				my.getUserByName(value, function(data){
-					my.setTip(data.msg);
-				});
-			}
-			$('.score-edit').hide();
-			$('.score-item').removeClass('act');
-		});
 
 
 	</script>

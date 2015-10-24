@@ -1,0 +1,121 @@
+
+	<!-- 主体部分 -->
+	<div class="main">
+		<div class="select" id="select">
+			<a sid="1" href="javascript:;"><i>1</i><em>0</em><span>0</span></a>
+			<a sid="2" href="javascript:;"><i>2</i><em>0</em><span>0</span></a>
+			<a sid="3" href="javascript:;"><i>3</i><em>0</em><span>0</span></a>
+			<a sid="4" href="javascript:;"><i>4</i><em>0</em><span>0</span></a>
+			<a sid="5" href="javascript:;"><i>5</i><em>0</em><span>0</span></a>
+			<a sid="6" href="javascript:;"><i>6</i><em>0</em><span>0</span></a>
+			<a sid="7" href="javascript:;"><i>7</i><em>0</em><span>0</span></a>
+			<a sid="8" href="javascript:;"><i>8</i><em>0</em><span>30</span></a>
+			<a sid="9" href="javascript:;"><i>9</i><em>0</em><span>0</span></a>
+		</div>
+	</div>
+
+	<!-- 分割 -->
+	<div class="comm-gap"></div>
+
+	<script src="./js/jquery-1.11.0.min.js" ></script>
+	<script type="text/javascript" src="./js/game.comm.js" ></script>
+	<script type="text/javascript" src="./js/game.user.js" ></script>
+	<script type="text/javascript" src="./js/game.guess.js" ></script>
+	<script type="text/javascript">
+
+		var my = new User();	// 初始用户功能
+
+		var go = new Guess();	// 初始用户功能
+
+
+		// 初始化用户界面及参数
+		my.init(function(data){
+			my.setTip(data.msg);
+			if ( data.status ) {
+				$('#d').val(data.user.name);
+			}
+
+			// 初始化界面及参数
+			go.init();
+		});
+
+
+
+		// 选择
+		var loop = null,
+			value = {
+				selected: 0,
+				number: 0
+			};
+		$('#select a').click(function(){
+			// go.getSelect($(this).attr('sid'), function(data){
+			// 	if ( data.status ) {
+			// 		go.setOption(data.res);
+			// 		if ( data.status == 1 ) {
+			// 			my.setUserScore(-1);
+			// 		}
+			// 	}
+			// });
+		}).mouseout(function(){
+			if ( parseInt($(this).find('span').html()) > 0 ) {
+				$(this).addClass('act');
+				$(this).find('span').show();
+			}
+		}).mousedown(function(){
+			var el = $(this).find('span'),
+				already = parseInt(el.html());
+
+			value.selected = $(this).attr('sid');
+			value.number = 1;
+
+			// go.setAppointOption(value.selected, value.number);
+
+			// 长按效果
+			function total () {
+				if ( value.number + already < 30 ) {
+					value.number += 1;
+					el.html(already + value.number);
+					loop = setTimeout(function(){
+						total();
+					}, 100);
+				}
+			}
+			loop = setTimeout(function(){ total(); }, 1000);
+		}).mouseup(function(){
+			clearTimeout(loop);
+			console.log(value);
+			go.getSelect(value, function(data){
+				if ( data.status ) {
+					go.setOption(data.res);
+					if ( data.status == 1 ) {
+						my.setUserScore(-1);
+					}
+				}
+			});
+			value = {};
+		});
+
+		// 选择
+		// $('#select a i').click(function(){
+		// 	console.log(111);
+
+		// 	return false;
+		// });
+
+		// 快速登录
+		$('#d').change(function(){
+			var value = $(this).val();
+			if ( value == '' ) {
+				my.setTip('无效的名称');
+				$(this).val(user.name);
+			} else {
+				my.getUserByName(value, function(data){
+					my.setTip(data.msg);
+				});
+			}
+			$('.score-edit').hide();
+			$('.score-item').removeClass('act');
+		});
+
+
+	</script>

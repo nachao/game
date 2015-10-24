@@ -1,0 +1,47 @@
+
+	<div class="main">
+		<div class="user">
+			<i class="iconfont icon-user"></i>
+			<input id="d" placeholder="请输入你的账号" />
+			<span id="msg" class="comm-tip"><i></i><em>提示信息</em></span>
+		</div>
+
+		<div class="score">
+			<span class="score-number" id="info" >
+				<a class="iconfont icon-score" href="./exchange.php" ></a>
+				<em id="score">0</em>分
+			</span>
+			<span class="score-mode" id="changeMode">
+				<a class="score-item score-item-value" id="changeModeTemplate" style="display:none;" href="javascript:;" title="添加兑换方式" ><i class="iconfont"></i><span>+</span></a>
+			</span>
+			<div class="comm-clear"></div>
+			<input type="hidden" id="scoreSelected" />
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		var my = new User();	// 初始用户功能
+
+		my.init(function(data){
+			my.setTip(data.msg);
+			if ( data.status ) {
+				$('#d').val(data.user.name);
+			}
+		});	// 初始化用户
+
+		// 快速登录
+		$('#d').change(function(){
+			var value = $(this).val();
+			if ( value == '' ) {
+				my.setTip('无效的名称');
+				$(this).val(user.name);
+			} else {
+				my.getUserByName(value, function(data){
+					my.setTip(data.msg);
+				});
+			}
+			$('.score-edit').hide();
+			$('.score-item').removeClass('act');
+		});
+
+	</script>
