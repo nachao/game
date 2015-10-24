@@ -1,0 +1,60 @@
+.main .select{
+	margin-top: 50px;
+	margin-left: 50px;
+}
+.main .select a{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 100px;
+	border: 1px solid black;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 12px;
+	color: black;
+	margin: 5px;
+	position: relative;
+}
+.main .select a i{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 100%;
+	left: 0;
+	color: black;
+}
+.main .select a span{
+	display: none;
+	/*display: inline-block;*/
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	position: absolute;
+	top: -15px;
+	left: 50%;
+	margin-left: -10px;
+	color: white;
+	background: black;
+	border-radius: 30px;
+}
+.main .select a em{
+	font-style: normal;
+}
+.main .select a:hover,.select a.act{
+	background: black;
+	color: white;
+}
+.main .select a.act span{
+	display: inline-block;
+}
+.main .select a:hover i{
+	display: inline-block;
+}
+.main .select a:hover em{
+	color: white;
+}
+.main .select a:hover span{
+	display: inline-block;
+}

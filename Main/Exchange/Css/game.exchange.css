@@ -1,0 +1,26 @@
+.exchange{
+	margin-left: 50px;
+}
+.exchange td,.exchange th{
+	padding: 10px;
+	font-size: 14px;
+}
+.exchange td{
+	border-top: 1px solid black;
+}
+.exchange a{
+	display: inline-block;
+	background: black;
+	color: white;
+	padding: 2px 10px 3px;
+	text-decoration: none;
+	border-radius: 2px;
+}
+.exchange tr:hover td{
+	background: black;
+	color: white;
+}
+.exchange tr:hover td a{
+	background: white;
+	color: black;
+}

@@ -1,0 +1,282 @@
+.support{
+	display: inline-block;
+	width: 600px;
+	height: 240px;
+	border-radius: 3px;
+	border: 1px solid black;
+	position: relative;
+	overflow: hidden;
+	float: left;
+	margin: 0 0 30px 50px;
+}
+.support .edit{
+	position: relative;
+	top: 240px;
+	left: 0px;
+	margin: 20px 0 0 30px;
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.support .edit input{
+	width: 200px;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	border-bottom: 1px solid black;
+	height: 33px;
+	padding: 0 10px;
+	outline: none;
+	font-size: 14px;
+	font-family: 微软雅黑;
+}
+.support .edit .btn{
+	display: inline-block;
+	color: black;
+	font-size: 14px;
+	padding: 3px 20px 4px;
+	margin-top: 20px;
+}
+.support .edit .btn:hover{
+	background: black;
+	color: white;
+	border-radius: 3px;
+}
+.support .edit .yes{
+	display: inline-block;
+	width: 100px;
+	line-height: 33px;
+	color: white;
+	background: black;
+	text-decoration: none;
+	font-family: 微软雅黑;
+	border-radius: 3px;
+	text-align: center;
+}
+.support .edit .no{
+
+}
+.support .edit .title{
+	font-size: 18px;
+	height: 50px;
+	padding: 0 0 0 5px;
+	width: 450px;
+}
+.support .edit .param{
+	margin-top: 30px;
+	height: 36px;
+	overflow: hidden;
+}
+.support .edit .num{
+	width: 50px;
+	text-align: center;
+}
+.support .edit .price{
+	float: left;
+}
+.support .edit .price a{
+	color: black;
+	text-decoration: none;
+	float: left;
+	font-size: 14px;
+	border: 1px solid #333;
+	border-radius: 3px;
+	padding: 0 10px;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 10px;
+}
+.support .edit .price a.act{
+	background: #333;
+	color: white;
+}
+.support .edit .txt{
+	font-size: 16px;
+	line-height: 33px;
+	display: inline-block;
+	padding: 0 10px;
+}
+.support .edit .txt em{
+	font-style: normal;
+	font-family: Arial;
+	padding: 0 3px;
+}
+.support .edit .comm-tip{
+    position: absolute;
+    left: 0px;
+    top: 175px;
+}
+.support .edit .comm-tip i{
+	top: -3px;
+    left: 35px;
+    margin-top: 0px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+.support .add{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: white;
+	font-size: 20px;
+	text-align: center;
+	line-height: 240px;
+	font-weight: bold;
+	color: #333;
+	cursor: pointer;
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.support .add span{
+	display: inline-block;
+	position: absolute;
+	top: -120px;
+	right: 50px;
+	width: 0px;
+	height: 120px;
+	border-left: 1px solid black;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
+.support .add span i{
+	position: absolute;
+	bottom: 0px;
+	left: -5px;
+	width: 10px;
+	height: 10px;
+	background: black;
+	border-radius: 5px;
+}
+.support .add:hover span{
+	top: -20px;
+}
+
+.support-list .info{
+	margin: 20px;
+}
+.support-list .info .title{
+	font-size: 24px;
+}
+
+
+
+/* 兑换 */
+.support-change .add-edit,.support-change .add{
+	display: none;
+}
+.support-change .info{
+	display: inline-block;
+}
+
+
+.support .change{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	transition: 1s;
+	-webkit-transition: 1s;
+}
+.support-change .change{
+	display: inline-block;
+}
+.support-change .change-edit{
+	/*display: none;*/
+}
+.support-change .change .depict{
+	margin: 20px 20px 20px 100px;
+}
+.support-change .change .depict .comm-tip{
+	top: 5px;
+	left: 10px;
+}
+.support-change .change .title{
+	margin-top: 50px;
+	margin-bottom: 20px;
+	position: relative;
+}
+.support-change .change .title span{
+	display: inline-block;
+	font-size: 24px;
+	height: 70px;
+	line-height: 1.5em;
+	overflow: hidden;
+}
+.support .change .title .icon-edit{
+	position: absolute;
+	top: 5px;
+	left: -50px;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+.support .change .title .icon-edit:hover{
+	background: black;
+	color: white;
+	border-radius: 30px;
+}
+.support-change .change p{
+	margin: 0px;
+	line-height: 1.8em;
+}
+.support-change .change .exchange{
+	background: black;
+	color: white;
+	text-decoration: none;
+	padding: 0px 10px 1px;
+	border-radius: 2px;
+	margin-top: 10px;
+}
+
+.support .loading{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	background: black url(../../Comm/Img/loading.gif) no-repeat center;
+	background-size: 300px;
+}
+/*.change-edit{
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: white;
+	transition: 1s;
+	-webkit-transition: 1s;
+}*/
+
+
+.support-list{
+	width: 660px;
+	display: inline-block;
+}
+
+
+
+
+/* 进入编辑界面 */
+.support-act{
+	border: 1px dashed #ccc;
+}
+.support-act .edit{
+	top: 0px;
+}
+.support-act .add,.support-act .change{
+	top: -240px;
+}
+

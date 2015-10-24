@@ -1,0 +1,72 @@
+
+	<h1 class="comm-title" id="aa">Welcome to "Secret"</h1>
+
+	<table class="exchange" cellpadding="0" cellspacing="0">
+		<tr>
+			<th>用户名</th>
+			<th>时间</th>
+			<th>积分</th>
+			<th>来自</th>
+			<th>兑换到</th>
+			<th>账户信息</th>
+			<th>情况</th>
+			<th>操作</th>
+		</tr>
+		<tr id="exchangeTemplate" style="display: none;" >
+			<td class="name">-</td>
+			<td class="time">-</td>
+			<td class="price">-</td>
+			<td class="from">-</td>
+			<td class="goto">-</td>
+			<td class="user">-</td>
+			<td class="info">-</td>
+			<td class="use">
+				<a class="use-yes" href="javascript:;">已发放</a>
+				<a class="use-no" href="javascript:;">退回</a>
+			</td>
+		</tr>
+	</table>
+	<script type="text/javascript" src="./Main/Exchange/Js/exchange.js" ></script>
+	<script type="text/javascript">
+
+		var game = new Exchange();
+
+		// 获取数据
+		game.get(function(data){
+
+			var template = $('#exchangeTemplate'),
+				temp = null;
+
+			$(data.res).each(function(i, val){
+				temp = template.clone();
+				temp.removeAttr('id').show();
+				temp.find('.name').html(val.user);
+				temp.find('.from').html(val.title.substr(0, 10) + '...').attr('title', val.title);
+				temp.find('.time').html(new Date(parseInt(val.time) * 1000).toLocaleString());
+				temp.find('.price').html(val.price);
+				temp.find('.goto').html(val.type == '1' ? '英雄联盟' : '支付宝' );
+				temp.find('.user').html(val.name);
+				temp.find('.info').html(val.remark ? '已发放' : '尚未发放');
+				temp.find('.use-yes').click(function(){
+					var btn = this;
+					game.set(val.id, function(data){
+						if ( data.status ) {
+							$(btn).parents('tr').find('.info').html('已发放');
+						}
+					});
+				});
+				temp.find('.use-yes').click(function(){
+					var btn = this;
+					game.set(val.id, function(data){
+						if ( data.status ) {
+							$(btn).parents('tr').find('.info').html('已发放');
+						}
+					});
+				});
+				template.after(temp);
+			});
+		});
+
+		// console.log(111);
+
+	</script>
