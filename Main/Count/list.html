@@ -1,0 +1,85 @@
+
+	<!-- 主体部分 -->
+	<div class="main">
+		
+	<table class="exchange" cellpadding="0" cellspacing="0">
+		<tr>
+			<th>名次</th>
+			<th>用户名</th>
+			<th>耗时</th>
+			<th>获取奖励</th>
+		</tr>
+		<tr id="exchangeTemplate" style="display: none;" >
+			<td class="rank">-</td>
+			<td class="name">-</td>
+			<td class="time">-</td>
+			<td class="reward">-</td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+
+
+
+		var count = new Count();
+
+
+		// 获取数据
+		count.list(function(data){
+
+			var template = $('#exchangeTemplate'),
+				temp = null;
+
+			// var value = data.res.reverse();
+
+			/*
+			*	total = 1000
+			*
+			*	1 = 40% (400)
+				2 = 24% (240)
+				3 = 10% (100)
+
+				4-10 = 10% ( 100 = 7人 * 7%(14)/人 )
+				11-30 = 10% ( 100 = 20人 * 2%(5)/人 )
+
+				4-30 = 20% ( 200 =  )
+			*/
+
+			$(data.res).each(function(i, val){
+				var i = i + 1,
+					rank = '',
+					reward = 0;
+
+				switch ( i ) {
+					case 1 : 
+						rank = '冠军'; 
+						reward = 300;
+						break;
+					case 2 : 
+						rank = '亚军';  
+						reward = 200;
+						break;
+					case 3 : 
+						rank = '季军'; 
+						reward = 100;
+						break;
+					default:
+						rank = '第'+ i +'名';
+
+						reward = 30 + 1 - i;	// 4-30 = 378
+
+						if ( i == 4 || i == 5 ) 
+							reward += 10;
+				}
+
+				temp = template.clone();
+				temp.removeAttr('id').show();
+				temp.find('.rank').html(rank);
+				temp.find('.name').html(val.name);
+				temp.find('.time').html((val.duration / 1000) + 's');
+				temp.find('.reward').html(reward);
+				$('.exchange').append(temp);
+			});
+		});
+
+
+	</script>

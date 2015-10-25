@@ -35,5 +35,6 @@
 .icon-menu-guess:before { content: "\e611"; }
 .icon-menu-match:before { content: "\e608"; }
 .icon-menu-invest:before { content: "\e613"; }
+.icon-menu-count:before { content: "\e60d"; }
 
 .icon-edit:before { content: "\e605"; }

@@ -26,7 +26,7 @@ function Count () {
 *  @public  
 */
 Count.prototype.a = function ( param, callback ) {
-	ajax('./ajax/ajax.count.php', param, function(data){
+	ajax('./Main/Count/Ajax/ajax.count.php', param, function(data){
 		callback ? callback(data) : null;
 	});
 }
@@ -37,25 +37,68 @@ Count.prototype.a = function ( param, callback ) {
 *
 *  @public  
 */
-Count.prototype.add = function ( time ) {
+Count.prototype.add = function ( time, callback ) {
 	this.a({
 		_: 'add',
 		token: my.info('token'),
-		value: time
+		duration: time
 	}, function(data){
-		console.log(data);
+		callback ? callback(data) : null;
 	});
 }
 
 
 /*
-*  获取
+*  更新
 *
 *  @public  
 */
-Count.prototype.get = function ( value ) {
+Count.prototype.update = function ( time, callback ) {
+	this.a({
+		_: 'update',
+		token: my.info('token'),
+		duration: time
+	}, function(data){
+		callback ? callback(data) : null;
+	});
+}
+
+
+/*
+*  获取冠军
+*
+*  @public  
+*/
+Count.prototype.get = function ( callback ) {
 	this.a({_: 'get'}, function(data){
-		console.log(data);
+		callback ? callback(data) : null;
+	});
+}
+
+
+/*
+*  获取自己的
+*
+*  @public  
+*/
+Count.prototype.getOwn = function ( callback ) {
+	this.a({
+		_: 'get_own',
+		token: my.info('token')
+	}, function(data){
+		callback ? callback(data) : null;
+	});
+}
+
+
+/*
+*  获取列表
+*
+*  @public  
+*/
+Count.prototype.list = function ( callback ) {
+	this.a({_: 'get_list'}, function(data){
+		callback ? callback(data) : null;
 	});
 }
 

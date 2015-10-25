@@ -19,6 +19,8 @@ function User () {
 	};
 
 	this.refresh_ = null;	// 是否开启了刷新用户登录钥匙
+
+	this.load_ = null;	// 获取完成用户资料后执行
 }
 
 
@@ -57,6 +59,11 @@ User.prototype.info = function ( value ) {
 	return value;
 }
 
+// 简化版
+User.prototype.i = function ( value ) {
+	return this.info(value);
+}
+
 
 /*
 *  获取缓存钥匙，如果有钥匙则获取用户信息
@@ -72,6 +79,16 @@ User.prototype.init = function ( callback ) {
 			callback ? callback(data) : null;
 		});
 	}
+}
+
+
+/*
+*  如果加载完成
+*
+*  @public  
+*/
+User.prototype.load = function ( callback ) {
+	this.load_ = callback;
 }
 
 
@@ -130,7 +147,8 @@ User.prototype.setUserUI = function () {
 			$('#changeMode').show();
 			$('#cc').show();
 			$('#score').html(data.score);
-			setCookie('FFL_key', data.key, data.valid);		// 保存用户登录钥匙
+			setCookie('FFL_key', data.key, data.valid);		// 保存用户登录钥匙`
+			this.load_ ? this.load_(data) : null;
 		}
 	}
 }
@@ -319,6 +337,12 @@ User.prototype.delChangeMode = function ( id, callback ) {
 	}, function(data){
 		callback ? callback(data) : null;
 	});
+}
+
+
+// 判断用户名称
+User.prototype.isUserName = function ( name ) {
+	// name.
 }
 
 

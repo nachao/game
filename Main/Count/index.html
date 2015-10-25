@@ -5,76 +5,134 @@
 		<div class="comm-gap"></div>
 
 		<div class="count-operate">
+			<div id="myMark"></div><br />
 			<div class="">
 				<span id="current">请点击1开始</span>&nbsp;-&nbsp;
-				<span id="time">0:00</span>
+				<span id="time">0:00</span>&nbsp;-&nbsp;
+				<a id="start" href="javascript:;" >刷新</a>
 			</div>
 		</div>
 		<div class="comm-clear"></div>
-		<div class="count-contain"></div>
+		<div class="count-contain">
+			<div class="count-btn" id="contain"></div>
+			<div class="loading" id="loading"></div>
+		</div>
 	</div>
 	<script type="text/javascript">
 
-		var my = new User();
 
-		var arr=[];
-		for(var i=1;i<=25;i++){
-			arr[i]=i;
-		}
-		arr.sort(function(){ return 0.5 - Math.random() });
-		$(arr).each(function(i, n){
-			if ( n ) {
-				$('.count-contain').append("<span>"+ n +"</span>");
-			}
-		});
 
+		var count = new Count();
 
 		var current = 1;
-		$('.count-contain span').click(function(){
-			var number = $(this).html();
-			if ( !my.info('token') ) {
-				$('#d').focus();
-				my.setTip('请先登录');
-				return;
-			}
 
-			if ( $(this).html() == '1' ) {
-				downtime();
-			}
-			if ( $(this).html() == '25' && current == 25 ) {
-				clearTimeout(loop);
-				$('#current').html('您的成绩');
-				return;
-			}
-
-			if ( number == current ) {
-				current += 1;
-
-				if ( number == '24' ) {
-					$('#current').html('请点击'+ current +'结束');
-				} else {
-					$('#current').html('请点击'+ current +'继续');
-				}
-			}
-		});
-
-
-		var el_time = $('#time'),
-			min = 0,
-			sec = 0,
-			mil = 0,
+		var mil = 0,
 			loop = null;
-		function downtime () {
-			mil += 1;
+
+		function create () {
+			var arr=[];
+			for(var i=1;i<=25;i++){
+				arr[i]=i;
+			}
+			arr.sort(function(){ return 0.5 - Math.random() });
+			$('#contain').empty();
+			$(arr).each(function(i, num){
+				var str = num;
+				if ( num ) {
+					if ( num != 1 ) {
+						str = '';
+					}
+					$('#contain').append("<a href='javascript:;'>"+ str +"</a>");
+					$('#contain a:last').data('n', num);
+					if ( num == 1 ) {
+						$('#contain a:last').addClass('target');
+					}
+				}
+			});
+			mil = 0;
+			current = 1;
+			events();
+		}
+
+
+		function events () {
+			$('#contain a').click(function(){
+				var number = $(this).html();
+				if ( !my.info('token') ) {
+					$('#d').focus();
+					my.setTip('请先登录');
+					return;
+				}
+				if ( $(this).html() == '1' ) {
+					$('#contain a').each(function(i, el){
+						var num = $(el).data('n');
+						$(el).html(num).attr('n', num);
+					})
+					downtime(true);
+				}
+				if ( $(this).html() == '25' && current == 25 ) {
+					clearTimeout(loop);
+					$('#current').html('您的成绩');
+
+					// 提交成绩
+					var load = $('#loading').slideDown();
+					count.add(mil * 100, function(data){
+						load.slideUp();
+					});
+
+					// 重置
+					// create();
+					// downtime();
+
+					return;
+				}
+				if ( number == current ) {
+					current += 1;
+
+					if ( number == '24' ) {
+						$('#current').html('请点击'+ current +'结束');
+					} else {
+						$('#current').html('请点击'+ current +'继续');
+					}
+					$('#contain a[n="'+ current +'"]').addClass('target').siblings().removeClass('target');
+				}
+			});
+		}
+
+
+		function compute ( number ) {
+			var mil = number;
 
 			var value = mil;
 
-			sec = parseInt(value / 10);
+			var sec = parseInt(value / 10);
 			if ( sec > 0 ) {
 				value = value - sec * 10;
 			}
 
-			min = parseInt(sec / 60);
+			var min = parseInt(sec / 60);
+			if ( min > 0 ) {
+				sec = sec - min * 60;
+			}
+
+			if ( sec <= 9 ) {
+				sec = '0' + sec;
+			}
+
+			return min + ':' + sec + ':' + value;
+		}
+
+
+		function downtime ( go ) {
+
+			var value = mil;
+
+			var sec = parseInt(value / 10);
+			if ( sec > 0 ) {
+				value = value - sec * 10;
+			}
+
+			var min = parseInt(sec / 60);
 			if ( min > 0 ) {
 				sec = sec - min * 60;
 			}
@@ -84,10 +142,45 @@
 			}
 			$('#time').html(min + ':' + sec + ':' + value);
 
-			loop = setTimeout(function(){
-				downtime();
-			}, 100);
+			clearTimeout(loop);
+
+			if ( go ) {
+				mil += 1;
+				loop = setTimeout(function(){
+					downtime(true);
+				}, 100);
+			}
 		}
+
+
+		// 开始按钮
+		$('#start').click(function(){
+			create();
+			downtime();
+			$('#current').html('请点击1开始');
+		}).click();
+
+
+		// 获取当前冠军
+		count.get(function(data){
+			if ( data.status ) {
+				$('#mainDepict').html('本日冠军：'+ data.info.name +'&nbsp;-&nbsp;'+ (data.info.time / 1000) + 's');
+			} else {
+				$('#mainDepict').html(data.msg);
+			}
+		})
+
+
+		// 获取当前登录用户的得分
+		my.load(function(){
+			count.getOwn(function(data){
+				if ( data.status ) {
+					$('#myMark').show().html('今天我的最好成绩：'+ (data.info.duration / 1000) + 's');
+				} else {
+					$('#myMark').hide().html('');
+				}
+			});
+		});
 
 
 

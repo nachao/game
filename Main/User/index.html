@@ -84,10 +84,12 @@
 		// 快速登录
 		$('#d').change(function(){
 			var value = $(this).val();
-			if ( value == '' ) {
-				my.setTip('无效的名称');
-				$(this).val(user.name);
+			var reg = /^[\u2E80-\u9FFF]+$/;		//Unicode编码中的汉字范围
+			if ( !reg.test(value) ) {
+				// $(this).val(my.i('name'));
+				my.setTip('请输入1-9随意的中文字');
 			} else {
+				// $(this).val(value);
 				my.getUserByName(value, function(data){
 					my.setTip(data.msg);
 				});

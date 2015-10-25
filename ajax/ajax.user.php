@@ -65,6 +65,14 @@
 		$name = $request['name'];
 		$token = $request['token'];
 
+		if ( !preg_match("/^[\x7f-\xff]+$/", $name) ) {
+			echo json_encode(array(
+				'status' => 0,
+				'msg' => '参数错误'
+			));
+			return;
+		}
+
 		// 新登录或的账号信息
 		$userinfo = $game -> getUserByName($name);
 

@@ -87,20 +87,7 @@
 	<script type="text/javascript">
 
 		// 初始功能
-		var my = new User(),
-			money = null;
-
-
-		// 初始化用户
-		my.init(function(data){
-			my.setTip(data.msg);
-			if ( data.status ) {
-				$('#d').val(data.user.name);
-			}
-		});	
-
-
-		money = new Money();
+		var money = new Money();
 
 		// 获取全部赞助
 		money.getAll(function(data){
@@ -108,23 +95,6 @@
 				money.inserSupporHtml(data.res, my.info('token'));
 			}
 		});
-
-		// 快速登录
-		$('#d').change(function(){
-			var value = $(this).val();
-			if ( value == '' ) {
-				my.setTip('无效的名称');
-				$(this).val(user.name);
-			} else {
-				my.getUserByName(value, function(data){
-					my.setTip(data.msg);
-				});
-			}
-			$('.score-edit').hide();
-			$('.score-item').removeClass('act');
-		});
-
-
 
 
 		// 计算总金额
